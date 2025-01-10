@@ -1,0 +1,67 @@
+.button {
+    color: white;
+    transition: all var(--defaultTransitionTime);
+    user-select: none;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    gap: var(--spacingSmall);
+}
+
+/* .textGlowButton {
+    color: inherit;
+} */
+
+.textGlowButton:hover {
+    color: var(--primaryTransparent);
+}
+
+.buttonPrimary {
+    background-color: var(--primary);
+    padding: var(--spacingSmall);
+    border-radius: var(--defaultBorderRadius);
+    cursor: pointer;
+}
+
+.buttonPrimary:hover {
+    box-shadow: inset rgba(0, 0, 0, 0.35) 0 0 0 1000px;
+}
+
+.buttonPrimaryTransparent {
+    padding: var(--spacingSmall) var(--spacingMedium);
+    border-radius: var(--defaultBorderRadius);
+    border-radius: var(--defaultBorderRadius);
+    cursor: pointer;
+}
+
+.buttonPrimaryTransparent:hover {
+    box-shadow: inset rgba(0, 0, 0, 0.35) 0 0 0 1000px;
+    background-color: var(--primaryTransparent);
+}
+
+.buttonBg3 {
+    background-color: var(--background3);
+    padding: var(--spacingSmall);
+    border-radius: var(--defaultBorderRadius);
+    border: solid var(--background3) 1.5px;
+    cursor: pointer;
+}
+
+.buttonBg3:hover {
+    background-color: var(--background4);
+    border-color: var(--background5);
+}
+
+.buttonBig {
+    padding: var(--spacingMedium);
+}
+
+.textLink {
+    text-decoration: underline;
+    transition: all var(--defaultTransitionTime);
+}
+
+.textLink:hover {
+    text-decoration-color: var(--primary);
+    color: var(--primary);
+}

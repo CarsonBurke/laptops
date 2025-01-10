@@ -1,0 +1,43 @@
+.background1 {
+    background-color: var(--background1);
+}
+
+.background2 {
+    background-color: var(--background2);
+}
+
+.bg1To2 {
+    background: linear-gradient(to bottom, transparent, var(--background2));
+}
+
+.background3 {
+    background-color: var(--background3);
+}
+
+.background4 {
+    background-color: var(--background4);
+}
+
+.background5 {
+    background-color: var(--background5);
+}
+
+.background6 {
+    background-color: var(--background6);
+}
+
+.borderBg2 {
+    border: solid var(--background2) 1.5px;
+}
+
+.borderBg3 {
+    border: solid var(--background3) 1.5px;
+}
+
+.borderBg4 {
+    border: solid var(--background4) 1.5px;
+}
+
+.bgPrimaryTransparent {
+    background-color: var(--primaryTransparent);
+}

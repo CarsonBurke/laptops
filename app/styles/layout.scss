@@ -1,0 +1,57 @@
+@import "./variables.scss";
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.centerRow {
+  justify-content: center;
+}
+
+.centerColumn {
+  align-items: center;
+}
+
+.rowCollapsible {
+  display: flex;
+  flex-direction: row;
+}
+
+@media (--mobile) {
+  .rowCollapsible {
+    flex-direction: column;
+  }
+}
+
+.columnCollapsible {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (--mobile) {
+  .columnCollapsible {
+    flex-direction: row;
+  }
+}
+
+.spaceBetween {
+  justify-content: space-between;
+}
+
+.spaceAround {
+  justify-content: space-around;
+}
+
+.flexWrap {
+  flex-wrap: wrap;
+}
+
+.fitWidth {
+  width: fit-content;
+}
