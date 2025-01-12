@@ -21,31 +21,31 @@ export default function Footer() {
       <div className="row flexWrap gapLarge centerRow">
         <div className="column gapSmall">
           <h2 className="textMedium headerSmall">Categories</h2>
-          <Button linkTo="discover" classNames="textGlowButton">
+          <Button linkTo="discover" className="textGlowButton">
             <h3 className="textSmall">Top Picks</h3>
           </Button>
-          <Button linkTo="discover" classNames="textGlowButton">
+          <Button linkTo="discover" className="textGlowButton">
             <h3 className="textSmall">For Students</h3>
           </Button>
-          <Button linkTo="discover" classNames="textGlowButton">
+          <Button linkTo="discover" className="textGlowButton">
             <h3 className="textSmall">For Programmers</h3>
           </Button>
-          <Button linkTo="discover" classNames="textGlowButton">
+          <Button linkTo="discover" className="textGlowButton">
             <h3 className="textSmall">For Work</h3>
           </Button>
         </div>
         <div className="column gapSmall">
           <h2 className="textMedium headerSmall">Operating Systems</h2>
-          <Button linkTo="discover" classNames="textGlowButton">
+          <Button linkTo="discover" className="textGlowButton">
 
             <Image src={macIcon} alt="linux" className="osIcon" />
             <h3 className="textSmall">MacOS</h3>
           </Button>
-          <Button linkTo="discover" classNames="textGlowButton">
+          <Button linkTo="discover" className="textGlowButton">
           <Image src={windowsIcon} alt="windows" className="osIcon" />
             <h3 className="textSmall">Windows</h3>
           </Button>
-          <Button linkTo="discover" classNames="textGlowButton">
+          <Button linkTo="discover" className="textGlowButton">
           <Image src={linuxIcon} alt="linux" className="osIcon" />
             <h3 className="textSmall">Linux</h3>
           </Button>

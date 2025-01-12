@@ -111,8 +111,8 @@ export function Navbar() {
             </Link>
             <Button
               id="navbarTopSidebarButton"
-              classNames="textLarge button buttonBg3 navbarTopSidebarButton mobile"
-              onClick={(event) => openCloseSidebar(event.target)}
+              className="textLarge button buttonBg3 navbarTopSidebarButton mobile"
+              onClick={() => openCloseSidebar()}
             >
               <span
                 id="navbarTopSidebarButtonIcon"
@@ -132,28 +132,28 @@ export function Navbar() {
         className="navbarSidebar background1 mobile invisible"
         id="navbarSidebar"
       >
-        <div className="navbarSidebarChild column gapSmall background2 defaultBorderRadius">
-          <Link
-            href="/"
-            className="headerSmall paddingMedium navSidebarLink button textGlowButton textSmall"
+        <div className="navbarSidebarChild column gapSmall background2 defaultBorderRadius" onClick={() => openCloseSidebar()}>
+          <Button
+            linkTo="/laptops"
+            className="headerSmall paddingMedium navSidebarLink textGlowButton textSmall width100"
           >
             Featured
-          </Link>
+          </Button>
           <Link
             href="/recipes"
-            className="headerSmall paddingMedium navSidebarLink button textGlowButton textSmall"
+            className="headerSmall paddingMedium navSidebarLink textGlowButton textSmall"
           >
             Meals
           </Link>
           <Link
             href="/recipes"
-            className="headerSmall paddingMedium navSidebarLink button textGlowButton textSmall"
+            className="headerSmall paddingMedium navSidebarLink textGlowButton textSmall"
           >
             Diets
           </Link>
           <Link
             href="/recipes"
-            className="headerSmall paddingMedium navSidebarLink button textGlowButton textSmall"
+            className="headerSmall paddingMedium navSidebarLink textGlowButton textSmall"
           >
             Cousines
           </Link>
@@ -163,7 +163,7 @@ export function Navbar() {
   );
 }
 
-function openCloseSidebar(target: EventTarget) {
+function openCloseSidebar() {
   let button = document.getElementById("navbarTopSidebarButton");
   if (!button) {
     throw new Error("button not found");
