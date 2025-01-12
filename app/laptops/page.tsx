@@ -26,7 +26,7 @@ export default function Laptops() {
               >
                 <div className="column gapSmall">
                   <div className="column gapXSmall">
-                    <label htmlFor="minPrice" className="textSmall">
+                    <label htmlFor="minPrice" className="textXSmall">
                       Min
                     </label>
                     <input
@@ -38,7 +38,7 @@ export default function Laptops() {
                     />
                   </div>
                   <div className="column gapXSmall">
-                    <label htmlFor="maxPrice" className="textSmall">
+                    <label htmlFor="maxPrice" className="textXSmall">
                       Max
                     </label>
                     <input
@@ -58,16 +58,16 @@ export default function Laptops() {
               >
                 <div className="column">
                   <Checkbox id="useCaseStudents">
-                    <h3 className="textSmall">Students</h3>
+                    <h3 className="textXSmall">Students</h3>
                   </Checkbox>
                   <Checkbox id="useCaseGaming">
-                    <h3 className="textSmall">Gaming</h3>
+                    <h3 className="textXSmall">Gaming</h3>
                   </Checkbox>
                   <Checkbox id="useCaseProgramming">
-                    <h3 className="textSmall">Programming</h3>
+                    <h3 className="textXSmall">Programming</h3>
                   </Checkbox>
                   <Checkbox id="useCaseWork">
-                    <h3 className="textSmall">Work</h3>
+                    <h3 className="textXSmall">Work</h3>
                   </Checkbox>
                 </div>
               </Accordian>
@@ -84,19 +84,19 @@ export default function Laptops() {
               >
                 <div className="column">
                   <Checkbox id="13inch">
-                    <h3 className="textSmall">13 inch</h3>
+                    <h3 className="textXSmall">13 inch</h3>
                   </Checkbox>
                   <Checkbox id="14inch">
-                    <h3 className="textSmall">14 inch</h3>
+                    <h3 className="textXSmall">14 inch</h3>
                   </Checkbox>
                   <Checkbox id="15inch">
-                    <h3 className="textSmall">15 inch</h3>
+                    <h3 className="textXSmall">15 inch</h3>
                   </Checkbox>
                   <Checkbox id="16inch">
-                    <h3 className="textSmall">16 inch</h3>
+                    <h3 className="textXSmall">16 inch</h3>
                   </Checkbox>
                   <Checkbox id="17inch">
-                    <h3 className="textSmall">17 inch</h3>
+                    <h3 className="textXSmall">17 inch</h3>
                   </Checkbox>
                 </div>
               </Accordian>
@@ -108,16 +108,16 @@ export default function Laptops() {
               >
                 <div className="column">
                   <Checkbox id="1080p">
-                    <h3 className="textSmall">1080p</h3>
+                    <h3 className="textXSmall">1080p</h3>
                   </Checkbox>
                   <Checkbox id="1440p">
-                    <h3 className="textSmall">1440p</h3>
+                    <h3 className="textXSmall">1440p</h3>
                   </Checkbox>
                   <Checkbox id="1800p">
-                    <h3 className="textSmall">1800p</h3>
+                    <h3 className="textXSmall">1800p</h3>
                   </Checkbox>
                   <Checkbox id="2000p">
-                    <h3 className="textSmall">2000p</h3>
+                    <h3 className="textXSmall">2000p</h3>
                   </Checkbox>
                 </div>
               </Accordian>
@@ -127,16 +127,16 @@ export default function Laptops() {
               >
                 <div className="column">
                   <Checkbox id="1080p">
-                    <h3 className="textSmall">1080p</h3>
+                    <h3 className="textXSmall">1080p</h3>
                   </Checkbox>
                   <Checkbox id="1440p">
-                    <h3 className="textSmall">1440p</h3>
+                    <h3 className="textXSmall">1440p</h3>
                   </Checkbox>
                   <Checkbox id="1800p">
-                    <h3 className="textSmall">1800p</h3>
+                    <h3 className="textXSmall">1800p</h3>
                   </Checkbox>
                   <Checkbox id="2000p">
-                    <h3 className="textSmall">2000p</h3>
+                    <h3 className="textXSmall">2000p</h3>
                   </Checkbox>
                 </div>
               </Accordian>
@@ -146,38 +146,38 @@ export default function Laptops() {
               >
                 <div className="column">
                   <Checkbox id="1080p">
-                    <h3 className="textSmall">256GB</h3>
+                    <h3 className="textXSmall">256GB</h3>
                   </Checkbox>
                   <Checkbox id="1440p">
-                    <h3 className="textSmall">512GB</h3>
+                    <h3 className="textXSmall">512GB</h3>
                   </Checkbox>
                   <Checkbox id="1800p">
-                    <h3 className="textSmall">1TB</h3>
+                    <h3 className="textXSmall">1TB</h3>
                   </Checkbox>
                   <Checkbox id="2000p">
-                    <h3 className="textSmall">2TB</h3>
+                    <h3 className="textXSmall">2TB</h3>
                   </Checkbox>
                   <Checkbox id="2000p">
-                    <h3 className="textSmall">4TB</h3>
+                    <h3 className="textXSmall">4TB</h3>
                   </Checkbox>
                 </div>
               </Accordian>
               <Accordian
-                header={<h3 className="textSmall headerSmall">CPU</h3>}
+                header={<h3 className="textSmall headerSmall">CPU Cores</h3>}
                 className="borderBg3"
               >
                 <div className="column">
                   <Checkbox id="1080p">
-                    <h3 className="textSmall">1080p</h3>
+                    <h3 className="textXSmall">1080p</h3>
                   </Checkbox>
                   <Checkbox id="1440p">
-                    <h3 className="textSmall">1440p</h3>
+                    <h3 className="textXSmall">1440p</h3>
                   </Checkbox>
                   <Checkbox id="1800p">
-                    <h3 className="textSmall">1800p</h3>
+                    <h3 className="textXSmall">1800p</h3>
                   </Checkbox>
                   <Checkbox id="2000p">
-                    <h3 className="textSmall">2000p</h3>
+                    <h3 className="textXSmall">2000p</h3>
                   </Checkbox>
                 </div>
               </Accordian>
@@ -187,7 +187,7 @@ export default function Laptops() {
               >
                 <div className="column">
                   <Checkbox id="dedicatedGPU">
-                    <h3 className="textSmall">Dedicated</h3>
+                    <h3 className="textXSmall">Dedicated</h3>
                   </Checkbox>
                 </div>
               </Accordian>
@@ -197,7 +197,7 @@ export default function Laptops() {
               >
                 <div className="column">
                   <Checkbox id="dedicatedGPU">
-                    <h3 className="textSmall">Dedicated</h3>
+                    <h3 className="textXSmall">Dedicated</h3>
                   </Checkbox>
                 </div>
               </Accordian>
@@ -210,15 +210,15 @@ export default function Laptops() {
                 <div className="column">
                   <Checkbox id="windowsCheck">
                     <Image src={windowsIcon} alt="windows" className="osIcon" />
-                    <h3 className="textSmall">Windows</h3>
+                    <h3 className="textXSmall">Windows</h3>
                   </Checkbox>
                   <Checkbox id="macCheck">
                     <Image src={macIcon} alt="mac" className="osIcon" />
-                    <h3 className="textSmall">MacOS</h3>
+                    <h3 className="textXSmall">MacOS</h3>
                   </Checkbox>
                   <Checkbox id="linuxCheck">
                     <Image src={linuxIcon} alt="linux" className="osIcon" />
-                    <h3 className="textSmall">Linux</h3>
+                    <h3 className="textXSmall">Linux</h3>
                   </Checkbox>
                 </div>
               </Accordian>
