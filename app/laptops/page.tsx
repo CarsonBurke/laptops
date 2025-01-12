@@ -8,7 +8,7 @@ import Accordian from "../components/accordian";
 import Checkbox from "../components/checkbox";
 import RadioGroup from "../components/radioGroup";
 
-export default function Articles() {
+export default function Laptops() {
   return (
     <main className="main">
       <section className="sectionPadded rowCollapsible centerRow gapMedium">
@@ -56,14 +56,151 @@ export default function Articles() {
               <Checkbox id="useCaseStudents">
                 <h3 className="textSmall">Students</h3>
               </Checkbox>
-              <Checkbox id="useCaseStudents">
+              <Checkbox id="useCaseGaming">
                 <h3 className="textSmall">Gaming</h3>
               </Checkbox>
-              <Checkbox id="useCaseStudents">
+              <Checkbox id="useCaseProgramming">
                 <h3 className="textSmall">Programming</h3>
               </Checkbox>
-              <Checkbox id="useCaseStudents">
+              <Checkbox id="useCaseWork">
                 <h3 className="textSmall">Work</h3>
+              </Checkbox>
+            </div>
+          </Accordian>
+
+          <h2 className="textSmall headerSmall">Specifications</h2>
+
+          <Accordian
+            header={<h3 className="textSmall headerSmall">Display Size</h3>}
+            className="borderBg3"
+          >
+            <div className="column">
+              <Checkbox id="13inch">
+                <h3 className="textSmall">13 inch</h3>
+              </Checkbox>
+              <Checkbox id="14inch">
+                <h3 className="textSmall">14 inch</h3>
+              </Checkbox>
+              <Checkbox id="15inch">
+                <h3 className="textSmall">15 inch</h3>
+              </Checkbox>
+              <Checkbox id="16inch">
+                <h3 className="textSmall">16 inch</h3>
+              </Checkbox>
+              <Checkbox id="17inch">
+                <h3 className="textSmall">17 inch</h3>
+              </Checkbox>
+            </div>
+          </Accordian>
+          <Accordian
+            header={
+              <h3 className="textSmall headerSmall">Display Resolution</h3>
+            }
+            className="borderBg3"
+          >
+            <div className="column">
+              <Checkbox id="1080p">
+                <h3 className="textSmall">1080p</h3>
+              </Checkbox>
+              <Checkbox id="1440p">
+                <h3 className="textSmall">1440p</h3>
+              </Checkbox>
+              <Checkbox id="1800p">
+                <h3 className="textSmall">1800p</h3>
+              </Checkbox>
+              <Checkbox id="2000p">
+                <h3 className="textSmall">2000p</h3>
+              </Checkbox>
+            </div>
+          </Accordian>
+          <Accordian
+            header={
+              <h3 className="textSmall headerSmall">Memory</h3>
+            }
+            className="borderBg3"
+          >
+            <div className="column">
+              <Checkbox id="1080p">
+                <h3 className="textSmall">1080p</h3>
+              </Checkbox>
+              <Checkbox id="1440p">
+                <h3 className="textSmall">1440p</h3>
+              </Checkbox>
+              <Checkbox id="1800p">
+                <h3 className="textSmall">1800p</h3>
+              </Checkbox>
+              <Checkbox id="2000p">
+                <h3 className="textSmall">2000p</h3>
+              </Checkbox>
+            </div>
+          </Accordian>
+          <Accordian
+            header={
+              <h3 className="textSmall headerSmall">Storage</h3>
+            }
+            className="borderBg3"
+          >
+            <div className="column">
+                
+              <Checkbox id="1080p">
+                <h3 className="textSmall">256GB</h3>
+              </Checkbox>
+              <Checkbox id="1440p">
+                <h3 className="textSmall">512GB</h3>
+              </Checkbox>
+              <Checkbox id="1800p">
+                <h3 className="textSmall">1TB</h3>
+              </Checkbox>
+              <Checkbox id="2000p">
+                <h3 className="textSmall">2TB</h3>
+              </Checkbox>
+              <Checkbox id="2000p">
+                <h3 className="textSmall">4TB</h3>
+              </Checkbox>
+            </div>
+          </Accordian>
+          <Accordian
+            header={
+              <h3 className="textSmall headerSmall">CPU</h3>
+            }
+            className="borderBg3"
+          >
+            <div className="column">
+              <Checkbox id="1080p">
+                <h3 className="textSmall">1080p</h3>
+              </Checkbox>
+              <Checkbox id="1440p">
+                <h3 className="textSmall">1440p</h3>
+              </Checkbox>
+              <Checkbox id="1800p">
+                <h3 className="textSmall">1800p</h3>
+              </Checkbox>
+              <Checkbox id="2000p">
+                <h3 className="textSmall">2000p</h3>
+              </Checkbox>
+            </div>
+          </Accordian>
+          <Accordian
+            header={
+              <h3 className="textSmall headerSmall">GPU</h3>
+            }
+            className="borderBg3"
+          >
+            <div className="column">
+              <Checkbox id="dedicatedGPU">
+                <h3 className="textSmall">Dedicated</h3>
+              </Checkbox>
+            </div>
+          </Accordian>
+          <Accordian
+            header={
+              <h3 className="textSmall headerSmall">Battery</h3>
+            }
+            className="borderBg3"
+          >
+            <div className="column">
+              <Checkbox id="dedicatedGPU">
+                <h3 className="textSmall">Dedicated</h3>
               </Checkbox>
             </div>
           </Accordian>

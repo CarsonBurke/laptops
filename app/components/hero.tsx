@@ -17,7 +17,7 @@ export default function Hero() {
           </h2>
         </div>
         <div className="row gapMedium">
-          <Button classNames="buttonBg3 buttonBig">
+          <Button classNames="buttonBg3 buttonBig" linkTo="/laptops">
             <span className="material-symbols-outlined">star</span>
             <h3 className="textMedium headerSmall">Top Picks</h3>
           </Button>

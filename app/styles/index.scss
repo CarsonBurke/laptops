@@ -1,5 +1,5 @@
 /* @import "variables.scss"; */
-@import "variables.scss";
+@use "variables.scss";
 
 * {
   display: block;
@@ -93,6 +93,17 @@ script {
   }
 }
 
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    translate: 0 -10px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
 .material-symbols-outlined {
   font-size: unset;
   font-weight: unset;
@@ -177,8 +188,19 @@ details summary {
 }
 
 details[open] summary {
-  margin-bottom: var(--spacingSmall);
+  top: 0px;
 }
+
+details .detailsContent {
+  /* top: -5px;
+  position: relative; */
+  transition: all var(--defaultTransitionTime) ease-out;
+  /* translate: 0 -8px; */
+}
+
+details[open] .detailsContent {
+  animation: slideIn var(--defaultTransitionTime) ease-out;
+};
 
 input[type="checkbox"] {
   accent-color: var(--primary);

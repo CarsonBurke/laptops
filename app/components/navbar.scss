@@ -13,7 +13,7 @@
     // border: solid var(--background3) 1.5px;
 } */
 
-@import '../styles/variables.scss';
+@use '../styles/variables.scss';
 
 .navbarTop {
     position: fixed;

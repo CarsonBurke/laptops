@@ -29,7 +29,7 @@ export default function Accordian({
           {toggled ? "expand_less" : "expand_more"}
         </span>
       </summary>
-      <div className="paddingSmall">{children}</div>
+      <div className="paddingSmall detailsContent column gapSmall">{children}</div>
     </details>
   );
 }
