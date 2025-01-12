@@ -13,14 +13,14 @@ export default function Footer() {
       <div className="column gapSmall">
       <header className="row gapSmall centerColumn">
         <Image src={logo} alt="icon" className="footerLogo" />
-        <h1 className="textMedium smallHeader">Laptop Deals</h1>
+        <h1 className="textMedium headerSmall">Laptop Deals</h1>
       </header>
-      <h3>From Marvin Media Group</h3>
+      <h3 className="textSmall textSlightTransparent">From Marvin Media Group</h3>
       </div>
 
       <div className="row flexWrap gapLarge centerRow">
         <div className="column gapSmall">
-          <h2 className="textMedium smallHeader">Categories</h2>
+          <h2 className="textMedium headerSmall">Categories</h2>
           <Button linkTo="discover" classNames="textGlowButton">
             <h3 className="textSmall">Top Picks</h3>
           </Button>
@@ -35,7 +35,7 @@ export default function Footer() {
           </Button>
         </div>
         <div className="column gapSmall">
-          <h2 className="textMedium smallHeader">Operating Systems</h2>
+          <h2 className="textMedium headerSmall">Operating Systems</h2>
           <Button linkTo="discover" classNames="textGlowButton">
 
             <Image src={macIcon} alt="linux" className="osIcon" />

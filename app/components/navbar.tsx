@@ -26,7 +26,7 @@ export function Navbar() {
           <div className="row gapMedium centerColumn navbarTopCenter desktop">
             <Link
               href="/"
-              className="smallHeader paddingMedium navbarLink button textGlowButton textSmall gapSmall row"
+              className="headerSmall paddingMedium navbarLink button textGlowButton textSmall gapSmall row"
             >
               <span className="material-symbols-outlined">star</span>
               Top Picks
@@ -35,7 +35,7 @@ export function Navbar() {
             <Dropdown
               header={
                 <div className="row gapSmall centerColumn">
-                  <h3 className="textSmall smallHeader">For</h3>
+                  <h3 className="textSmall headerSmall">For</h3>
                   <CycleText
                     cycles={["Students", "Programmers", "Gaming", "Work"]}
                   >
@@ -84,7 +84,7 @@ export function Navbar() {
             </Dropdown>
 
             <Link
-              href="/"
+              href="/articles"
               className="paddingMedium navbarLink button textGlowButton textSmall gapSmall row"
             >
               <span className="material-symbols-outlined">article</span>
@@ -93,7 +93,7 @@ export function Navbar() {
           </div>
 
           {/* <div className="row centerRow centerColumn background1 borderBg4 defaultBorderRadius desktop">
-            <label htmlFor="searchInput" className="button buttonSecondary smallHeader textSmall paddingSmall">
+            <label htmlFor="searchInput" className="button buttonSecondary headerSmall textSmall paddingSmall">
               <span className="material-symbols-outlined">search</span>
             </label>
             <input id="searchInput"
@@ -105,7 +105,7 @@ export function Navbar() {
           <div className="row gapSmall">
             <Link
               href="/recipes"
-              className="navbarTopMobileSearchButton button buttonBg3 smallHeader textSmall"
+              className="navbarTopMobileSearchButton button buttonBg3 headerSmall textSmall"
             >
               <span className="material-symbols-outlined">search</span>
             </Link>
@@ -123,7 +123,7 @@ export function Navbar() {
             </Button>
           </div>
 
-          {/* <Button linkTo="unset" classNames="buttonPrimary textSmall smallHeader">
+          {/* <Button linkTo="unset" classNames="buttonPrimary textSmall headerSmall">
             Newsletter
           </Button> */}
         </div>
@@ -135,25 +135,25 @@ export function Navbar() {
         <div className="navbarSidebarChild column gapSmall background2 defaultBorderRadius">
           <Link
             href="/"
-            className="smallHeader paddingMedium navSidebarLink button textGlowButton textSmall"
+            className="headerSmall paddingMedium navSidebarLink button textGlowButton textSmall"
           >
             Featured
           </Link>
           <Link
             href="/recipes"
-            className="smallHeader paddingMedium navSidebarLink button textGlowButton textSmall"
+            className="headerSmall paddingMedium navSidebarLink button textGlowButton textSmall"
           >
             Meals
           </Link>
           <Link
             href="/recipes"
-            className="smallHeader paddingMedium navSidebarLink button textGlowButton textSmall"
+            className="headerSmall paddingMedium navSidebarLink button textGlowButton textSmall"
           >
             Diets
           </Link>
           <Link
             href="/recipes"
-            className="smallHeader paddingMedium navSidebarLink button textGlowButton textSmall"
+            className="headerSmall paddingMedium navSidebarLink button textGlowButton textSmall"
           >
             Cousines
           </Link>

@@ -9,7 +9,7 @@ export default function Hero() {
     >
       <div className="column gapLarge row centerColumn">
         <div className="column gapSmall section">
-          <h1 className="textXLarge largeHeader textCenter">
+          <h1 className="textXLarge headerLarge textCenter">
             Let us Find You The Perfect Laptop
           </h1>
           <h2 className="textMedium">
@@ -19,11 +19,11 @@ export default function Hero() {
         <div className="row gapMedium">
           <Button classNames="buttonBg3 buttonBig">
             <span className="material-symbols-outlined">star</span>
-            <h3 className="textMedium smallHeader">Top Picks</h3>
+            <h3 className="textMedium headerSmall">Top Picks</h3>
           </Button>
           <Button classNames="buttonPrimary buttonBig" linkTo="discover">
             <span className="material-symbols-outlined">conditions</span>
-            <h3 className="textMedium smallHeader">Discover</h3>
+            <h3 className="textMedium headerSmall">Discover</h3>
           </Button>
         </div>
       </div>

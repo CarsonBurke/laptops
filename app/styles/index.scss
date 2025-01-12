@@ -63,8 +63,8 @@ script {
   --textXLarge: 2.9rem;
 
   --paragraphWeight: 400;
-  --smallHeaderWeight: 600;
-  --largeHeaderWieght: 700;
+  --headerSmallWeight: 600;
+  --headerLargeWieght: 700;
 
   /* element-specific */
 
@@ -132,8 +132,7 @@ script {
   padding: var(--spacingLarge);
 }
 
-.input {
-  background-color: var(--background2);
+.textInput {
   padding: var(--spacingSmall);
   border-radius: var(--defaultBorderRadius);
 }
@@ -168,4 +167,28 @@ script {
   .desktop {
     display: none !important;
   }
+}
+
+details summary {
+  cursor: pointer;
+  transition: margin var(--defaultTransitionTime) ease-out;
+  display: flex;
+  width: 100%;
+}
+
+details[open] summary {
+  margin-bottom: var(--spacingSmall);
+}
+
+input[type="checkbox"] {
+  accent-color: var(--primary);
+  cursor: pointer;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.noSelect {
+  user-select: none;
 }

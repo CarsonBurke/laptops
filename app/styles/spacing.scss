@@ -37,3 +37,53 @@
 .paddingXLarge {
     padding: var(--spacingXLarge);
 }
+
+.paddingXSmallSides {
+    padding-left: var(--spacingXSmall);
+    padding-right: var(--spacingXSmall);
+}
+
+.paddingSmallSides {
+    padding-left: var(--spacingSmall);
+    padding-right: var(--spacingSmall)
+}
+
+.paddingMediumSides {
+    padding-left: var(--spacingMedium);
+    padding-right: var(--spacingMedium);
+}
+
+.paddingLargeSides {
+    padding-left: var(--spacingLarge);
+    padding-right: var(--spacingLarge);
+}
+
+.paddingXLargeSides {
+    padding-left: var(--spacingXLarge);
+    padding-right: var(--spacingXLarge);
+}
+
+.paddingXSmallVert {
+    padding-top: var(--spacingXSmall);
+    padding-bottom: var(--spacingXSmall);
+}
+
+.paddingSmallVert {
+    padding-top: var(--spacingSmall);
+    padding-bottom: var(--spacingSmall);
+}
+
+.paddingMediumVert {
+    padding-top: var(--spacingMedium);
+    padding-bottom: var(--spacingMedium);
+}
+
+.paddingLargeVert {
+    padding-top: var(--spacingLarge);
+    padding-bottom: var(--spacingLarge);
+}
+
+.paddingXLargeVert {
+    padding-top: var(--spacingXLarge);
+    padding-bottom: var(--spacingXLarge);
+}

@@ -28,14 +28,17 @@
 
 .borderBg2 {
     border: solid var(--background2) 1.5px;
+    border-radius: var(--defaultBorderRadius);
 }
 
 .borderBg3 {
     border: solid var(--background3) 1.5px;
+    border-radius: var(--defaultBorderRadius);
 }
 
 .borderBg4 {
     border: solid var(--background4) 1.5px;
+    border-radius: var(--defaultBorderRadius);
 }
 
 .bgPrimaryTransparent {
