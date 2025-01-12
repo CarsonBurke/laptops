@@ -16,7 +16,7 @@ export default function Accordian({
 
   return (
     <details
-      open={toggled}
+      open={open}
       onToggle={() => setToggled(!toggled)}
       className={className + " paddingSmall noSelect"}
     >

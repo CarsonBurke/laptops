@@ -8,9 +8,9 @@ import windowsIcon from "../../public/OSIcons/windows.svg";
 
 export default function Footer() {
   return (
-    <footer className="sectionPadded row flexWrap centerRow spaceBetween gapLarge">
+    <footer className="sectionPadded rowCollapsible centerRow spaceBetween gapLarge">
 
-      <div className="column gapSmall">
+      <div className="column gapSmall centerColumn">
       <header className="row gapSmall centerColumn">
         <Image src={logo} alt="icon" className="footerLogo" />
         <h1 className="textMedium headerSmall">Laptop Deals</h1>

@@ -7,6 +7,7 @@ import Image from "next/image";
 import Accordian from "../components/accordian";
 import Checkbox from "../components/checkbox";
 import RadioGroup from "../components/radioGroup";
+import Select from "../components/select";
 
 export default function Laptops() {
   return (
@@ -17,6 +18,7 @@ export default function Laptops() {
             <h3 className="textMedium headerSmall">Filter</h3>
 
             <div className="columnCollapsible gapMedium">
+              <Select optionNames={["Best deal", "Price low to high", "Price high to low"]} groupName="sort" className="borderBg3" />
               <Accordian
                 open={true}
                 header={<h3 className="textSmall headerSmall">Price</h3>}
