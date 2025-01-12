@@ -154,18 +154,14 @@ script {
   margin: auto;
 }
 
-.mobile {
+/* .mobile {
   display: none !important;
-}
+} */
 
-@media (--mobile) {
+@media (--desktop) {
   .mobile {
-    display: initial;
+    display: none !important;
   }
-}
-
-.desktop {
-  
 }
 
 @media (--mobile) {

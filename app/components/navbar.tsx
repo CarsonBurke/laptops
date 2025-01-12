@@ -7,6 +7,7 @@ import Button from "./button";
 import Image from "next/image";
 import logo from "../../public/logo.svg";
 import { Media } from "../media";
+import CycleText from "./cycleText";
 
 export function Navbar() {
   return (
@@ -22,70 +23,107 @@ export function Navbar() {
             </Link>
           </div>
 
-          <div className="row centerColumn navbarTopCenter">
+          <div className="row gapMedium centerColumn navbarTopCenter desktop">
             <Link
               href="/"
-              className="smallHeader paddingMedium navbarLink button textGlowButton textSmall md:hidden gapSmall row desktop"
+              className="smallHeader paddingMedium navbarLink button textGlowButton textSmall gapSmall row"
             >
               <span className="material-symbols-outlined">star</span>
               Top Picks
             </Link>
 
-            <Link
-              href="/"
-              className="smallHeader paddingMedium navbarLink button textGlowButton textSmall md:hidden gapSmall row desktop"
+            <Dropdown
+              header={
+                <div className="row gapSmall centerColumn">
+                  <h3 className="textSmall smallHeader">For</h3>
+                  <CycleText
+                    cycles={["Students", "Programmers", "Gaming", "Work"]}
+                  >
+                    Students
+                  </CycleText>
+
+                  <span className="material-symbols-outlined">
+                    keyboard_arrow_down
+                  </span>
+                </div>
+              }
             >
-              <span className="material-symbols-outlined">school</span>
-              For Students
-            </Link>
+              <Link
+                href="/"
+                className="paddingMedium navbarLink button textGlowButton textSmall gapSmall row"
+              >
+                <span className="material-symbols-outlined">school</span>
+                Students
+              </Link>
+
+              <Link
+                href="/"
+                className="paddingMedium navbarLink button textGlowButton textSmall gapSmall row"
+              >
+                <span className="material-symbols-outlined">laptop_mac</span>
+                Programmers
+              </Link>
+
+              <Link
+                href="/"
+                className="paddingMedium navbarLink button textGlowButton textSmall gapSmall row"
+              >
+                <span className="material-symbols-outlined">
+                  sports_esports
+                </span>
+                Gaming
+              </Link>
+
+              <Link
+                href="/"
+                className="paddingMedium navbarLink button textGlowButton textSmall gapSmall row"
+              >
+                <span className="material-symbols-outlined">work</span>
+                Work
+              </Link>
+            </Dropdown>
 
             <Link
               href="/"
-              className="smallHeader paddingMedium navbarLink button textGlowButton textSmall md:hidden gapSmall row desktop"
+              className="paddingMedium navbarLink button textGlowButton textSmall gapSmall row"
             >
-              <span className="material-symbols-outlined">laptop_mac</span>
-              For Programmers
-            </Link>
-
-            <Link
-              href="/"
-              className="smallHeader paddingMedium navbarLink button textGlowButton textSmall md:hidden gapSmall row desktop"
-            >
-              <span className="material-symbols-outlined">work</span>
-              For Work
+              <span className="material-symbols-outlined">article</span>
+              Articles
             </Link>
           </div>
 
-          <div className="row centerRow centerColumn background1 borderBg4 defaultBorderRadius">
-            <button className="button buttonPrimary smallHeader textSmall navbarTopSearchButton desktop">
+          {/* <div className="row centerRow centerColumn background1 borderBg4 defaultBorderRadius desktop">
+            <label htmlFor="searchInput" className="button buttonSecondary smallHeader textSmall paddingSmall">
               <span className="material-symbols-outlined">search</span>
-            </button>
-            <input
-              className="input background1 textXSmall navbarTopSearchInput desktop"
-              placeholder="Search recipe or item"
+            </label>
+            <input id="searchInput"
+              className="input background1 textSmall"
+              placeholder="Search"
             />
+          </div> */}
+
+          <div className="row gapSmall">
             <Link
               href="/recipes"
-              className="navbarTopMobileSearchButton button buttonPrimary smallHeader textSmall mobile"
+              className="navbarTopMobileSearchButton button buttonBg3 smallHeader textSmall"
             >
               <span className="material-symbols-outlined">search</span>
             </Link>
+            <Button
+              id="navbarTopSidebarButton"
+              classNames="textLarge button buttonBg3 navbarTopSidebarButton mobile"
+              onClick={(event) => openCloseSidebar(event.target)}
+            >
+              <span
+                id="navbarTopSidebarButtonIcon"
+                className="material-symbols-outlined"
+              >
+                menu
+              </span>
+            </Button>
           </div>
 
-          <Button
-            id="navbarTopSidebarButton"
-            classNames="textLarge button buttonBg3 navbarTopSidebarButton mobile"
-            onClick={(event) => openCloseSidebar(event.target)}
-          >
-            <span
-              id="navbarTopSidebarButtonIcon"
-              className="material-symbols-outlined"
-            >
-              menu
-            </span>
-          </Button>
-
-          {/* <Button linkTo="unset" classNames="md:hidden buttonPrimary textSmall smallHeader">
+          {/* <Button linkTo="unset" classNames="buttonPrimary textSmall smallHeader">
             Newsletter
           </Button> */}
         </div>

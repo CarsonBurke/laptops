@@ -2,40 +2,14 @@ import Link from 'next/link'
 import "./Dropdown.scss"
 import { JSX } from 'react/jsx-runtime';
 
-interface DropdownOption {
-  name: string;
-  to: string;
-}
-
-function createDropdownLinks(options: DropdownOption[]) {
-  let optionElements = [];
-
-  let i = 0;
-  for (const option of options) {
-    optionElements.push(
-      <Link
-      key={i}
-        href={option.to}
-        className={`paddingMedium dropdownItem button textGlowButton textSmall`}
-      >
-        {option.name}
-      </Link>
-    );
-
-    i++
-  }
-
-  return optionElements;
-}
-
 export function Dropdown({
   header,
-  options,
+  children,
   classNames,
   contentClassNames,
 }: {
   header: JSX.Element;
-  options: DropdownOption[];
+  children: React.ReactNode;
   classNames?: string;
   contentClassNames?: string;
 }) {
@@ -44,7 +18,7 @@ export function Dropdown({
       {header}
       <div className="dropdownContent paddingSmall defaultTransition">
         <div className={`defaultBorderRadius background3 dropdownContentChild defaultBoxShadow ${contentClassNames}`}>
-          {createDropdownLinks(options)}
+          {children}
         </div>
       </div>
     </div>

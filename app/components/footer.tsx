@@ -8,12 +8,17 @@ import windowsIcon from "../../public/OSIcons/windows.svg";
 
 export default function Footer() {
   return (
-    <footer className="sectionPadded row flexWrap centerRow spaceBetween">
-      <header>
-        <Image src={logo} alt="icon" className="footerLogo" />
-      </header>
+    <footer className="sectionPadded row flexWrap centerRow spaceBetween gapLarge">
 
-      <div className="row flexWrap gapLarge">
+      <div className="column gapSmall">
+      <header className="row gapSmall centerColumn">
+        <Image src={logo} alt="icon" className="footerLogo" />
+        <h1 className="textMedium smallHeader">Laptop Deals</h1>
+      </header>
+      <h3>From Marvin Media Group</h3>
+      </div>
+
+      <div className="row flexWrap gapLarge centerRow">
         <div className="column gapSmall">
           <h2 className="textMedium smallHeader">Categories</h2>
           <Button linkTo="discover" classNames="textGlowButton">

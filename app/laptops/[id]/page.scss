@@ -1,0 +1,15 @@
+.article {
+    min-width: 50%;
+}
+
+.authorImage {
+    width: 50px;
+    aspect-ratio: 1/1;
+    border-radius: 100px;
+}
+
+.articleImage {
+    width: 100%;
+    object-fit: cover;
+    max-height: 60vh;
+}

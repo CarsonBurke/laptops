@@ -79,12 +79,6 @@
     display: none;
 }
 
-@media (--mobile) {
-    .navbarTopMobileSearchButton {
-        display: flex;
-    }
-}
-
 .navbarTopSidebarButtonActive {
     background-color: var(--primaryTransparent);
     color: var(--primary);

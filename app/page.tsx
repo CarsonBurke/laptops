@@ -35,7 +35,7 @@ export default function Home() {
           </Button>
         </div>
 
-        <div className="rowCollapsible gapMedium centerRow">
+        <div className="rowCollapsible gapLarge centerRow">
           <div className="column centerColumn width100 gapMedium">
             <h2 className="textMedium smallHeader">For School</h2>
 
