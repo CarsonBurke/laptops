@@ -40,6 +40,19 @@
   }
 }
 
+.columnCollapsibleScroll {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (--mobile) {
+  .columnCollapsibleScroll {
+    height: min-content;
+    flex-direction: row;
+    overflow-x: scroll;
+  }
+}
+
 .spaceBetween {
   justify-content: space-between;
 }

@@ -36,6 +36,8 @@ script {
 
   color: var(--color);
 
+  overflow-x: hidden;
+
   /* variables */
   --primary: rgb(10, 106, 202);
   --primaryTransparent: rgb(6, 130, 254);

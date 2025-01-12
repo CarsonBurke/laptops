@@ -129,7 +129,7 @@ export function Navbar() {
         </div>
       </nav>
       <div
-        className="navbarSidebar background1 mobile hidden"
+        className="navbarSidebar background1 mobile invisible"
         id="navbarSidebar"
       >
         <div className="navbarSidebarChild column gapSmall background2 defaultBorderRadius">
@@ -187,5 +187,5 @@ function openCloseSidebar(target: EventTarget) {
     throw new Error("navbarSidebar not found");
   }
 
-  navbarSidebar.classList.toggle("hidden");
+  navbarSidebar.classList.toggle("invisible");
 }
