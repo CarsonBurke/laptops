@@ -8,6 +8,7 @@ import Accordian from "../components/accordian";
 import Checkbox from "../components/checkbox";
 import RadioGroup from "../components/radioGroup";
 import Select from "../components/select";
+import DoubleRange from "../components/doubleRange";
 
 export default function Laptops() {
   return (
@@ -18,7 +19,18 @@ export default function Laptops() {
             <h3 className="textMedium headerSmall">Filter</h3>
 
             <div className="columnCollapsible gapMedium">
-              <Select optionNames={["Best deal", "Price low to high", "Price high to low"]} groupName="sort" className="borderBg3" />
+              <Select
+                optionNames={[
+                  "Best deal",
+                  "Price low to high",
+                  "Price high to low",
+                ]}
+                groupName="sort"
+                className="borderBg3"
+              />
+
+              <DoubleRange steps={new Map<number, number>().set(0, 300).set(1, 200).set(2, 1000).set(3, 3000).set(4, 5000).set(5, 10000)} />
+
               <Accordian
                 open={true}
                 header={<h3 className="textSmall headerSmall">Price</h3>}
