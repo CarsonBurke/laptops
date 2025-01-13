@@ -8,9 +8,9 @@ import Accordian from "../components/accordian";
 import Checkbox from "../components/checkbox";
 import RadioGroup from "../components/radioGroup";
 import Select from "../components/select";
-import DoubleRange from "../components/doubleRange";
+import DoubleSlider from "../components/doubleRange";
 
-export default function Laptops() {
+export default async function Laptops() {
   return (
     <main className="main">
       <section className="sectionPadded rowCollapsible centerRow gapMedium">
@@ -29,7 +29,10 @@ export default function Laptops() {
                 className="borderBg3"
               />
 
-              <DoubleRange steps={new Map<number, number>().set(0, 300).set(1, 200).set(2, 1000).set(3, 3000).set(4, 5000).set(5, 10000)} />
+              <DoubleSlider steps={Array.from({ length: 30 }, (_, i) => (i + 1) * 100 - 100)} labelLeft="$" labelRight="$" emit={async (left, right) => {
+                "use server";
+                console.log("left", left, "right", right)
+              }} />
 
               <Accordian
                 open={true}
