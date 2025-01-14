@@ -34,7 +34,7 @@ export default async function Laptops() {
                 console.log("left", left, "right", right)
               }} />
 
-              <Accordian
+              {/* <Accordian
                 open={true}
                 header={<h3 className="textSmall headerSmall">Price</h3>}
                 className="borderBg3"
@@ -65,7 +65,7 @@ export default async function Laptops() {
                     />
                   </div>
                 </div>
-              </Accordian>
+              </Accordian> */}
               <Accordian
                 header={<h3 className="textSmall headerSmall">Use Case</h3>}
                 open={true}
