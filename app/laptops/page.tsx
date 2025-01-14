@@ -105,8 +105,8 @@ export default async function Laptops() {
               <DoubleSlider
                 header={<h3 className="textSmall headerSmall">Display Size</h3>}
                 steps={Array.from({ length: 6 }, (_, i) => i + 13)}
-                labelLeft={["", " inch"]}
-                labelRight={["", " inch"]}
+                labelLeft={["", " inches"]}
+                labelRight={["", " inches"]}
                 emit={async (left, right) => {
                   "use server";
                   console.log("left", left, "right", right);
