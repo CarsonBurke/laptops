@@ -27,11 +27,13 @@ export default function DoubleSlider({ steps, labelLeft, labelRight, emit }: { s
 /*   let [notchLeft, setNotchLeft] = useState(0);
   let notchLeftCopy = notchLeft
   let [notchRight, setNotchRight] = useState(steps.length - 1); */
-  let notchLeft = 0;
-  let notchRight = steps.length - 1;
+
   // These are so we can update the HTML values and track the other in calculation
-  let [notchLeftRealtime, setNotchLeftRealtime] = useState(notchLeft);
-  let [notchRightRealtime, setNotchRightRealtime] = useState(notchRight);
+  let [notchLeftRealtime, setNotchLeftRealtime] = useState(0);
+  let [notchRightRealtime, setNotchRightRealtime] = useState(steps.length - 1);
+  // These are to trail the real-time values, properly emitting as mouseover seems to end before mouseup
+  let notchLeft = notchLeftRealtime;
+  let notchRight = notchRightRealtime;
 
   function followCursor(
     e: MouseEvent,
