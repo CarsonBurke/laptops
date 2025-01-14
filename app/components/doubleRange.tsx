@@ -4,6 +4,7 @@ import React, {
   Dispatch,
   MouseEvent,
   MouseEventHandler,
+  ReactNode,
   SetStateAction,
   useEffect,
   useRef,
@@ -13,7 +14,7 @@ import "./doubleRadio.scss";
 
 // Example: PC Part Picker's custom (using div and span and js) double slider https://ca.pcpartpicker.com/products/cpu/#X=45394,292947
 
-const RADIO_DIAMETER = 10;
+const RADIO_DIAMETER = 9;
 
 type EmitFunction = (notchLeft: number, notchRight: number) => void
 
@@ -22,7 +23,7 @@ enum RadioSide {
   Right
 }
 
-export default function DoubleSlider({ steps, labelLeft, labelRight, emit }: { steps: number[], labelLeft?: string, labelRight?: string, emit: EmitFunction }) {
+export default function DoubleSlider({ header, steps, labelLeft, labelRight, emit }: { header?: ReactNode, steps: number[], labelLeft?: [string, string], labelRight?: [string, string], emit: EmitFunction }) {
 
 /*   let [notchLeft, setNotchLeft] = useState(0);
   let notchLeftCopy = notchLeft
@@ -137,7 +138,7 @@ export default function DoubleSlider({ steps, labelLeft, labelRight, emit }: { s
   ) {
     let newX = moveEvent.clientX;
   
-    let boundLeft = RADIO_DIAMETER;
+    let boundLeft = 0;
     let boundRight = parentEl.offsetWidth - RADIO_DIAMETER * 2;
   
     let boundedX = Math.min(
@@ -168,7 +169,7 @@ export default function DoubleSlider({ steps, labelLeft, labelRight, emit }: { s
   
     let label = parentEl.parentElement?.getElementsByClassName("doubleSliderRightLabel")[0] as HTMLDivElement;
   
-    let min = otherRadioNotch * ((parentEl.offsetWidth) / stepsCount) - parentEl.offsetWidth + label.offsetWidth * 2
+    let min = otherRadioNotch * ((parentEl.offsetWidth) / stepsCount) - parentEl.offsetWidth + label.offsetWidth * 2.5
 
     let labelX = Math.max(roundX - boundRight /* - (RADIO_DIAMETER / 2) */, min);
     label.style.transform = `translateX(${labelX}px)`;
@@ -214,12 +215,12 @@ export default function DoubleSlider({ steps, labelLeft, labelRight, emit }: { s
   }, [])
 
   return (
-    <div className="column gapSmall noSelect">
-      <h3 className="textSmall headerSmall">Price</h3>
+    <div className="column gapSmall noSelect doubleSliderContainer">
+      {header}
       <div className="column">
         <div className="row spaceBetween">
-          <h3 className="textXSmall textSlightTransparent doubleSliderLeftLabel textCenter">{labelLeft}{steps[notchLeftRealtime]}</h3>
-          <h3 className="textXSmall textSlightTransparent doubleSliderRightLabel textCenter">{labelRight}{steps[notchRightRealtime]}</h3>
+          <h3 className="textXSmall textSlightTransparent doubleSliderLeftLabel textCenter">{labelLeft?.[0]}{Math.floor(steps[notchLeftRealtime])}{labelLeft?.[1]}</h3>
+          <h3 className="textXSmall textSlightTransparent doubleSliderRightLabel textCenter">{labelRight?.[0]}{Math.floor(steps[notchRightRealtime])}{}{labelRight?.[1]}</h3>
         </div>
       </div>
       <div className="row doubleSliderBar" ref={sliderBarRef}>

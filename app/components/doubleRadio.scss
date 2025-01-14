@@ -1,5 +1,9 @@
+.doubleSliderContainer {
+    padding-bottom: var(--spacingSmall);
+}
+
 .doubleSliderBar {
-    height: 10px;
+    height: 9px;
     border-radius: 100px;
     background-color: var(--background2);
     position: relative;
@@ -8,16 +12,18 @@
 
 .doubleSlider {
     border-radius: 100%;
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     position: absolute;
     top: -5px;
     background-color: var(--primary);
+    z-index: 2;
+    box-shadow: rgba(0, 0, 0, 0.2) 0 0 5px 0;
 }
 
 .doubleSliderBetween {
-    background-color: var(--primary);
-    height: 10px;
+    background-color: var(--primaryHighlight);
+    height: 9px;
     border-radius: 100px;
     position: absolute;
     left: 0;

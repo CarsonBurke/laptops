@@ -29,10 +29,19 @@ export default async function Laptops() {
                 className="borderBg3"
               />
 
-              <DoubleSlider steps={Array.from({ length: 30 }, (_, i) => (i + 1) * 100 - 100)} labelLeft="$" labelRight="$" emit={async (left, right) => {
-                "use server";
-                console.log("left", left, "right", right)
-              }} />
+              <DoubleSlider
+                header={<h3 className="textSmall headerSmall">Price</h3>}
+                steps={Array.from(
+                  { length: 31 },
+                  (_, i) => (i + 1) * 100 - 100
+                )}
+                labelLeft={["$", ""]}
+                labelRight={["$", ""]}
+                emit={async (left, right) => {
+                  "use server";
+                  console.log("left", left, "right", right);
+                }}
+              />
 
               {/* <Accordian
                 open={true}
@@ -93,117 +102,91 @@ export default async function Laptops() {
             <h2 className="textMedium headerSmall">Specifications</h2>
 
             <div className="columnCollapsible gapMedium">
-              <Accordian
+              <DoubleSlider
                 header={<h3 className="textSmall headerSmall">Display Size</h3>}
-                className="borderBg3"
-              >
-                <div className="column">
-                  <Checkbox id="13inch">
-                    <h3 className="textXSmall">13 inch</h3>
-                  </Checkbox>
-                  <Checkbox id="14inch">
-                    <h3 className="textXSmall">14 inch</h3>
-                  </Checkbox>
-                  <Checkbox id="15inch">
-                    <h3 className="textXSmall">15 inch</h3>
-                  </Checkbox>
-                  <Checkbox id="16inch">
-                    <h3 className="textXSmall">16 inch</h3>
-                  </Checkbox>
-                  <Checkbox id="17inch">
-                    <h3 className="textXSmall">17 inch</h3>
-                  </Checkbox>
-                </div>
-              </Accordian>
-              <Accordian
+                steps={Array.from({ length: 6 }, (_, i) => i + 13)}
+                labelLeft={["", " inch"]}
+                labelRight={["", " inch"]}
+                emit={async (left, right) => {
+                  "use server";
+                  console.log("left", left, "right", right);
+                }}
+              />
+
+              <DoubleSlider
                 header={
                   <h3 className="textSmall headerSmall">Display Resolution</h3>
                 }
-                className="borderBg3"
-              >
-                <div className="column">
-                  <Checkbox id="1080p">
-                    <h3 className="textXSmall">1080p</h3>
-                  </Checkbox>
-                  <Checkbox id="1440p">
-                    <h3 className="textXSmall">1440p</h3>
-                  </Checkbox>
-                  <Checkbox id="1800p">
-                    <h3 className="textXSmall">1800p</h3>
-                  </Checkbox>
-                  <Checkbox id="2000p">
-                    <h3 className="textXSmall">2000p</h3>
-                  </Checkbox>
-                </div>
-              </Accordian>
-              <Accordian
+                steps={Array.from(
+                  { length: /* 41 */12 },
+                  (_, i) => 9 * (100 + (i + 1) * 20)/* Math.pow(2, i * 9/16 + 10) *//* Math.sqrt((i * 400 * 1080) / (16 / 9)) + 1080 */
+                )}
+                labelLeft={["", "p"]}
+                labelRight={["", "p"]}
+                emit={async (left, right) => {
+                  "use server";
+                  console.log("left", left, "right", right);
+                }}
+              />
+              <DoubleSlider
                 header={<h3 className="textSmall headerSmall">Memory</h3>}
-                className="borderBg3"
-              >
-                <div className="column">
-                  <Checkbox id="1080p">
-                    <h3 className="textXSmall">1080p</h3>
-                  </Checkbox>
-                  <Checkbox id="1440p">
-                    <h3 className="textXSmall">1440p</h3>
-                  </Checkbox>
-                  <Checkbox id="1800p">
-                    <h3 className="textXSmall">1800p</h3>
-                  </Checkbox>
-                  <Checkbox id="2000p">
-                    <h3 className="textXSmall">2000p</h3>
-                  </Checkbox>
-                </div>
-              </Accordian>
-              <Accordian
+                steps={Array.from(
+                  { length: 6 },
+                  (_, i) => Math.pow(2, i * 1 + 3)
+                )}
+                labelLeft={["", " GB"]}
+                labelRight={["", " GB"]}
+                emit={async (left, right) => {
+                  "use server";
+                  console.log("left", left, "right", right);
+                }}
+              />
+                            <DoubleSlider
                 header={<h3 className="textSmall headerSmall">Storage</h3>}
-                className="borderBg3"
-              >
-                <div className="column">
-                  <Checkbox id="1080p">
-                    <h3 className="textXSmall">256GB</h3>
-                  </Checkbox>
-                  <Checkbox id="1440p">
-                    <h3 className="textXSmall">512GB</h3>
-                  </Checkbox>
-                  <Checkbox id="1800p">
-                    <h3 className="textXSmall">1TB</h3>
-                  </Checkbox>
-                  <Checkbox id="2000p">
-                    <h3 className="textXSmall">2TB</h3>
-                  </Checkbox>
-                  <Checkbox id="2000p">
-                    <h3 className="textXSmall">4TB</h3>
-                  </Checkbox>
-                </div>
-              </Accordian>
-              <Accordian
+                steps={Array.from(
+                  { length: 5 },
+                  (_, i) => Math.pow(2, i * 1 + 9)
+                )}
+                labelLeft={["", " GB"]}
+                labelRight={["", " GB"]}
+                emit={async (left, right) => {
+                  "use server";
+                  console.log("left", left, "right", right);
+                }}
+              />
+                                          <DoubleSlider
                 header={<h3 className="textSmall headerSmall">CPU Cores</h3>}
-                className="borderBg3"
-              >
-                <div className="column">
-                  <Checkbox id="1080p">
-                    <h3 className="textXSmall">1080p</h3>
-                  </Checkbox>
-                  <Checkbox id="1440p">
-                    <h3 className="textXSmall">1440p</h3>
-                  </Checkbox>
-                  <Checkbox id="1800p">
-                    <h3 className="textXSmall">1800p</h3>
-                  </Checkbox>
-                  <Checkbox id="2000p">
-                    <h3 className="textXSmall">2000p</h3>
-                  </Checkbox>
-                </div>
-              </Accordian>
+                steps={Array.from(
+                  { length: 7 },
+                  (_, i) => Math.pow(2, i * 1 + 1)
+                )}
+                emit={async (left, right) => {
+                  "use server";
+                  console.log("left", left, "right", right);
+                }}
+              />
+
               <Accordian
                 header={<h3 className="textSmall headerSmall">GPU</h3>}
                 className="borderBg3"
               >
-                <div className="column">
+                <div className="column gapMedium">
                   <Checkbox id="dedicatedGPU">
                     <h3 className="textXSmall">Dedicated</h3>
                   </Checkbox>
+                  <DoubleSlider
+                header={<h3 className="textSmall headerSmall">VRAM</h3>}
+                steps={Array.from(
+                  { length: 5 },
+                  (_, i) => Math.pow(2, i * 1 + 2)
+                )}
+                labelLeft={["", " GB"]}
+                labelRight={["", " GB"]}
+                emit={async (left, right) => {
+                  "use server";
+                  console.log("left", left, "right", right);
+                }}
+              />
                 </div>
               </Accordian>
               <Accordian
