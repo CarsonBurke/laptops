@@ -5,6 +5,8 @@ import React, {
   MouseEvent,
   MouseEventHandler,
   SetStateAction,
+  useEffect,
+  useRef,
   useState,
 } from "react";
 import "./doubleRadio.scss";
@@ -21,14 +23,20 @@ enum RadioSide {
 }
 
 export default function DoubleSlider({ steps, labelLeft, labelRight, emit }: { steps: number[], labelLeft?: string, labelRight?: string, emit: EmitFunction }) {
-  let [dragEnd, setDragEnd] = useState(0);
-  let [notchLeft, setNotchLeft] = useState(0);
-  let [notchRight, setNotchRight] = useState(steps.length - 1);
+
+/*   let [notchLeft, setNotchLeft] = useState(0);
+  let notchLeftCopy = notchLeft
+  let [notchRight, setNotchRight] = useState(steps.length - 1); */
+  let notchLeft = 0;
+  let notchRight = steps.length - 1;
+  // These are so we can update the HTML values and track the other in calculation
+  let [notchLeftRealtime, setNotchLeftRealtime] = useState(notchLeft);
+  let [notchRightRealtime, setNotchRightRealtime] = useState(notchRight);
 
   function followCursor(
     e: MouseEvent,
     stepsCount: number,
-    setNotch: Dispatch<SetStateAction<number>>,
+    /* setNotch: Dispatch<SetStateAction<number>>, */
     otherRadioNotch: number,
     side: RadioSide,
   ) {
@@ -46,7 +54,7 @@ export default function DoubleSlider({ steps, labelLeft, labelRight, emit }: { s
       document.addEventListener(
         "mousemove",
         (mouseEvent) =>
-          onDragLeft(mouseEvent as unknown as MouseEvent, el, parentEl, stepsCount, setNotch, otherRadioNotch),
+          onDragLeft(mouseEvent as unknown as MouseEvent, el, parentEl, stepsCount, /* setNotch, */ otherRadioNotch),
         { signal: stopMove.signal }
       );
     }
@@ -54,7 +62,7 @@ export default function DoubleSlider({ steps, labelLeft, labelRight, emit }: { s
       document.addEventListener(
         "mousemove",
         (mouseEvent) =>
-          onDragRight(mouseEvent as unknown as MouseEvent, el, parentEl, stepsCount, setNotch, otherRadioNotch),
+          onDragRight(mouseEvent as unknown as MouseEvent, el, parentEl, stepsCount, /* setNotch, */ otherRadioNotch),
         { signal: stopMove.signal }
       );
     }
@@ -70,7 +78,7 @@ export default function DoubleSlider({ steps, labelLeft, labelRight, emit }: { s
     el: HTMLDivElement,
     parentEl: HTMLDivElement,
     stepsCount: number,
-    setNotch: Dispatch<SetStateAction<number>>,
+    /* setNotch: Dispatch<SetStateAction<number>>, */
     otherRadioNotch: number,
   ) {
     let newX = moveEvent.clientX;
@@ -79,7 +87,7 @@ export default function DoubleSlider({ steps, labelLeft, labelRight, emit }: { s
     let boundRight = parentEl.offsetWidth - RADIO_DIAMETER * 2;
   
     let boundedX = Math.min(
-      Math.max(newX - parentEl.offsetLeft, boundLeft),
+      Math.max(newX - parentEl.offsetLeft - RADIO_DIAMETER, boundLeft),
       boundRight
     );
     // percent way through
@@ -98,7 +106,9 @@ export default function DoubleSlider({ steps, labelLeft, labelRight, emit }: { s
   
     //
   
-    setNotch(vX)
+    /* setNotch(vX) */
+    setNotchLeftRealtime(vX)
+    notchLeft = vX
     console.log("set notch", vX)
   
     // Move label
@@ -120,7 +130,7 @@ export default function DoubleSlider({ steps, labelLeft, labelRight, emit }: { s
     el: HTMLDivElement,
     parentEl: HTMLDivElement,
     stepsCount: number,
-    setNotch: Dispatch<SetStateAction<number>>,
+    /* setNotch: Dispatch<SetStateAction<number>>, */
     otherRadioNotch: number,
   ) {
     let newX = moveEvent.clientX;
@@ -129,7 +139,7 @@ export default function DoubleSlider({ steps, labelLeft, labelRight, emit }: { s
     let boundRight = parentEl.offsetWidth - RADIO_DIAMETER * 2;
   
     let boundedX = Math.min(
-      Math.max(newX - parentEl.offsetLeft + RADIO_DIAMETER, boundLeft),
+      Math.max(newX - parentEl.offsetLeft - RADIO_DIAMETER, boundLeft),
       boundRight
     );
     // percent way through
@@ -148,15 +158,15 @@ export default function DoubleSlider({ steps, labelLeft, labelRight, emit }: { s
   
     //
   
-    setNotch(vX)
-    console.log("set notch", vX)
+    /* setNotch(vX) */
+    setNotchRightRealtime(vX)
+    notchRight = vX
   
     // Move label
   
     let label = parentEl.parentElement?.getElementsByClassName("doubleSliderRightLabel")[0] as HTMLDivElement;
   
     let min = otherRadioNotch * ((parentEl.offsetWidth) / stepsCount) - parentEl.offsetWidth + label.offsetWidth * 2
-    console.log("min", min)
 
     let labelX = Math.max(roundX - boundRight /* - (RADIO_DIAMETER / 2) */, min);
     label.style.transform = `translateX(${labelX}px)`;
@@ -167,6 +177,7 @@ export default function DoubleSlider({ steps, labelLeft, labelRight, emit }: { s
   }
   
   function onDragStop(stopMove: AbortController, stopSelf: AbortController) {
+
     document.removeEventListener("mouseup", () => onDragLeft);
     document.removeEventListener("mousemove", () => onDragStop);
   
@@ -185,28 +196,42 @@ export default function DoubleSlider({ steps, labelLeft, labelRight, emit }: { s
     } */
   }
 
+  const sliderBarRef = useRef<HTMLDivElement>(null);
+
+  // Properly align the right radio on page load
+  useEffect(() => {
+
+    console.log(parent)
+
+    let sliderBar = sliderBarRef.current as HTMLDivElement;
+
+    let sliderRight = sliderBar.getElementsByClassName("doubleSliderRight")[0] as HTMLDivElement;
+    sliderRight.style.transform = `translateX(${sliderBar.offsetWidth - RADIO_DIAMETER * 2}px)`;
+    notchRight = steps.length - 1
+    /* setNotchRight(steps.length - 1) */
+  }, [])
+
   return (
     <div className="column gapSmall noSelect">
       <h3 className="textSmall headerSmall">Price</h3>
       <div className="column">
         <div className="row spaceBetween">
-          <h3 className="textXSmall textSlightTransparent doubleSliderLeftLabel textCenter">{labelLeft}{steps[notchLeft]}</h3>
-          <h3 className="textXSmall textSlightTransparent doubleSliderRightLabel textCenter">{labelRight}{steps[notchRight]}</h3>
+          <h3 className="textXSmall textSlightTransparent doubleSliderLeftLabel textCenter">{labelLeft}{steps[notchLeftRealtime]}</h3>
+          <h3 className="textXSmall textSlightTransparent doubleSliderRightLabel textCenter">{labelRight}{steps[notchRightRealtime]}</h3>
         </div>
       </div>
-      <div className="row doubleSliderBar">
+      <div className="row doubleSliderBar" ref={sliderBarRef}>
         <div
           className="doubleSlider primary pointer doubleSliderLeft"
           onMouseDown={(e) =>
-            followCursor(e, steps.length, setNotchLeft, notchRight, RadioSide.Left)
+            followCursor(e, steps.length, /* setNotchLeft, */ notchRightRealtime, RadioSide.Left)
           } /* onMouseDown={(e) => followCursor(e)} */ /* onMouseMove={(e) => {executeDrag(e, steps.size, draggingLeft); setDraggingLeft(false)}} onMouseUp={(e) => {executeDrag(e, steps.size, draggingLeft); setDraggingLeft(false)}} */
         ></div>
         <div
           className="doubleSlider primary pointer doubleSliderRight"
           onMouseDown={(e) =>
-            followCursor(e, steps.length, setNotchRight, notchLeft, RadioSide.Right)
+            followCursor(e, steps.length, /* setNotchRight, */ notchLeftRealtime, RadioSide.Right)
           }
-          onLoad={(e) => onDragRight(e as unknown as MouseEvent, e.target as HTMLDivElement, (e.target as HTMLDivElement).parentElement as HTMLDivElement, steps.length, setNotchRight, notchLeft)}
         ></div>
         <div className="doubleSliderBetween"></div>
       </div>
