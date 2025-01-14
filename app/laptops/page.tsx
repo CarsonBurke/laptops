@@ -32,8 +32,8 @@ export default async function Laptops() {
               <DoubleSlider
                 header={<h3 className="textSmall headerSmall">Price</h3>}
                 steps={Array.from(
-                  { length: 31 },
-                  (_, i) => (i + 1) * 100 - 100
+                  { length: 25 },
+                  (_, i) => Math.pow((i * 100), 1.09432)/* (i + 1) * 100 - 100 */
                 )}
                 labelLeft={["$", ""]}
                 labelRight={["$", ""]}
