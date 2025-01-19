@@ -19,6 +19,7 @@ import { edgeClient } from "../../scripts/db";
 import { trpc } from "../../lib/trpc";
 import LaptopPreview from "@/components/laptopPreview";
 import Display from "./display";
+import { LaptopsOrder } from "@/types/db";
 
 /* import e from '@/dbschema/edgeql-js'; */
 
@@ -29,11 +30,7 @@ enum UseCase {
   Programmers = "Programmers",
 }
 
-enum LaptopOrder {
-  BestDeal = "Best deal",
-  PriceLowToHigh = "Price low to high",
-  PriceHighToLow = "Price high to low",
-}
+
 
 export default function Laptops() {
   let params = useParams();
@@ -42,7 +39,7 @@ export default function Laptops() {
   // Filter states
 
   let [price, setPrice] = useState([0, 5000]);
-  let [order, setOrder] = useState(LaptopOrder.BestDeal);
+  let [order, setOrder] = useState(LaptopsOrder.BestDeal);
 
   // Use cases
   let [useCaseStudents, setUseCaseStudents] = useState(false);
@@ -56,12 +53,33 @@ export default function Laptops() {
   let [macos, setMac] = useState(false);
   let [windows, setWindows] = useState(false);
 
+  let [size, setSize] = useState([13, 18]);
+  let [resolution, setResolution] = useState([1080, 3060]);
+  let [ram, setRam] = useState([8, 256]);
+  let [storage, setStorage] = useState([512, 8192]);
+
+  let [topFrequency, setTopFrequency] = useState([1, 5]);
+  let [cores, setCores] = useState([2, 256]);
+
   const { data, isLoading } = trpc.getLaptops.useQuery({
+    order: order,
     minPrice: price[0],
     maxPrice: price[1],
     macos: macos,
     windows: windows,
     linux: linux,
+    minSize: size[0],
+    maxSize: size[1],
+    minResolution: resolution[0],
+    maxResolution: resolution[1],
+    minMemory: ram[0],
+    maxMemory: ram[1],
+    minStorage: storage[0],
+    maxStorage: storage[1],
+    minCores: cores[0],
+    maxCores: cores[1],
+    minCpuFrequency: topFrequency[0],
+    maxCpuFrequency: topFrequency[1],
   });
 
   console.log("data", data, isLoading);
@@ -111,25 +129,42 @@ export default function Laptops() {
 
             <div className="columnCollapsible gapMedium">
               <Select
-                optionNames={[
-                  LaptopOrder.BestDeal,
-                  LaptopOrder.PriceLowToHigh,
-                  LaptopOrder.PriceHighToLow,
-                ]}
+                optionNames={{"Basic": [
+                  LaptopsOrder.BestDeal,
+                  LaptopsOrder.PriceLowToHigh,
+                  LaptopsOrder.PriceHighToLow,
+                ], "Advanced": [
+                  LaptopsOrder.ByMemory,
+                  LaptopsOrder.ByStorage,
+                  LaptopsOrder.ByCores,
+                  LaptopsOrder.ByCpuFrequency
+                ]}}
                 groupName="sort"
                 className="borderBg3"
                 onInput={(value) => {
                   "use client";
 
                   switch (value) {
-                    case "Best deal":
-                      setOrder(LaptopOrder.BestDeal);
+                    case LaptopsOrder.BestDeal:
+                      setOrder(LaptopsOrder.BestDeal);
                       break;
-                    case "Price low to high":
-                      setOrder(LaptopOrder.PriceLowToHigh);
+                    case LaptopsOrder.PriceLowToHigh:
+                      setOrder(LaptopsOrder.PriceLowToHigh);
                       break;
-                    case "Price high to low":
-                      setOrder(LaptopOrder.PriceHighToLow);
+                    case LaptopsOrder.PriceHighToLow:
+                      setOrder(LaptopsOrder.PriceHighToLow);
+                      break;
+                    case LaptopsOrder.ByMemory:
+                      setOrder(LaptopsOrder.ByMemory);
+                      break;
+                    case LaptopsOrder.ByStorage:
+                      setOrder(LaptopsOrder.ByStorage);
+                      break;
+                    case LaptopsOrder.ByCores:
+                      setOrder(LaptopsOrder.ByCores);
+                      break;
+                    case LaptopsOrder.ByCpuFrequency:
+                      setOrder(LaptopsOrder.ByCpuFrequency);
                       break;
                   }
                 }}
@@ -258,7 +293,7 @@ export default function Laptops() {
               <DoubleSlider
                 header={<h3 className="textSmall headerSmall">Memory</h3>}
                 steps={Array.from({ length: 6 }, (_, i) =>
-                  Math.pow(2, i * 1 + 3)
+                  Math.pow(2, i + 3)
                 )}
                 labelLeft={["", " GB"]}
                 labelRight={["", " GB"]}
@@ -270,7 +305,7 @@ export default function Laptops() {
               <DoubleSlider
                 header={<h3 className="textSmall headerSmall">Storage</h3>}
                 steps={Array.from({ length: 5 }, (_, i) =>
-                  Math.pow(2, i * 1 + 9)
+                  Math.pow(2, i + 9)
                 )}
                 labelLeft={["", " GB"]}
                 labelRight={["", " GB"]}
@@ -281,9 +316,21 @@ export default function Laptops() {
               />
               <DoubleSlider
                 header={<h3 className="textSmall headerSmall">CPU Cores</h3>}
-                steps={Array.from({ length: 7 }, (_, i) =>
-                  Math.pow(2, i * 1 + 1)
+                steps={Array.from({ length: 8 }, (_, i) =>
+                  Math.pow(2, i + 1)
                 )}
+                emit={(left, right) => {
+                  "use client";
+                  console.log("left", left, "right", right);
+                }}
+              />
+                            <DoubleSlider
+                header={<h3 className="textSmall headerSmall">Max Frequency</h3>}
+                steps={Array.from({ length: 6 }, (_, i) =>
+                  i + 1
+                )}
+                labelLeft={["", " GHz"]}
+                labelRight={["", " GHz"]}
                 emit={(left, right) => {
                   "use client";
                   console.log("left", left, "right", right);

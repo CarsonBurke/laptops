@@ -2,31 +2,57 @@ import { z } from "zod";
 import { procedure, router } from "../trpc";
 import e from "../../dbschema/edgeql-js";
 import { edgeClient } from "../../scripts/db";
+import { LaptopsOrder } from "@/types/db";
+
+function orderLaptopBy(laptop: any, order: LaptopsOrder)/* : [number, typeof e.DESC | typeof e.ASC] */ {
+
+  let expression;
+  let direction: typeof e.DESC | typeof e.ASC;
+
+  switch (order) {
+    // Basic
+    case LaptopsOrder.BestDeal:
+      expression = laptop.saleOf;
+      direction = e.DESC;
+      break;
+    case LaptopsOrder.PriceLowToHigh:
+      expression = laptop.price;
+      direction = e.ASC;
+      break;
+    case LaptopsOrder.PriceHighToLow:
+      expression = laptop.price;
+      direction = e.DESC;
+      break;
+    // Advanced
+    case LaptopsOrder.ByMemory:
+      expression = laptop.ram;
+      direction = e.DESC;
+      break;
+    case LaptopsOrder.ByStorage:
+      expression = laptop.storage;
+      direction = e.DESC;
+      break;
+    case LaptopsOrder.ByCores:
+      expression = laptop.cores;
+      direction = e.DESC;
+      break;
+    case LaptopsOrder.ByCpuFrequency:
+      expression = laptop.topFrequency;
+      direction = e.DESC;
+      break;
+  }
+
+  return {
+    expression,
+    direction
+  }
+}
 
 export const appRouter = router({
-  getLaptopsByName: procedure
+  getLaptopByName: procedure
     .input(
       z.object({
         name: z.string(),
-      })
-    )
-    .query(async ({ input }) => {
-      const laptops = await e
-        .select(e.Laptop, (laptop) => ({
-          name: true,
-          filter: e.op(laptop.name, "=", input.name),
-        }))
-        .run(edgeClient);
-      return laptops;
-    }),
-  getLaptops: procedure
-    .input(
-      z.object({
-        minPrice: z.number(),
-        maxPrice: z.number(),
-        macos: z.boolean(),
-        windows: z.boolean(),
-        linux: z.boolean(),
       })
     )
     .query(async ({ input }) => {
@@ -38,11 +64,57 @@ export const appRouter = router({
           macos: true,
           windows: true,
           linux: true,
+          ram: true,
+          storage: true,
+          cores: true,
+          topFrequency: true,
+          filter: e.op(laptop.name, "=", input.name),
+        }))
+        .run(edgeClient);
+      return laptops;
+    }),
+  getLaptops: procedure
+    .input(
+      z.object({
+        order: z.nativeEnum(LaptopsOrder),
+        minPrice: z.number(),
+        maxPrice: z.number(),
+        macos: z.boolean(),
+        windows: z.boolean(),
+        linux: z.boolean(),
+        minSize: z.number(),
+        maxSize: z.number(),
+        minResolution: z.number(),
+        maxResolution: z.number(),
+        minMemory: z.number(),
+        maxMemory: z.number(),
+        minStorage: z.number(),
+        maxStorage: z.number(),
+        minCores: z.number(),
+        maxCores: z.number(),
+        minCpuFrequency: z.number(),
+        maxCpuFrequency: z.number(),
+      })
+    )
+    .query(async ({ input }) => {
+
+      const laptops = await e
+        .select(e.Laptop, (laptop) => ({
+          name: true,
+          price: true,
+          saleOf: true,
+          macos: true,
+          windows: true,
+          linux: true,
+          ram: true,
+          storage: true,
+          cores: true,
+          topFrequency: true,
           filter: e.all(
             e.set(
               e.op(laptop.price, ">=", input.minPrice),
               // I'm confused why it works this way but not the other way
-              e.op(laptop.price, ">=", input.maxPrice),
+              e.op(laptop.price, "<=", input.maxPrice),
               /* e.op(useCaseStudents, "=", useCaseStudents),
             e.op(useCaseGaming, "=", useCaseGaming),
             e.op(useCaseProgrammers, "=", useCaseProgrammers),
@@ -57,6 +129,7 @@ export const appRouter = router({
               )
             )
           ),
+          order_by: orderLaptopBy(laptop, input.order),
         }))
         .run(edgeClient);
         console.log("max price", input.maxPrice)
