@@ -1,0 +1,38 @@
+.laptopPreview {
+    border-width: 2px;
+    border-style: solid;
+    max-width: 400px;
+    min-width: 300px;
+    width: 100%;
+}
+
+/* @keyframes animatePlaceholder {
+    0% {
+        background-color: var(--background2);
+    }
+    50% {
+        background-color: var(--background3);
+    }
+    100% {
+        background-color: var(--background2);
+    }
+} */
+
+.animatePlaceholder {
+    animation: animatePlaceholder 1s infinite;
+}
+
+.laptopPreviewImage {
+    aspect-ratio: 4/3;
+    width: 100%;
+}
+
+.fakeLaptopPreviewTitle {
+    height: 25px;
+    width: 100%;
+}
+
+.fakeLaptopPreviewPrice {
+    height: 15px;
+    width: 50%;
+}

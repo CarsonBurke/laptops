@@ -1,0 +1,120 @@
+/* .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100vh;
+    // top: var(--spacingSmall);
+    // left: var(--spacingSmall);
+    // right: var(--spacingSmall);
+    z-index: 1000;
+    // backdrop-filter: blur(12px);
+    // -webkit-backdrop-filter: blur(12px);
+    // border: solid var(--background3) 1.5px;
+} */
+
+@use '../app/styles/variables.scss';
+
+.navbarTop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: var(--spacingSmall) var(--mainSideSpacing);
+    z-index: 1000;
+}
+
+@media (--mobile) {
+    .navbarTop {
+        padding: 0;
+    }
+}
+
+/* .navbar::after {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--background2);
+    // border-radius: var(--extremeBorderRadius);
+    opacity: 0.5;
+} */
+
+.navbarTopChild {
+    width: 100%;
+    padding: 0 var(--spacingSmall);
+    background-color: var(--background3);
+    height: var(--navbarHeight);
+    box-shadow: rgba(0, 0, 0, 0.2) 0 8px 22px 0;
+    border-radius: var(--defaultBorderRadius);
+}
+
+@media (--mobile) {
+    .navbarTopChild {
+        border-radius: 0;
+    }
+}
+
+.navbarTopSidebarButton {
+    display: none;
+}
+
+.navbarHeader:hover {
+    opacity: 0.7;
+}
+
+.navbarIcon {
+    height: 40px;
+    width: 40px;
+}
+
+.navbarLink {
+    height: 100%;
+}
+
+.navbarTopMobileSearchButton {
+    display: none;
+}
+
+.navbarTopSidebarButtonActive {
+    background-color: var(--primaryTransparent);
+    color: var(--primary);
+}
+
+.navbarSidebar {
+    position: fixed;
+    top: var(--navbarHeight);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: all var(--defaultTransitionTime);
+    height: 100%;
+    min-width: 250px;
+    padding: var(--spacingSmall);
+    display: none;
+    z-index: 1000;
+}
+
+@media (--mobile) {
+    .navbarSidebar {
+        display: flex;
+        padding: var(--spacingMedium) var(--mainSideSpacing);
+    }
+}
+
+.navbarSidebarChild {
+    box-shadow: rgba(0, 0, 0, 0.2) 0 8px 22px 0;
+    width: 100%;
+    overflow: hidden;
+}
+
+.navSidebarLink {
+    transition: all var(--defaultTransitionTime);
+}
+
+.navSidebarLink:hover {
+    background-color: var(--background3);
+}
