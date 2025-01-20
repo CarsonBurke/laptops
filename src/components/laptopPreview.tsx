@@ -88,21 +88,23 @@ export default function LaptopPreview({ args }: { args: LaptopPreviewArgs }) {
         </div>
 
         <div className="column gapSmall">
-          <div className="row gapSmall textSlightTransparent"></div>
+          <div className="row gapSmall textSlightTransparent">
+            <h4 className="textXSmall gapXSmall row centerColumn">{args.size} inch • {args.resolution}p</h4>
+          </div>
           <div className="row flexWrap gapSmall textSlightTransparent">
-            <h4
+            {/* <h4
               className="textXSmall gapXSmall row centerColumn"
               title="Memory"
             >
               <span className="material-symbols-outlined">memory_alt</span>
               {args.ram} GB
-            </h4>
+            </h4> */}
             <h4
               className="textXSmall gapXSmall row centerColumn"
               title="Storage"
             >
               <span className="material-symbols-outlined">storage</span>
-              {args.storage} GB
+              {args.storage} GB • {args.ram} GB
             </h4>
           </div>
           <div className="row flexWrap gapSmall textSlightTransparent">
@@ -111,15 +113,15 @@ export default function LaptopPreview({ args }: { args: LaptopPreviewArgs }) {
               title="Processor Cores"
             >
               <span className="material-symbols-outlined">memory</span>
-              {args.cores}
+              {args.cores} • {args.topFrequency.toFixed(1)} Ghz
             </h4>
-            <h4
+            {/* <h4
               className="textXSmall gapXSmall row centerColumn"
               title="Top Frequency"
             >
               <span className="material-symbols-outlined">speed</span>
               {args.topFrequency.toFixed(1)} Ghz
-            </h4>
+            </h4> */}
           </div>
         </div>
       </div>
