@@ -8,7 +8,7 @@ import windowsIcon from "../app/public/OSIcons/windows.svg";
 
 export default function Footer() {
   return (
-    <footer className="sectionPadded rowCollapsible centerRow spaceBetween gapLarge">
+    <footer className="sectionPadded rowCollapsible centerRow spaceBetween gapLarge bg1To2">
 
       <div className="column gapSmall centerColumn">
       <header className="row gapSmall centerColumn">
