@@ -4,19 +4,29 @@ import { Laptop } from "@/types/db";
 
 export default function Display({
   data,
-  isLoading,
+  isFetching,
 }: {
   data: Laptop[];
-  isLoading: boolean;
+  isFetching: boolean;
 }) {
   // if (!isLoading) {
-    let previews = []
+  let previews = [];
 
-    for (let i = 0; i < data.length; i++) {
-        previews.push(<LaptopPreview key={i} args={data[i]} />)
-    }
-    return previews
+  for (let i = 0; i < data.length; i++) {
+    previews.push(<LaptopPreview key={i} args={data[i]} />);
+  }
+  /* return previews */
   // }
 
-  return generateFakeLaptopPreviews(12, "background2");
+  /* return generateFakeLaptopPreviews(12, "background2"); */
+
+  return (
+    <>
+    <div className="rowCollapsible flexWrap gapMedium centerRow centerColumn">{previews}
+
+    </div>
+      
+      {isFetching ? <h2 className="textMedium headerSmall textCenter">Fetching more laptops</h2> : <></>}
+    </>
+  );
 }

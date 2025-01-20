@@ -66,6 +66,8 @@ export default function Laptops() {
     setIsLoading(result.isLoading);
   } */
 
+  let [isFetching, setIsFetching] = useState(true);
+
   const result = trpc.getLaptops.useQuery({
     order: order,
     minPrice: price[0],
@@ -92,6 +94,7 @@ export default function Laptops() {
   useEffect(() => {
     setData([]);
     setOffset(0);
+    setIsFetching(true);
   }, [
     order,
     price,
@@ -110,14 +113,17 @@ export default function Laptops() {
     if (result.isLoading) {
       return;
     }
-
-    if (offset > 40) {
+    if (!isFetching) {
       return;
     }
 
     setData((prev: any) => prev.concat(result.data));
 
     setOffset((prev) => prev + 1);
+
+    if (offset > 40) {
+      setIsFetching(false);
+    }
   }, [result]);
 
   // EdgeDB qeury
@@ -434,9 +440,7 @@ export default function Laptops() {
         </div>
         <div className="column gapMedium width100">
           <h1 className="textLarge headerLarge textCenter">Laptops</h1>
-          <div className="rowCollapsible flexWrap gapMedium centerRow centerColumn">
-            <Display data={data as any} isLoading={result.isLoading} />
-          </div>
+          <Display data={data as any} isFetching={isFetching} />
         </div>
       </section>
     </main>
