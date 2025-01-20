@@ -24,11 +24,11 @@ export function Navbar() {
 
           <div className="row gapMedium centerColumn navbarTopCenter desktop">
             <Link
-              href="/"
+              href="laptops"
               className="headerSmall paddingMedium navbarLink button textGlowButton textSmall gapSmall row"
             >
               <span className="material-symbols-outlined">star</span>
-              Top Picks
+              Best Deals
             </Link>
 
             <Dropdown

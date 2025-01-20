@@ -5,6 +5,8 @@ export interface Laptop {
     macos: boolean
     windows: boolean
     linux: boolean
+    size: number
+    resolution: number
     ram: number
     storage: number
     cores: number

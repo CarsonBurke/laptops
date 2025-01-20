@@ -68,6 +68,7 @@ export const appRouter = router({
           storage: true,
           cores: true,
           topFrequency: true,
+          titleImage: true,
           filter: e.op(laptop.name, "=", input.name),
         }))
         .run(edgeClient);
@@ -110,6 +111,7 @@ export const appRouter = router({
           storage: true,
           cores: true,
           topFrequency: true,
+          titleImage: true,
           filter: e.all(
             e.set(
               e.op(laptop.price, ">=", input.minPrice),

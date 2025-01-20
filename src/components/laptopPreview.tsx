@@ -14,6 +14,8 @@ interface LaptopPreviewArgs {
   windows: boolean;
   linux: boolean;
   titleImage: Uint8Array;
+  size: number;
+  resolution: number;
   ram: number;
   storage: number;
   cores: number;
@@ -25,6 +27,7 @@ export default function LaptopPreview({ args }: { args: LaptopPreviewArgs }) {
   const [imageSrc, setImageSrc] = useState<string | null>(null);
 
   useEffect(() => {
+
     // Create a Blob from the byte array
     const blob = new Blob([args.titleImage], { type: "image/jpeg" }); // Adjust MIME type as needed
 
@@ -57,11 +60,21 @@ export default function LaptopPreview({ args }: { args: LaptopPreviewArgs }) {
         } as React.CSSProperties
       }
     >
-      <Image
-        alt="laptop"
-        src={heroBg}
-        className="laptopPreviewImage defaultBorderRadius"
-      />
+      {imageSrc != null ? (
+        <img
+          alt="laptop"
+          src={imageSrc as any}
+          className="laptopPreviewImage defaultBorderRadius"
+        />
+      ) : (
+        <div
+          className={
+            args.color +
+            " laptopPreviewImage animatePlaceholder defaultBorderRadius"
+          }
+        ></div>
+      )}
+
       <div className="column gapMedium width100">
         <div className="column gapSmall">
           <h3 className={"textMedium headerSmall"}>{args.name}</h3>
@@ -75,6 +88,7 @@ export default function LaptopPreview({ args }: { args: LaptopPreviewArgs }) {
         </div>
 
         <div className="column gapSmall">
+          <div className="row gapSmall textSlightTransparent"></div>
           <div className="row flexWrap gapSmall textSlightTransparent">
             <h4
               className="textXSmall gapXSmall row centerColumn"

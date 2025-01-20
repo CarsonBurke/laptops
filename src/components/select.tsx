@@ -11,10 +11,12 @@ export default function Select({
 }) {
   function constructOptGroups() {
     let groups = [];
+    let keys = Object.keys(optionNames);
 
-    for (groupName in optionNames) {
+    for (let i = 0; i < keys.length; i++) {
+      let groupName = keys[i];
       groups.push(
-        <optgroup label={groupName}>
+        <optgroup label={groupName} key={i}>
           {optionNames[groupName].map((option) => (
             <option key={option} value={option}>
               {option}

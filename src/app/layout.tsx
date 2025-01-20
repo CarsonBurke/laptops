@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { Navbar } from "../components/navbar";
 import { LayoutBody } from "./layoutBody";
-import e from "../dbschema/edgeql-js";
 
 import "./styles/index.scss";
 import "./styles/layout.scss";
@@ -12,8 +10,6 @@ import "./styles/sizings.scss";
 import "./styles/color.scss";
 import "./styles/text.scss";
 import { LayoutHead } from "./layoutHead";
-import { edgeClient } from "../scripts/db";
-import { trpc } from "../lib/trpc";
 import { TRPCProviders } from "./providers";
 
 const geistSans = Geist({
@@ -38,8 +34,6 @@ const root = async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const laptopsCount = await e.count(e.Laptop).run(edgeClient);
-  console.log("laptopsCount", laptopsCount);
 
   return (
     <html lang="en">

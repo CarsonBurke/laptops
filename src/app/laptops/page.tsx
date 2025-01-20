@@ -30,11 +30,7 @@ enum UseCase {
   Programmers = "Programmers",
 }
 
-
-
 export default function Laptops() {
-  let params = useParams();
-  console.log(params);
 
   // Filter states
 
@@ -83,6 +79,8 @@ export default function Laptops() {
   });
 
   console.log("data", data, isLoading);
+
+  
 
   // EdgeDB qeury
 
