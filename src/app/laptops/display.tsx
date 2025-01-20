@@ -9,14 +9,14 @@ export default function Display({
   data: Laptop[];
   isLoading: boolean;
 }) {
-  if (!isLoading) {
+  // if (!isLoading) {
     let previews = []
 
     for (let i = 0; i < data.length; i++) {
         previews.push(<LaptopPreview key={i} args={data[i]} />)
     }
     return previews
-  }
+  // }
 
   return generateFakeLaptopPreviews(12, "background2");
 }

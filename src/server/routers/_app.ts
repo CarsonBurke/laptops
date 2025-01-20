@@ -97,6 +97,8 @@ export const appRouter = router({
         maxCores: z.number(),
         minCpuFrequency: z.number(),
         maxCpuFrequency: z.number(),
+        offset: z.number(),
+        limit: z.number(),
       })
     )
     .query(async ({ input }) => {
@@ -116,6 +118,8 @@ export const appRouter = router({
           titleImage: true,
           size: true,
           resolution: true,
+          offset: input.offset,
+          limit: input.limit,
           filter: e.all(
             e.set(
               e.op(laptop.price, ">=", input.minPrice),

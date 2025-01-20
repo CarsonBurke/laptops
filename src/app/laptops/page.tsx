@@ -11,7 +11,7 @@ import Checkbox from "../../components/checkbox";
 import RadioGroup from "../../components/radioGroup";
 import Select from "../../components/select";
 import DoubleSlider from "../../components/doubleSlider";
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import e from "../../../dbschema/edgeql-js";
 import { edgeClient } from "../../scripts/db";
@@ -31,7 +31,6 @@ enum UseCase {
 }
 
 export default function Laptops() {
-
   // Filter states
 
   let [price, setPrice] = useState([0, 5000]);
@@ -57,7 +56,17 @@ export default function Laptops() {
   let [topFrequency, setTopFrequency] = useState([1, 5]);
   let [cores, setCores] = useState([2, 256]);
 
-  const { data, isLoading } = trpc.getLaptops.useQuery({
+  let [data, setData] = useState([] as any);
+  let [offset, setOffset] = useState(0);
+
+  /* if (!isLoading) {
+    console.log("getting new laptops")
+    
+    setData(data.concat(result.data));
+    setIsLoading(result.isLoading);
+  } */
+
+  const result = trpc.getLaptops.useQuery({
     order: order,
     minPrice: price[0],
     maxPrice: price[1],
@@ -76,11 +85,40 @@ export default function Laptops() {
     maxCores: cores[1],
     minCpuFrequency: topFrequency[0],
     maxCpuFrequency: topFrequency[1],
+    limit: 1,
+    offset: offset,
   });
 
-  console.log("data", data, isLoading);
+  useEffect(() => {
+    setData([]);
+    setOffset(0);
+  }, [
+    order,
+    price,
+    macos,
+    windows,
+    linux,
+    size,
+    resolution,
+    ram,
+    storage,
+    cores,
+    topFrequency,
+  ]);
 
-  
+  useEffect(() => {
+    if (result.isLoading) {
+      return;
+    }
+
+    if (offset > 40) {
+      return;
+    }
+
+    setData((prev: any) => prev.concat(result.data));
+
+    setOffset((prev) => prev + 1);
+  }, [result]);
 
   // EdgeDB qeury
 
@@ -127,16 +165,19 @@ export default function Laptops() {
 
             <div className="columnCollapsible gapMedium">
               <Select
-                optionNames={{"Basic": [
-                  LaptopsOrder.BestDeal,
-                  LaptopsOrder.PriceLowToHigh,
-                  LaptopsOrder.PriceHighToLow,
-                ], "Advanced": [
-                  LaptopsOrder.ByMemory,
-                  LaptopsOrder.ByStorage,
-                  LaptopsOrder.ByCores,
-                  LaptopsOrder.ByCpuFrequency
-                ]}}
+                optionNames={{
+                  Basic: [
+                    LaptopsOrder.BestDeal,
+                    LaptopsOrder.PriceLowToHigh,
+                    LaptopsOrder.PriceHighToLow,
+                  ],
+                  Advanced: [
+                    LaptopsOrder.ByMemory,
+                    LaptopsOrder.ByStorage,
+                    LaptopsOrder.ByCores,
+                    LaptopsOrder.ByCpuFrequency,
+                  ],
+                }}
                 groupName="sort"
                 className="borderBg3"
                 onInput={(value) => {
@@ -265,7 +306,7 @@ export default function Laptops() {
                 labelRight={["", " inches"]}
                 emit={(left, right) => {
                   "use client";
-                  setSize([left, right])
+                  setSize([left, right]);
                 }}
               />
 
@@ -285,53 +326,47 @@ export default function Laptops() {
                 labelRight={["", "p"]}
                 emit={(left, right) => {
                   "use client";
-                  setResolution([left, right])
+                  setResolution([left, right]);
                 }}
               />
               <DoubleSlider
                 header={<h3 className="textSmall headerSmall">Memory</h3>}
-                steps={Array.from({ length: 6 }, (_, i) =>
-                  Math.pow(2, i + 3)
-                )}
+                steps={Array.from({ length: 6 }, (_, i) => Math.pow(2, i + 3))}
                 labelLeft={["", " GB"]}
                 labelRight={["", " GB"]}
                 emit={(left, right) => {
                   "use client";
-                  setRam([left, right])
+                  setRam([left, right]);
                 }}
               />
               <DoubleSlider
                 header={<h3 className="textSmall headerSmall">Storage</h3>}
-                steps={Array.from({ length: 5 }, (_, i) =>
-                  Math.pow(2, i + 9)
-                )}
+                steps={Array.from({ length: 5 }, (_, i) => Math.pow(2, i + 9))}
                 labelLeft={["", " GB"]}
                 labelRight={["", " GB"]}
                 emit={(left, right) => {
                   "use client";
-                  setStorage([left, right])
+                  setStorage([left, right]);
                 }}
               />
               <DoubleSlider
                 header={<h3 className="textSmall headerSmall">CPU Cores</h3>}
-                steps={Array.from({ length: 8 }, (_, i) =>
-                  Math.pow(2, i + 1)
-                )}
+                steps={Array.from({ length: 8 }, (_, i) => Math.pow(2, i + 1))}
                 emit={(left, right) => {
                   "use client";
-                  setCores([left, right])
+                  setCores([left, right]);
                 }}
               />
-                            <DoubleSlider
-                header={<h3 className="textSmall headerSmall">Max Frequency</h3>}
-                steps={Array.from({ length: 6 }, (_, i) =>
-                  i + 1
-                )}
+              <DoubleSlider
+                header={
+                  <h3 className="textSmall headerSmall">Max Frequency</h3>
+                }
+                steps={Array.from({ length: 6 }, (_, i) => i + 1)}
                 labelLeft={["", " GHz"]}
                 labelRight={["", " GHz"]}
                 emit={(left, right) => {
                   "use client";
-                  setTopFrequency([left, right])
+                  setTopFrequency([left, right]);
                 }}
               />
 
@@ -400,8 +435,7 @@ export default function Laptops() {
         <div className="column gapMedium width100">
           <h1 className="textLarge headerLarge textCenter">Laptops</h1>
           <div className="rowCollapsible flexWrap gapMedium centerRow centerColumn">
-            
-            <Display data={data as any} isLoading={isLoading} />
+            <Display data={data as any} isLoading={result.isLoading} />
           </div>
         </div>
       </section>
