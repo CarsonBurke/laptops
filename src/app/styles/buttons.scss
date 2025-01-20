@@ -8,6 +8,11 @@
     gap: var(--spacingSmall);
 }
 
+.button:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
 /* .textGlowButton {
     color: inherit;
 } */

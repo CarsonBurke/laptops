@@ -30,6 +30,8 @@ enum UseCase {
   Programmers = "Programmers",
 }
 
+const laptopsPerPage = 2;
+
 export default function Laptops() {
   // Filter states
 
@@ -57,6 +59,7 @@ export default function Laptops() {
   let [cores, setCores] = useState([2, 256]);
 
   let [data, setData] = useState([] as any);
+  let [pageOffset, setPageOffset] = useState(0);
   let [offset, setOffset] = useState(0);
 
   /* if (!isLoading) {
@@ -88,13 +91,14 @@ export default function Laptops() {
     minCpuFrequency: topFrequency[0],
     maxCpuFrequency: topFrequency[1],
     limit: 1,
-    offset: offset,
+    offset: offset + (pageOffset * laptopsPerPage),
   });
 
   useEffect(() => {
     setData([]);
     setOffset(0);
     setIsFetching(true);
+    setPageOffset(0);
   }, [
     order,
     price,
@@ -110,6 +114,12 @@ export default function Laptops() {
   ]);
 
   useEffect(() => {
+    setData([]);
+    setOffset(0);
+    setIsFetching(true);
+  }, [pageOffset]);
+
+  useEffect(() => {
     if (result.isLoading) {
       return;
     }
@@ -119,11 +129,11 @@ export default function Laptops() {
 
     setData((prev: any) => prev.concat(result.data));
 
-    setOffset((prev) => prev + 1);
-
-    if (offset > 40) {
+    if (offset > laptopsPerPage) {
       setIsFetching(false);
     }
+
+    setOffset((prev) => prev + 1);
   }, [result]);
 
   // EdgeDB qeury
@@ -438,9 +448,14 @@ export default function Laptops() {
             </div>
           </div>
         </div>
-        <div className="column gapMedium width100">
+        <div className="column gapMedium width100 centerRow centerColumn">
           <h1 className="textLarge headerLarge textCenter">Laptops</h1>
           <Display data={data as any} isFetching={isFetching} />
+          <div className="row gapMedium centerRow centerColumn">
+          <button disabled={pageOffset === 0} onClick={() => setPageOffset(pageOffset - 1)} className="button buttonBg3"><span className="material-symbols-outlined">chevron_left</span></button>
+            <h3 className="textSmall headerSmall">{pageOffset}</h3>
+            <button disabled={data.length < laptopsPerPage} onClick={() => setPageOffset(pageOffset + 1)} className="button buttonBg3"><span className="material-symbols-outlined">chevron_right</span></button>
+          </div>
         </div>
       </section>
     </main>
