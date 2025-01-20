@@ -4,9 +4,11 @@ import { Laptop } from "@/types/db";
 
 export default function Display({
   data,
+  maxPreviews,
   isFetching,
 }: {
   data: Laptop[];
+  maxPreviews: number;
   isFetching: boolean;
 }) {
   // if (!isLoading) {
@@ -22,11 +24,10 @@ export default function Display({
 
   return (
     <>
-    <div className="rowCollapsible flexWrap gapMedium centerRow centerColumn">{previews}
-
-    </div>
-      
-      {isFetching ? <h2 className="textMedium headerSmall textCenter">Fetching more laptops</h2> : <></>}
+      <div className="rowCollapsible flexWrap gapMedium centerRow centerColumn">
+        {previews}
+        {isFetching && generateFakeLaptopPreviews(maxPreviews - data.length, "background2")}
+      </div>
     </>
   );
 }

@@ -30,7 +30,7 @@ enum UseCase {
   Programmers = "Programmers",
 }
 
-const laptopsPerPage = 2;
+const laptopsPerPage = 6;
 
 export default function Laptops() {
   // Filter states
@@ -91,7 +91,7 @@ export default function Laptops() {
     minCpuFrequency: topFrequency[0],
     maxCpuFrequency: topFrequency[1],
     limit: 1,
-    offset: offset + (pageOffset * laptopsPerPage),
+    offset: offset + pageOffset * laptopsPerPage,
   });
 
   useEffect(() => {
@@ -129,7 +129,7 @@ export default function Laptops() {
 
     setData((prev: any) => prev.concat(result.data));
 
-    if (offset > laptopsPerPage) {
+    if (offset + 1 >= laptopsPerPage) {
       setIsFetching(false);
     }
 
@@ -450,11 +450,23 @@ export default function Laptops() {
         </div>
         <div className="column gapMedium width100 centerRow centerColumn">
           <h1 className="textLarge headerLarge textCenter">Laptops</h1>
-          <Display data={data as any} isFetching={isFetching} />
+          <Display data={data as any} isFetching={isFetching} maxPreviews={laptopsPerPage} />
           <div className="row gapMedium centerRow centerColumn">
-          <button disabled={pageOffset === 0} onClick={() => setPageOffset(pageOffset - 1)} className="button buttonBg3"><span className="material-symbols-outlined">chevron_left</span></button>
+            <button
+              disabled={pageOffset === 0}
+              onClick={() => setPageOffset(pageOffset - 1)}
+              className="button buttonBg3"
+            >
+              <span className="material-symbols-outlined">chevron_left</span>
+            </button>
             <h3 className="textSmall headerSmall">{pageOffset}</h3>
-            <button disabled={data.length < laptopsPerPage} onClick={() => setPageOffset(pageOffset + 1)} className="button buttonBg3"><span className="material-symbols-outlined">chevron_right</span></button>
+            <button
+              disabled={data.length < laptopsPerPage}
+              onClick={() => setPageOffset(pageOffset + 1)}
+              className="button buttonBg3"
+            >
+              <span className="material-symbols-outlined">chevron_right</span>
+            </button>
           </div>
         </div>
       </section>
