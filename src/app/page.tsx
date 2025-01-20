@@ -4,6 +4,8 @@ import FakeLaptopPreview, {
   generateFakeLaptopPreviews,
 } from "../components/fakeLaptopPreview";
 import Button from "../components/button";
+import FilteredLaptops from "@/components/FilteredLaptops";
+import { LaptopsOrder } from "@/types/db";
 
 export default function Home() {
   return (
@@ -17,10 +19,10 @@ export default function Home() {
           </div>
 
           <div className="row flexWrap gapMedium centerRow width100">
-            {generateFakeLaptopPreviews(12, "background2")}
+            <FilteredLaptops args={{ maxLaptops: 12, order: LaptopsOrder.BestDeal }} />
           </div>
 
-          <Button linkTo="top" className="textGlowButton">
+          <Button linkTo="/laptops" className="textGlowButton">
             <h3 className="textSmall">See More</h3>
             <span className="material-symbols-outlined">arrow_forward</span>
           </Button>
@@ -62,14 +64,14 @@ export default function Home() {
       </section>
       <section className="sectionPadded row centerRow">
         <div className="paddingLarge background2 widthFit column gapSmall defaultBorderRadius">
-          <h1 className="textLarge headerLarge textCenter">
+          <h1 className="textMedium headerLarge textCenter">
             Not sure what you're looking for?
           </h1>
           <div className="row gapXSmall centerRow centerColumn">
             <h3 className="textMedium textCenter">Try our </h3>
             <Button linkTo="discover" className="textMedium textGlowButton defaultBorderRadius">
               discovery queue
-              <span className="material-symbols-outlined">arrow_forward</span>
+              <span className="material-symbols-outlined">conditions</span>
             </Button>
           </div>
         </div>
