@@ -13,6 +13,7 @@ module default {
         forProgrammers: bool;
         forWork: bool;
         size: int32;
+        resolution: int32;
         ram: int32;
         storage: int32;
         cores: int32;

@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { procedure, router } from "../trpc";
-import e from "../../dbschema/edgeql-js";
+import e from "../../../dbschema/edgeql-js";
 import { edgeClient } from "../../scripts/db";
 import { LaptopsOrder } from "@/types/db";
 
@@ -69,6 +69,8 @@ export const appRouter = router({
           cores: true,
           topFrequency: true,
           titleImage: true,
+          size: true,
+          resolution: true,
           filter: e.op(laptop.name, "=", input.name),
         }))
         .run(edgeClient);
@@ -112,11 +114,25 @@ export const appRouter = router({
           cores: true,
           topFrequency: true,
           titleImage: true,
+          size: true,
+          resolution: true,
           filter: e.all(
             e.set(
               e.op(laptop.price, ">=", input.minPrice),
               // I'm confused why it works this way but not the other way
               e.op(laptop.price, "<=", input.maxPrice),
+              e.op(laptop.size, ">=", input.minSize),
+              e.op(laptop.size, "<=", input.maxSize),
+              e.op(laptop.resolution, ">=", input.minResolution),
+              e.op(laptop.resolution, "<=", input.maxResolution),
+              e.op(laptop.ram, ">=", input.minMemory),
+              e.op(laptop.ram, "<=", input.maxMemory),
+              e.op(laptop.storage, ">=", input.minStorage),
+              e.op(laptop.storage, "<=", input.maxStorage),
+              e.op(laptop.cores, ">=", input.minCores),
+              e.op(laptop.cores, "<=", input.maxCores),
+              e.op(laptop.topFrequency, ">=", input.minCpuFrequency),
+              e.op(laptop.topFrequency, "<=", input.maxCpuFrequency),
               /* e.op(useCaseStudents, "=", useCaseStudents),
             e.op(useCaseGaming, "=", useCaseGaming),
             e.op(useCaseProgrammers, "=", useCaseProgrammers),

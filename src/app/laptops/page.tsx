@@ -13,7 +13,7 @@ import Select from "../../components/select";
 import DoubleSlider from "../../components/doubleSlider";
 import { Suspense, useState } from "react";
 import { useParams } from "next/navigation";
-import e from "../../dbschema/edgeql-js";
+import e from "../../../dbschema/edgeql-js";
 import { edgeClient } from "../../scripts/db";
 /* import { trpc } from "../utils/trpc"; */
 import { trpc } from "../../lib/trpc";
@@ -265,7 +265,7 @@ export default function Laptops() {
                 labelRight={["", " inches"]}
                 emit={(left, right) => {
                   "use client";
-                  console.log("left", left, "right", right);
+                  setSize([left, right])
                 }}
               />
 
@@ -285,7 +285,7 @@ export default function Laptops() {
                 labelRight={["", "p"]}
                 emit={(left, right) => {
                   "use client";
-                  console.log("left", left, "right", right);
+                  setResolution([left, right])
                 }}
               />
               <DoubleSlider
@@ -297,7 +297,7 @@ export default function Laptops() {
                 labelRight={["", " GB"]}
                 emit={(left, right) => {
                   "use client";
-                  console.log("left", left, "right", right);
+                  setRam([left, right])
                 }}
               />
               <DoubleSlider
@@ -309,7 +309,7 @@ export default function Laptops() {
                 labelRight={["", " GB"]}
                 emit={(left, right) => {
                   "use client";
-                  console.log("left", left, "right", right);
+                  setStorage([left, right])
                 }}
               />
               <DoubleSlider
@@ -319,7 +319,7 @@ export default function Laptops() {
                 )}
                 emit={(left, right) => {
                   "use client";
-                  console.log("left", left, "right", right);
+                  setCores([left, right])
                 }}
               />
                             <DoubleSlider
@@ -331,7 +331,7 @@ export default function Laptops() {
                 labelRight={["", " GHz"]}
                 emit={(left, right) => {
                   "use client";
-                  console.log("left", left, "right", right);
+                  setTopFrequency([left, right])
                 }}
               />
 
