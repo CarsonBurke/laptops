@@ -4,8 +4,10 @@ import e from "../../../dbschema/edgeql-js";
 import { edgeClient } from "../../scripts/db";
 import { LaptopsOrder } from "@/types/db";
 
-function orderLaptopBy(laptop: any, order: LaptopsOrder)/* : [number, typeof e.DESC | typeof e.ASC] */ {
-
+function orderLaptopBy(
+  laptop: any,
+  order: LaptopsOrder
+) /* : [number, typeof e.DESC | typeof e.ASC] */ {
   let expression;
   let direction: typeof e.DESC | typeof e.ASC;
 
@@ -44,8 +46,8 @@ function orderLaptopBy(laptop: any, order: LaptopsOrder)/* : [number, typeof e.D
 
   return {
     expression,
-    direction
-  }
+    direction,
+  };
 }
 
 export const appRouter = router({
@@ -111,7 +113,6 @@ export const appRouter = router({
       })
     )
     .query(async ({ input }) => {
-
       const laptops = await e
         .select(e.Laptop, (laptop) => ({
           name: true,
@@ -153,22 +154,49 @@ export const appRouter = router({
               e.op(laptop.topFrequency, "<=", input.maxCpuFrequency),
               e.any(
                 e.set(
-                  e.op(laptop.forStudents, "=", input.forStudents == true),
-                  e.op(laptop.forGaming, "=", input.forGaming == true),
-                  e.op(laptop.forWork, "=", input.forWork == true),
-                  e.op(laptop.forProgrammers, "=", input.forProgrammers == true),
-              )),
-
-              /* e.op(forStudentss, "=", forStudentss),
-            e.op(forGaming, "=", forGaming),
-            e.op(forProgrammers, "=", forProgrammers),
-            e.op(forWork, "=", forWork),
-            e.op(dedicatedGPU, "=", dedicatedGPU),*/
+                  e.op(
+                    e.op(laptop.forStudents, "=", true),
+                    "and",
+                    e.op(laptop.forStudents, "=", input.forStudents == true)
+                  ),
+                  e.op(
+                    e.op(laptop.forGaming, "=", true),
+                    "and",
+                    e.op(laptop.forGaming, "=", input.forGaming == true)
+                  ),
+                  e.op(
+                    e.op(laptop.forWork, "=", true),
+                    "and",
+                    e.op(laptop.forWork, "=", input.forWork == true)
+                  ),
+                  e.op(
+                    e.op(laptop.forProgrammers, "=", true),
+                    "and",
+                    e.op(
+                      laptop.forProgrammers,
+                      "=",
+                      input.forProgrammers == true
+                    )
+                  )
+                )
+              ),
               e.any(
                 e.set(
-                  e.op(laptop.linux, "=", true),
-                  e.op(laptop.macos, "=", true),
-                  e.op(laptop.windows, "=", true)
+                  e.op(
+                    e.op(laptop.linux, "=", true),
+                    "and",
+                    e.op(laptop.linux, "=", input.linux == true)
+                  ),
+                  e.op(
+                    e.op(laptop.macos, "=", true),
+                    "and",
+                    e.op(laptop.macos, "=", input.macos == true)
+                  ),
+                  e.op(
+                    e.op(laptop.windows, "=", true),
+                    "and",
+                    e.op(laptop.windows, "=", input.windows == true)
+                  )
                 )
               )
             )
@@ -176,7 +204,7 @@ export const appRouter = router({
           order_by: orderLaptopBy(laptop, input.order),
         }))
         .run(edgeClient);
-        console.log("max price", input.maxPrice)
+      console.log("max price", input.maxPrice);
       return laptops;
     }),
   getArticlesLoggedIn: procedure.query(async ({ ctx }: { ctx: any }) => {

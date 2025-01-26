@@ -32,16 +32,16 @@ export default function Laptops() {
   let [order, setOrder] = useState(LaptopsOrder.BestDeal);
 
   // Use cases
-  let [forStudents, setforStudentss] = useState(false);
-  let [forGaming, setforGaming] = useState(false);
-  let [forProgrammers, setforProgrammers] = useState(false);
-  let [forWork, setforWork] = useState(false);
+  let [forStudents, setforStudentss] = useState(true);
+  let [forGaming, setforGaming] = useState(true);
+  let [forProgrammers, setforProgrammers] = useState(true);
+  let [forWork, setforWork] = useState(true);
 
-  let [dedicatedGPU, setDedicatedGPU] = useState(false);
+  let [dedicatedGPU, setDedicatedGPU] = useState(true);
 
-  let [linux, setLinux] = useState(false);
-  let [macos, setMac] = useState(false);
-  let [windows, setWindows] = useState(false);
+  let [linux, setLinux] = useState(true);
+  let [macos, setMac] = useState(true);
+  let [windows, setWindows] = useState(true);
 
   let [size, setSize] = useState([13, 18]);
   let [resolution, setResolution] = useState([1080, 3060]);
