@@ -1,10 +1,51 @@
-import { Laptop } from "@/types/db";
+import { Laptop, LaptopUseCase } from "@/types/db";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import computerImage from "../../../../outside_media/computer.jpg";
+import TableDouble from "@/components/tableDouble";
+import Button from "@/components/button";
+import Link from "next/link";
+import { Line } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+import { formatBytes, numberCommas } from "@/utils/units";
 
 interface LaptopViewProps {
   data: Laptop;
 }
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
+const monthsShort = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
 
 export default function LaptopView({ data }: { data: Laptop }) {
   const [imageSrc, setImageSrc] = useState<string | null>(null);
@@ -25,17 +66,33 @@ export default function LaptopView({ data }: { data: Laptop }) {
     };
   }, [data.titleImage]);
 
+  const useCases = [
+    data.forStudents,
+    data.forGaming,
+    data.forProgrammers,
+    data.forWork,
+  ];
+
+  const useCaseNames = Object.values(LaptopUseCase).filter(
+    (_, i) => useCases[i]
+  );
+
+  const salePrice = data.price - data.saleOf;
+
+  const avgHistoryPrice =
+    data.priceHistory.reduce((sum, val) => sum + val, 0) /
+    data.priceHistory.length;
+  const recommendBuy = data.price > avgHistoryPrice;
+
   return (
     <article className="paddingMedium column gapLarge">
-      <h1 className="textLarge headerLarge textCenter">{data.name}</h1>
-
-      <div className="rowCollapsible gapLarge">
-        <div className="width100 column">
+      <div className="row centerRow">
+        <div className="row gapMedium paddingMedium widthFit centerRow defaultBorderRadius centerColumn">
           {imageSrc != null ? (
             <img
               alt="laptop"
               src={imageSrc as any}
-              className="sectionImage laptopPreviewImage defaultBorderRadius"
+              className="laptopHeroImage defaultBorderRadius"
             />
           ) : (
             <div
@@ -44,31 +101,204 @@ export default function LaptopView({ data }: { data: Laptop }) {
               }
             ></div>
           )}
+          <div className="column gapMedium">
+            <h1 className="textLarge headerLarge">{data.name}</h1>
+            <div className="row gapSmall centerColumn">
+              <h4 className={"textSmall headerSmall row"}>
+                ${numberCommas(salePrice)}
+              </h4>
+              <div className="strikeThrough textSlightTransparent">
+                {numberCommas(data.price)}
+              </div>
+              <div>Save ${numberCommas(data.price - salePrice)}</div>
+            </div>
+            <div className="row gapSmall flexWrap">
+              {useCaseNames.map((useCase, i) => {
+                return (
+                  <div
+                    key={i}
+                    className="column background2 useCasePill defaultBorderRadius background3 maxBorderRadius"
+                  >
+                    <h3 className="textXSmall">{useCase}</h3>
+                  </div>
+                );
+              })}
+            </div>
+            <Link
+              href="https://www.example.com"
+              target="_blank"
+              className="button buttonPrimary textSmall headerSmall row centerRow centerColumn"
+            >
+              <span className="material-symbols-outlined">shopping_cart</span>
+              Buy
+            </Link>
+          </div>
         </div>
-        <div className="width100 column centerRow centerColumn gapMedium">
-          <h2 className="textMedium headerLarge">Specifications</h2>
+      </div>
 
-          <table className="background3 paddingSmall defaultBorderRadius">
-            <tbody>
-              <tr>
-                <th>CPU Cores</th>
-                <th>Resolution</th>
-              </tr>
-              <tr>
-                <td>Processor</td>
-                <td>{data.cores}</td>
-              </tr>
-              <tr>
-                <td>Screen Size</td>
-                <td>{data.resolution}</td>
-              </tr>
-            </tbody>
-          </table>
+      <div className="rowCollapsible gapLarge">
+        <div className="width100 column centerRow centerColumn gapMedium">
+          <h2 className="textMedium headerLarge">Overview</h2>
+
+          {/*           <TableDouble
+            header={
+              <h2 className="textSmall headerSmall row gapSmall">
+                <span className="material-symbols-outlined">overview_key</span>
+                Overview
+              </h2>
+            }
+            rows={[
+              [
+                <h3 className="textXSmall headerSmall">CPU Cores</h3>,
+                <h3 className="textXSmall">{data.cores}</h3>,
+              ],
+              [
+                <h3 className="textXSmall headerSmall">Max frequency</h3>,
+                <h3 className="textXSmall">
+                  {data.topFrequency.toFixed(1)} GHz
+                </h3>,
+              ],
+              [
+                <h3 className="textXSmall headerSmall">Screen Size</h3>,
+                <h3 className="textXSmall">{data.size}</h3>,
+              ],
+              [
+                <h3 className="textXSmall headerSmall">Screen Resolution</h3>,
+                <h3 className="textXSmall">{data.resolution}</h3>,
+              ],
+              [
+                <h3 className="textXSmall headerSmall">Storage</h3>,
+                <h3 className="textXSmall">{data.storage} GB</h3>,
+              ],
+              [
+                <h3 className="textXSmall headerSmall">Memory</h3>,
+                <h3 className="textXSmall">{data.ram} GB</h3>,
+              ],
+            ]}
+            background="background3"
+          /> */}
+
+          <TableDouble
+            header={
+              <h2 className="textSmall headerSmall row gapSmall">
+                <span className="material-symbols-outlined">laptop</span>
+                Size
+                <div className="textSlightTransparent">Screen Type</div>
+              </h2>
+            }
+            rows={[
+              [
+                <h3 className="textXSmall headerSmall">Screen Size</h3>,
+                <h3 className="textXSmall">{data.size} inches</h3>,
+              ],
+              [
+                <h3 className="textXSmall headerSmall">Screen Resolution</h3>,
+                <h3 className="textXSmall">{data.resolution}p</h3>,
+              ],
+            ]}
+            background="background3"
+          />
+
+          <TableDouble
+            header={
+              <h2 className="textSmall headerSmall row gapSmall">
+                <span className="material-symbols-outlined">memory_alt</span>
+                Storage
+                <div className="textSlightTransparent">Storage Device</div>
+              </h2>
+            }
+            rows={[
+              [
+                <h3 className="textXSmall headerSmall">Storage</h3>,
+                <h3 className="textXSmall">{formatBytes(data.storage)}</h3>,
+              ],
+              [
+                <h3 className="textXSmall headerSmall">Memory</h3>,
+                <h3 className="textXSmall">{data.ram} GB</h3>,
+              ],
+            ]}
+            background="background3"
+          />
+
+          <TableDouble
+            header={
+              <h2 className="textSmall headerSmall row gapSmall">
+                <span className="material-symbols-outlined">memory</span>
+                Processor
+                <div className="textSlightTransparent">Processor Name</div>
+              </h2>
+            }
+            rows={[
+              [
+                <h3 className="textXSmall headerSmall">Logical Cores</h3>,
+                <h3 className="textXSmall">{data.cores}</h3>,
+              ],
+              [
+                <h3 className="textXSmall headerSmall">Max frequency</h3>,
+                <h3 className="textXSmall">
+                  {data.topFrequency.toFixed(1)} GHz
+                </h3>,
+              ],
+            ]}
+            background="background3"
+          />
+
+            <h3 className="row gapXSmall flexWrap">Not sure what these mean? See our <Link className="button textGlowButton textPrimary" href="/cheatsheet">guide</Link></h3>
+
+        </div>
+        <div className="width100 column gapMedium">
+          <h2 className="textMedium headerLarge textCenter">Price History</h2>
+
+          {/* <Image src={computerImage} alt="computer" /> */}
+
+          <Line
+            options={{
+              plugins: {
+                tooltip: {
+                  callbacks: {
+                    label: (context) => {
+                      return `$${context.parsed.y}`;
+                    },
+                  },
+                },
+              },
+            }}
+            data={{
+              labels: data.priceHistory.map((_, i) => {
+                const offsetDate = new Date(
+                  new Date().setDate(new Date().getDate() - i * 7)
+                );
+                const month = monthsShort[offsetDate.getMonth()];
+                return `${month} ${offsetDate.getDate()}`;
+              }),
+              datasets: [
+                {
+                  label: "Price",
+                  data: data.priceHistory,
+                  backgroundColor: "rgba(255, 255, 255)",
+                  borderColor: "rgb(255, 255, 255)",
+                  borderWidth: 2,
+                  pointRadius: 5,
+                  fill: true,
+                  hoverBackgroundColor: "rgba(255, 255, 255, 0.8)",
+                },
+              ],
+            }}
+          />
+
+          <h3 className="textSmall row gapSmall centerRow textSlightTransparent">
+            Determination:{" "}
+            {recommendBuy ? (
+              <div className="textPositive">Good price</div>
+            ) : (
+              <div className="textDestructive">Overpriced</div>
+            )}
+          </h3>
         </div>
       </div>
 
       <div className="column centerColumn">
-        <h2 className="textMedium headerLarge">Price History</h2>
+        <h2 className="textMedium headerLarge">Detailed Specifications</h2>
       </div>
     </article>
   );

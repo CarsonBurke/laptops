@@ -1,5 +1,4 @@
 .button {
-    color: white;
     transition: all var(--defaultTransitionTime);
     user-select: none;
     width: fit-content;
@@ -23,7 +22,7 @@
 
 .buttonPrimary {
     background-color: var(--primary);
-    padding: var(--spacingSmall);
+    padding: var(--spacingSmall) var(--spacingMedium);
     border-radius: var(--defaultBorderRadius);
     cursor: pointer;
 }
@@ -46,7 +45,7 @@
 
 .buttonBg3 {
     background-color: var(--background3);
-    padding: var(--spacingSmall);
+    padding: var(--spacingSmall) var(--spacingMedium);
     border-radius: var(--defaultBorderRadius);
     border: solid var(--background3) 1.5px;
     cursor: pointer;
@@ -58,7 +57,7 @@
 }
 
 .buttonBig {
-    padding: var(--spacingMedium);
+    padding: var(--spacingMedium) var(--spacingLarge);
 }
 
 .textLink {

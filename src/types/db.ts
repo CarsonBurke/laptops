@@ -12,6 +12,11 @@ export interface Laptop {
     cores: number
     topFrequency: number
     titleImage: Uint8Array
+    forStudents: boolean
+    forGaming: boolean
+    forProgrammers: boolean
+    forWork: boolean
+    priceHistory: number[]
 }
 
 export enum LaptopsOrder {
@@ -22,4 +27,11 @@ export enum LaptopsOrder {
   ByStorage = "By storage desc.",
   ByCores = "By cpu cores desc.",
   ByCpuFrequency = "By cpu speed desc.",
+}
+
+export enum LaptopUseCase {
+  Students = "Students",
+  Gaming = "Gaming",
+  Work = "Work",
+  Programmers = "Programmers",
 }

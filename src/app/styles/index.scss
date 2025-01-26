@@ -13,7 +13,8 @@
   outline: unset;
   border: unset;
   background: unset;
-  animation: slideIn 0.3s ease-in-out;
+  // causing weird issues with SSR
+  // animation: slideIn var(--defaultTransitionTime) ease-in-out;
 }
 
 head,
@@ -43,6 +44,8 @@ script {
   --primary: rgb(10, 106, 202);
   --primaryHighlight: rgb(9, 119, 228);
   --primaryTransparent: rgb(6, 130, 254);
+  --positive: rgb(0, 255, 0);
+  --destructive: rgb(255, 0, 0);
 
   --defaultBoxShadow: rgba(0, 0, 0, 0.2) 0 8px 22px 0;
 
@@ -126,6 +129,10 @@ script {
   border-radius: var(--defaultBorderRadius);
 }
 
+.maxBorderRadius {
+  border-radius: 10000px;
+}
+
 .defaultBoxShadow {
   box-shadow: var(--defaultBoxShadow);
 }
@@ -187,13 +194,13 @@ script {
 
 details summary {
   cursor: pointer;
-  transition: margin var(--defaultTransitionTime) ease-out;
   display: flex;
-  width: 100%;
+  width: calc(100% - var(--spacingSmall) * 2) !important;
 }
 
 details[open] summary {
-  top: 0px;
+  /* background-color: var(--background2); */
+  /* border-bottom: solid 1.5px var(--background2); */
 }
 
 details .detailsContent {
@@ -218,4 +225,12 @@ input[type="checkbox"] {
 
 .noSelect {
   user-select: none;
+}
+
+.basicTable {
+  display: table;
+}
+
+.noOverflow {
+  overflow: hidden;
 }

@@ -23,13 +23,6 @@ import { LaptopsOrder } from "@/types/db";
 
 /* import e from '@/dbschema/edgeql-js'; */
 
-enum UseCase {
-  Gaming = "Gaming",
-  Students = "Students",
-  Work = "Work",
-  Programmers = "Programmers",
-}
-
 const laptopsPerPage = 6;
 
 export default function Laptops() {
@@ -39,10 +32,10 @@ export default function Laptops() {
   let [order, setOrder] = useState(LaptopsOrder.BestDeal);
 
   // Use cases
-  let [useCaseStudents, setUseCaseStudents] = useState(false);
-  let [useCaseGaming, setUseCaseGaming] = useState(false);
-  let [useCaseProgrammers, setUseCaseProgrammers] = useState(false);
-  let [useCaseWork, setUseCaseWork] = useState(false);
+  let [forStudents, setforStudentss] = useState(false);
+  let [forGaming, setforGaming] = useState(false);
+  let [forProgrammers, setforProgrammers] = useState(false);
+  let [forWork, setforWork] = useState(false);
 
   let [dedicatedGPU, setDedicatedGPU] = useState(false);
 
@@ -90,6 +83,10 @@ export default function Laptops() {
     maxCores: cores[1],
     minCpuFrequency: topFrequency[0],
     maxCpuFrequency: topFrequency[1],
+    forStudents,
+    forGaming,
+    forProgrammers,
+    forWork,
     limit: 1,
     offset: offset + pageOffset * laptopsPerPage,
   });
@@ -111,6 +108,10 @@ export default function Laptops() {
     storage,
     cores,
     topFrequency,
+    forStudents,
+    forGaming,
+    forProgrammers,
+    forWork,
   ]);
 
   useEffect(() => {
@@ -159,10 +160,10 @@ export default function Laptops() {
     filter: e.set(
       e.op(laptop.price, ">=", price[0]),
       e.op(laptop.price, "<=", price[1]),
-      e.op(useCaseStudents, "=", useCaseStudents),
-      e.op(useCaseGaming, "=", useCaseGaming),
-      e.op(useCaseProgrammers, "=", useCaseProgrammers),
-      e.op(useCaseWork, "=", useCaseWork),
+      e.op(forStudentss, "=", forStudentss),
+      e.op(forGaming, "=", forGaming),
+      e.op(forProgrammers, "=", forProgrammers),
+      e.op(forWork, "=", forWork),
       e.op(dedicatedGPU, "=", dedicatedGPU),
       e.op(linux, "=", linux),
       e.op(mac, "=", mac),
@@ -279,30 +280,30 @@ export default function Laptops() {
               >
                 <div className="column">
                   <Checkbox
-                    id="useCaseStudents"
-                    checked={useCaseStudents}
-                    onChange={(checked) => setUseCaseStudents(checked)}
+                    id="forStudentss"
+                    checked={forStudents}
+                    onChange={(checked) => setforStudentss(checked)}
                   >
                     <h3 className="textXSmall">Students</h3>
                   </Checkbox>
                   <Checkbox
-                    id="useCaseGaming"
-                    checked={useCaseGaming}
-                    onChange={(checked) => setUseCaseGaming(checked)}
+                    id="forGaming"
+                    checked={forGaming}
+                    onChange={(checked) => setforGaming(checked)}
                   >
                     <h3 className="textXSmall">Gaming</h3>
                   </Checkbox>
                   <Checkbox
-                    id="useCaseProgramming"
-                    checked={useCaseProgrammers}
-                    onChange={(checked) => setUseCaseProgrammers(checked)}
+                    id="forProgrammers"
+                    checked={forProgrammers}
+                    onChange={(checked) => setforProgrammers(checked)}
                   >
                     <h3 className="textXSmall">Programming</h3>
                   </Checkbox>
                   <Checkbox
-                    id="useCaseWork"
-                    checked={useCaseWork}
-                    onChange={(checked) => setUseCaseWork(checked)}
+                    id="forWork"
+                    checked={forWork}
+                    onChange={(checked) => setforWork(checked)}
                   >
                     <h3 className="textXSmall">Work</h3>
                   </Checkbox>

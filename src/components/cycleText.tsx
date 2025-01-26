@@ -1,6 +1,6 @@
 "use client"
 
-import { SyntheticEvent, useState } from "react"
+import { SyntheticEvent, useEffect, useState } from "react"
 
 export default function CycleText({ children, cycles, speed }: { children: React.ReactNode, cycles: React.ReactNode[], speed?: number }) {
 
@@ -14,13 +14,25 @@ export default function CycleText({ children, cycles, speed }: { children: React
     if (state[1] == -1) {
         console.log("case")
         state[1] = 0
-        setInterval(() => {
+        const interval =setInterval(() => {
             children = cycles[state[1]] || children
             let i = (state[1] + 1) % cycles.length
     
             setState([children, i])
         }, speed)
     }
+
+    useEffect(() => {
+        state[1] = 0
+        const interval =setInterval(() => {
+            children = cycles[state[1]] || children
+            let i = (state[1] + 1) % cycles.length
+    
+            setState([children, i])
+        }, speed)
+
+        return () => clearInterval(interval)
+    }, [])
 
     return (
         <div className="column">

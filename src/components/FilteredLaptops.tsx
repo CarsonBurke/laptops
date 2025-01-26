@@ -7,6 +7,7 @@ import { generateFakeLaptopPreviews } from "./fakeLaptopPreview";
 
 interface FilteredLaptopsArgs {
   maxLaptops: number;
+  background: string;
   order: LaptopsOrder;
 }
 
@@ -40,13 +41,13 @@ export default function FilteredLaptops({
   });
 
   if (isLoading) {
-    return generateFakeLaptopPreviews(12, "background2");
+    return generateFakeLaptopPreviews(12, args.background);
   }
 
   let previews = [];
 
   for (let i = 0; i < (data as any).length; i++) {
-    previews.push(<LaptopPreview key={i} args={(data as any)[i]} />);
+    previews.push(<LaptopPreview key={i} args={{data: (data as any)[i], color: args.background}} />);
   }
 
   return previews;

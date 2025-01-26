@@ -71,6 +71,11 @@ export const appRouter = router({
           titleImage: true,
           size: true,
           resolution: true,
+          forStudents: true,
+          forGaming: true,
+          forProgrammers: true,
+          forWork: true,
+          priceHistory: true,
           filter: e.op(laptop.name, "=", input.name),
         }))
         .run(edgeClient);
@@ -97,6 +102,10 @@ export const appRouter = router({
         maxCores: z.number(),
         minCpuFrequency: z.number(),
         maxCpuFrequency: z.number(),
+        forStudents: z.boolean().optional(),
+        forGaming: z.boolean().optional(),
+        forWork: z.boolean().optional(),
+        forProgrammers: z.boolean().optional(),
         offset: z.number(),
         limit: z.number(),
       })
@@ -118,6 +127,11 @@ export const appRouter = router({
           titleImage: true,
           size: true,
           resolution: true,
+          forStudents: true,
+          forGaming: true,
+          forWork: true,
+          forProgrammers: true,
+          priceHistory: true,
           offset: input.offset,
           limit: input.limit,
           filter: e.all(
@@ -137,10 +151,18 @@ export const appRouter = router({
               e.op(laptop.cores, "<=", input.maxCores),
               e.op(laptop.topFrequency, ">=", input.minCpuFrequency),
               e.op(laptop.topFrequency, "<=", input.maxCpuFrequency),
-              /* e.op(useCaseStudents, "=", useCaseStudents),
-            e.op(useCaseGaming, "=", useCaseGaming),
-            e.op(useCaseProgrammers, "=", useCaseProgrammers),
-            e.op(useCaseWork, "=", useCaseWork),
+              e.any(
+                e.set(
+                  e.op(laptop.forStudents, "=", input.forStudents == true),
+                  e.op(laptop.forGaming, "=", input.forGaming == true),
+                  e.op(laptop.forWork, "=", input.forWork == true),
+                  e.op(laptop.forProgrammers, "=", input.forProgrammers == true),
+              )),
+
+              /* e.op(forStudentss, "=", forStudentss),
+            e.op(forGaming, "=", forGaming),
+            e.op(forProgrammers, "=", forProgrammers),
+            e.op(forWork, "=", forWork),
             e.op(dedicatedGPU, "=", dedicatedGPU),*/
               e.any(
                 e.set(

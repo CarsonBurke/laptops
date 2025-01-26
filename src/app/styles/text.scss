@@ -41,3 +41,19 @@
 .strikeThrough {
     text-decoration: line-through;
 }
+
+.textPrimary {
+    color: var(--primary);
+}
+
+.textPrimaryHighlight {
+    color: var(--primaryHighlight);
+}
+
+.textPositive {
+    color: var(--positive);
+}
+
+.textDestructive {
+    color: var(--destructive);
+}

@@ -21,7 +21,7 @@ export default function Accordian({
       className={className + " paddingSmall noSelect"}
     >
       <summary
-        className="row gapSmall paddingSmall width100"
+        className="row gapSmall paddingSmall"
         style={{ width: "max-content" }}
       >
         {header}

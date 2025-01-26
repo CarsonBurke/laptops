@@ -19,7 +19,7 @@ export default function Home() {
           </div>
 
           <div className="row flexWrap gapMedium centerRow width100">
-            <FilteredLaptops args={{ maxLaptops: 12, order: LaptopsOrder.BestDeal }} />
+            <FilteredLaptops args={{ maxLaptops: 12, background: "background2", order: LaptopsOrder.BestDeal }} />
           </div>
 
           <Button linkTo="/laptops" className="textGlowButton">
@@ -31,10 +31,10 @@ export default function Home() {
       <section className="sectionPadded background2 column gapLarge">
         <div className="column centerRow centerColumn">
           <h1 className="textLarge headerLarge textCenter">By Use-Case</h1>
-          <Button linkTo="top" className="textGlowButton">
+          {/* <Button linkTo="top" className="textGlowButton">
             <h3 className="textSmall">All categories</h3>
             <span className="material-symbols-outlined">arrow_forward</span>
-          </Button>
+          </Button> */}
         </div>
 
         <div className="rowCollapsible gapLarge centerRow">

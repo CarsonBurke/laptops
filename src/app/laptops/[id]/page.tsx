@@ -3,6 +3,9 @@
 import { trpc } from "@/lib/trpc";
 import LaptopView from "./laptop";
 import * as React from "react";
+import "./page.scss"
+import { LaptopsOrder } from "@/types/db";
+import FilteredLaptops from "@/components/FilteredLaptops";
 
 export default function Laptop({ params }: { params: { id: string } }) {
 
@@ -22,6 +25,15 @@ export default function Laptop({ params }: { params: { id: string } }) {
             <LaptopView data={(data as any)[0]} />
           )}
         </div>
+      </section>
+      <section className="section">
+          <div className="column defaultBorderRadius">
+              <h1 className="textLarge headerLarge paddingMedium textCenter">Similar Laptops</h1>
+
+          <div className="row flexWrap gapMedium centerRow width100">
+            <FilteredLaptops args={{ maxLaptops: 12, background: "background3", order: LaptopsOrder.BestDeal }} />
+          </div>
+          </div>
       </section>
     </main>
   );

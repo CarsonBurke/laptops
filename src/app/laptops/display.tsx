@@ -15,7 +15,7 @@ export default function Display({
   let previews = [];
 
   for (let i = 0; i < data.length; i++) {
-    previews.push(<LaptopPreview key={i} args={data[i]} />);
+    previews.push(<LaptopPreview key={i} args={{ data: data[i]}} />);
   }
   /* return previews */
   // }
