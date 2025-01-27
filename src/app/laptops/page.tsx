@@ -37,7 +37,8 @@ export default function Laptops() {
   let [forProgrammers, setforProgrammers] = useState(true);
   let [forWork, setforWork] = useState(true);
 
-  let [dedicatedGPU, setDedicatedGPU] = useState(true);
+  let [hasDedicatedGpu, setHasDedicatedGpu] = useState(false);
+  let [vram, setVram] = useState([2, 32]);
 
   let [linux, setLinux] = useState(true);
   let [macos, setMac] = useState(true);
@@ -45,7 +46,7 @@ export default function Laptops() {
 
   let [size, setSize] = useState([13, 18]);
   let [resolution, setResolution] = useState([1080, 3060]);
-  let [ram, setRam] = useState([8, 256]);
+  let [ram, setRam] = useState([4, 64]);
   let [storage, setStorage] = useState([512, 8192]);
 
   let [topFrequency, setTopFrequency] = useState([1, 5]);
@@ -87,6 +88,9 @@ export default function Laptops() {
     forGaming,
     forProgrammers,
     forWork,
+    hasDedicatedGpu,
+    minVram: vram[0],
+    maxVram: vram[1],
     limit: 1,
     offset: offset + pageOffset * laptopsPerPage,
   });
@@ -112,6 +116,8 @@ export default function Laptops() {
     forGaming,
     forProgrammers,
     forWork,
+    hasDedicatedGpu,
+    vram,
   ]);
 
   useEffect(() => {
@@ -394,8 +400,8 @@ export default function Laptops() {
                 <div className="column gapMedium">
                   <Checkbox
                     id="dedicatedGPU"
-                    checked={dedicatedGPU}
-                    onChange={(checked) => setDedicatedGPU(checked)}
+                    checked={hasDedicatedGpu}
+                    onChange={(checked) => setHasDedicatedGpu(checked)}
                   >
                     <h3 className="textXSmall">Dedicated</h3>
                   </Checkbox>
@@ -408,7 +414,7 @@ export default function Laptops() {
                     labelRight={["", " GB"]}
                     emit={(left, right) => {
                       "use client";
-                      console.log("left", left, "right", right);
+                      setVram([left, right]);
                     }}
                   />
                 </div>

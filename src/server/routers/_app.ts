@@ -111,6 +111,9 @@ export const appRouter = router({
         forGaming: z.boolean().optional(),
         forWork: z.boolean().optional(),
         forProgrammers: z.boolean().optional(),
+        minVram: z.number().optional(),
+        maxVram: z.number().optional(),
+        hasDedicatedGpu: z.boolean().optional(),
         offset: z.number(),
         limit: z.number(),
       })
@@ -154,6 +157,13 @@ export const appRouter = router({
               e.op(laptop.cores, "<=", input.maxCores),
               e.op(laptop.topFrequency, ">=", input.minCpuFrequency),
               e.op(laptop.topFrequency, "<=", input.maxCpuFrequency),
+              e.op(laptop.vram, ">=", input.minVram || 0),
+              e.op(laptop.vram, "<=", input.maxVram || Infinity),
+              e.op(
+                e.op(false, "=", input.hasDedicatedGpu || false),
+                'or',
+                e.op(laptop.hasDedicatedGpu, "=", input.hasDedicatedGpu == true),
+              ),
               e.any(
                 e.set(
                   e.op(
