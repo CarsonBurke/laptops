@@ -38,7 +38,7 @@ export default function Laptops() {
   let [forWork, setforWork] = useState(true);
 
   let [hasDedicatedGpu, setHasDedicatedGpu] = useState(false);
-  let [vram, setVram] = useState([2, 32]);
+  let [vram, setVram] = useState([4, 64]);
 
   let [linux, setLinux] = useState(true);
   let [macos, setMac] = useState(true);

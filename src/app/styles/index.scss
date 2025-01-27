@@ -111,6 +111,10 @@ script {
   }
 }
 
+.slideIn {
+  animation: slideIn var(--defaultTransitionTime) ease-in-out;
+}
+
 .material-symbols-outlined {
   font-size: unset;
   font-weight: unset;

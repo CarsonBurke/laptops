@@ -36,7 +36,7 @@ export function Navbar() {
                 <div className="row gapSmall centerColumn">
                   <h3 className="textSmall headerSmall">For</h3>
                   <CycleText
-                    cycles={["Students", "Programmers", "Gaming", "Work"]}
+                    cycles={[/* <div className="slideIn">Students</div>, <div className="slideIn">Programmers</div>, <div className="slideIn">Gaming</div>, <div className="slideIn">Work</div> */"Students", "Programmers", "Gaming", "Work"]}
                   >
                     Students
                   </CycleText>

@@ -158,7 +158,7 @@ export const appRouter = router({
               e.op(laptop.topFrequency, ">=", input.minCpuFrequency),
               e.op(laptop.topFrequency, "<=", input.maxCpuFrequency),
               e.op(laptop.vram, ">=", input.minVram || 0),
-              e.op(laptop.vram, "<=", input.maxVram || Infinity),
+              e.op(laptop.vram, "<=", input.maxVram || Number.MAX_SAFE_INTEGER),
               e.op(
                 e.op(false, "=", input.hasDedicatedGpu || false),
                 'or',
