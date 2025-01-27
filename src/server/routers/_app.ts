@@ -78,7 +78,10 @@ export const appRouter = router({
           forProgrammers: true,
           forWork: true,
           priceHistory: true,
-          filter: e.op(laptop.name, "=", input.name),
+          affiliate: true,
+          hasDedicatedGpu: true,
+          vram: true,
+          filter_single: e.op(laptop.name, "=", input.name),
         }))
         .run(edgeClient);
       return laptops;
@@ -132,7 +135,6 @@ export const appRouter = router({
           forGaming: true,
           forWork: true,
           forProgrammers: true,
-          priceHistory: true,
           offset: input.offset,
           limit: input.limit,
           filter: e.all(

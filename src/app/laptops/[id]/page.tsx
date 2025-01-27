@@ -22,7 +22,7 @@ export default function Laptop({ params }: { params: { id: string } }) {
           {isLoading ? (
             <h1 className="textLarge headerLarge paddingMedium textCenter">Loading...</h1>
           ) : (
-            <LaptopView data={(data as any)[0]} />
+            <LaptopView data={(data as any)} />
           )}
         </div>
       </section>

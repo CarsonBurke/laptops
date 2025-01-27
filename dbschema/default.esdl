@@ -18,6 +18,8 @@ module default {
         storage: int32;
         cores: int32;
         topFrequency: float32;
+        vram: int32;
+        hasDedicatedGpu: bool;
         priceHistory: array<int32>;
         affiliate: str;
     }

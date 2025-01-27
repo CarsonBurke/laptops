@@ -87,7 +87,7 @@ export default function LaptopView({ data }: { data: Laptop }) {
   return (
     <article className="paddingMedium column gapLarge">
       <div className="row centerRow">
-        <div className="row gapMedium paddingMedium widthFit centerRow defaultBorderRadius centerColumn">
+        <div className="rowCollapsible gapMedium paddingMedium widthFit centerRow defaultBorderRadius centerColumn">
           {imageSrc != null ? (
             <img
               alt="laptop"
@@ -182,17 +182,17 @@ export default function LaptopView({ data }: { data: Laptop }) {
             header={
               <h2 className="textSmall headerSmall row gapSmall">
                 <span className="material-symbols-outlined">laptop</span>
-                Size
+                Screen
                 <div className="textSlightTransparent">Screen Type</div>
               </h2>
             }
             rows={[
               [
-                <h3 className="textXSmall headerSmall">Screen Size</h3>,
+                <h3 className="textXSmall headerSmall">Size</h3>,
                 <h3 className="textXSmall">{data.size} inches</h3>,
               ],
               [
-                <h3 className="textXSmall headerSmall">Screen Resolution</h3>,
+                <h3 className="textXSmall headerSmall">Resolution</h3>,
                 <h3 className="textXSmall">{data.resolution}p</h3>,
               ],
             ]}
@@ -204,7 +204,7 @@ export default function LaptopView({ data }: { data: Laptop }) {
               <h2 className="textSmall headerSmall row gapSmall">
                 <span className="material-symbols-outlined">memory_alt</span>
                 Storage
-                <div className="textSlightTransparent">Storage Device</div>
+                {/* <div className="textSlightTransparent">Storage Device</div> */}
               </h2>
             }
             rows={[
@@ -243,8 +243,44 @@ export default function LaptopView({ data }: { data: Laptop }) {
             background="background3"
           />
 
-            <h3 className="row gapXSmall flexWrap">Not sure what these mean? See our <Link className="button textGlowButton textPrimary" href="/cheatsheet">guide</Link></h3>
+          <TableDouble
+            header={
+              <div className="row gapSmall centerColumn">
+                <h2 className="textSmall headerSmall row gapSmall">
+                  <span className="material-symbols-outlined">
+                    audio_video_receiver
+                  </span>
+                  Graphics
+                  <div className="textSlightTransparent">GPU Name</div>
+                </h2>
+                <h3 className="textXSmall textSlightTransparent">({data.hasDedicatedGpu ? <>Dedicated</> : <>Integrated</>})</h3>
+              </div>
+            }
+            rows={[
+              /* [
+                <h3 className="textXSmall headerSmall">Cores</h3>,
+                <h3 className="textXSmall">{data.cores}</h3>,
+              ], */
+              [
+                <h3 className="textXSmall headerSmall">Virtual Memory</h3>,
+                <h3 className="textXSmall">
+                  {data.vram || "Unknown"} GB
+                  {/* {data.topFrequency.toFixed(1)} GB */}
+                </h3>,
+              ],
+            ]}
+            background="background3"
+          />
 
+          <h3 className="row gapXSmall flexWrap">
+            Not sure what these mean? See our{" "}
+            <Link
+              className="button textGlowButton textPrimary"
+              href="/cheatsheet"
+            >
+              guide
+            </Link>
+          </h3>
         </div>
         <div className="width100 column gapMedium">
           <h2 className="textMedium headerLarge textCenter">Price History</h2>
@@ -257,7 +293,7 @@ export default function LaptopView({ data }: { data: Laptop }) {
                 tooltip: {
                   callbacks: {
                     label: (context) => {
-                      return `$${context.parsed.y}`;
+                      return ` $${context.parsed.y}`;
                     },
                   },
                 },
@@ -275,12 +311,11 @@ export default function LaptopView({ data }: { data: Laptop }) {
                 {
                   label: "Price",
                   data: data.priceHistory,
-                  backgroundColor: "rgba(255, 255, 255)",
-                  borderColor: "rgb(255, 255, 255)",
-                  borderWidth: 2,
-                  pointRadius: 5,
+                  backgroundColor: "rgb(10, 106, 202)",
+                  borderColor: "rgb(10, 106, 202)",
+                  borderWidth: 3,
+                  pointRadius: 6,
                   fill: true,
-                  hoverBackgroundColor: "rgba(255, 255, 255, 0.8)",
                 },
               ],
             }}
@@ -297,9 +332,9 @@ export default function LaptopView({ data }: { data: Laptop }) {
         </div>
       </div>
 
-      <div className="column centerColumn">
+      {/* <div className="column centerColumn">
         <h2 className="textMedium headerLarge">Detailed Specifications</h2>
-      </div>
+      </div> */}
     </article>
   );
 }

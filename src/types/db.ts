@@ -16,6 +16,9 @@ export interface Laptop {
     forGaming: boolean
     forProgrammers: boolean
     forWork: boolean
+    affiliate: string
+    vram: number
+    hasDedicatedGpu: boolean
     priceHistory: number[]
 }
 

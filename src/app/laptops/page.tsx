@@ -434,7 +434,7 @@ export default function Laptops() {
                     onChange={(checked) => setMac(checked)}
                   >
                     <Image src={macIcon} alt="mac" className="osIcon" />
-                    <h3 className="textXSmall">macos</h3>
+                    <h3 className="textXSmall">macOS</h3>
                   </Checkbox>
                   <Checkbox
                     id="linuxCheck"
