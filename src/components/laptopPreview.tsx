@@ -5,7 +5,7 @@ import "./laptopPreview.scss";
 import Image from "next/image";
 import heroBg from "../app/public/heroBg.jpg";
 import Link from "next/link";
-import { formatBytes, numberCommas } from "@/utils/units";
+import { formatBytes, numberCommas, spacesToUnderscores } from "@/utils/units";
 import linuxIcon from "../app/public/OSIcons/linux.svg";
 import macIcon from "../app/public/OSIcons/mac.svg";
 import windowsIcon from "../app/public/OSIcons/windows.svg";
@@ -58,7 +58,7 @@ export default function LaptopPreview({ args }: { args: LaptopPreviewArgs }) {
 
   return (
     <Link
-      href={`/laptops/${args.data.name}`}
+      href={`/laptops/${spacesToUnderscores(args.data.name)}`}
       className="laptopPreview defaultBorderRadius row gapMedium paddingMedium pointer defaultTransition"
       style={
         {

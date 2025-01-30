@@ -15,6 +15,7 @@ import { trpc } from "@/lib/trpc";
 import Laptop from "@/app/laptops/[id]/page";
 import LaptopPreview from "@/components/laptopPreview";
 import FakeLaptopPreview from "@/components/fakeLaptopPreview";
+import { underscoresToSpaces } from "@/utils/units";
 
 export default function Article({ params }: { params: { id: string } }) {
   const { id } = React.use(params as any) as { id: string };
@@ -84,7 +85,7 @@ export default function Article({ params }: { params: { id: string } }) {
                     children?.toString()?.replace(/(\^\s+|\s+$)/g, "") || "";
 
                   let { data, isLoading } = trpc.getLaptopByName.useQuery({
-                    name,
+                    name: underscoresToSpaces(name),
                   });
 
                   return isLoading ? (

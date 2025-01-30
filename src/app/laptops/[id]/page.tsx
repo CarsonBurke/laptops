@@ -6,12 +6,13 @@ import * as React from "react";
 import "./page.scss";
 import { LaptopsOrder } from "@/types/db";
 import FilteredLaptops from "@/components/filteredLaptops";
+import { underscoresToSpaces } from "@/utils/units";
 
 export default function Laptop({ params }: { params: { id: string } }) {
   const { id } = React.use(params as any) as { id: string };
 
   let { data, isLoading } = trpc.getLaptopByName.useQuery({
-    name: id.replaceAll("%20", " "),
+    name: underscoresToSpaces(id),
   });
 
   return (

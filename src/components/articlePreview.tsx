@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import "./articlePreview.scss";
 import Link from "next/link";
+import { spacesToUnderscores } from "@/utils/units";
 
 interface ArticlePreviewData {
   id: number;
@@ -42,7 +43,7 @@ export default function ArticlePreview({ args }: { args: ArticlePreviewArgs }) {
 
   return (
     <Link
-      href={`/articles/${args.data.title}`}
+      href={`/articles/${spacesToUnderscores(args.data.title)}`}
       className="articlePreview defaultBorderRadius column gapMedium paddingMedium pointer defaultTransition"
       style={
         {

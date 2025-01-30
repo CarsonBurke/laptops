@@ -15,3 +15,14 @@ export function formatBytes(gigabytes: number, decimals = 1) {
 export function numberCommas(x: number) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+
+/**
+ * format a string to be compatible with urls
+ */
+export function spacesToUnderscores(str: string) {
+    return str.replace(/ /g, "_");
+}
+
+export function underscoresToSpaces(str: string) {
+    return str.replace(/_/g, " ");
+}
