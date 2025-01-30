@@ -1,0 +1,13 @@
+@use "../../../app/styles/variables.scss";
+
+@media (--desktop) {
+  .article {
+    width: calc(100% - 450px);
+  }
+}
+
+@media (--mobile) {
+  .article {
+    width: 100%;
+  }
+}

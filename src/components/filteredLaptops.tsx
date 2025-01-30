@@ -1,14 +1,17 @@
 "use client"
-import Laptop from "@/app/laptops/[id]/page";
 import LaptopPreview, { generateLaptopPreviews } from "./laptopPreview";
 import { trpc } from "@/lib/trpc";
-import { LaptopsOrder } from "@/types/db";
+import { Laptop, LaptopsOrder } from "@/types/db";
 import { generateFakeLaptopPreviews } from "./fakeLaptopPreview";
 
 interface FilteredLaptopsArgs {
   maxLaptops: number;
   background: string;
   order: LaptopsOrder;
+  forStudents?: boolean;
+  forGaming?: boolean;
+  forProgrammers?: boolean;
+  forWork?: boolean;
 }
 
 export default function FilteredLaptops({
@@ -16,6 +19,7 @@ export default function FilteredLaptops({
 }: {
   args: FilteredLaptopsArgs;
 }) {
+
   const { data, isLoading } = trpc.getLaptops.useQuery({
     order: args.order,
     minPrice: 0,
@@ -23,10 +27,10 @@ export default function FilteredLaptops({
     macos: true,
     windows: true,
     linux: true,
-    forStudents: true,
-    forGaming: true,
-    forProgrammers: true,
-    forWork: true,
+    forStudents: args.forStudents == undefined ? true : args.forStudents,
+    forGaming: args.forGaming == undefined ? true : args.forGaming,
+    forProgrammers: args.forProgrammers == undefined ? true : args.forProgrammers,
+    forWork: args.forWork == undefined ? true : args.forWork,
     minSize: 0,
     maxSize: Number.MAX_SAFE_INTEGER,
     minResolution: 0,
@@ -41,11 +45,10 @@ export default function FilteredLaptops({
     maxCpuFrequency: Number.MAX_SAFE_INTEGER,
     offset: 0,
     limit: args.maxLaptops,
-
   });
 
   if (isLoading) {
-    return generateFakeLaptopPreviews(12, args.background);
+    return generateFakeLaptopPreviews(args.maxLaptops, args.background);
   }
 
   let previews = [];

@@ -17,7 +17,7 @@ export function Dropdown({
     <div className={`dropdown ${classNames}`}>
       {header}
       <div className="dropdownContent paddingSmall defaultTransition">
-        <div className={`defaultBorderRadius background3 dropdownContentChild defaultBoxShadow ${contentClassNames}`}>
+        <div className={`defaultBorderRadius background3 borderBg4 dropdownContentChild defaultBoxShadow ${contentClassNames}`}>
           {children}
         </div>
       </div>

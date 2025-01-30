@@ -1,13 +1,12 @@
 .doubleSliderContainer {
     padding-bottom: var(--spacingSmall);
+    width: 180px;
 }
 
 .doubleSliderBar {
     height: 9px;
     border-radius: 100px;
-    background-color: var(--background2);
     position: relative;
-    min-width: 180px;
 }
 
 .doubleSlider {

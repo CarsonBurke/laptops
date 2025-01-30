@@ -56,8 +56,6 @@ export default function LaptopPreview({ args }: { args: LaptopPreviewArgs }) {
     args.color = "background2";
   }
 
-  let salePrice = args.data.price - args.data.saleOf;
-
   return (
     <Link
       href={`/laptops/${args.data.name}`}
@@ -88,11 +86,11 @@ export default function LaptopPreview({ args }: { args: LaptopPreviewArgs }) {
         <div className="column gapSmall">
           <h3 className={"textMedium headerSmall"}>{args.data.name}</h3>
           <div className="row gapSmall centerColumn">
-            <h4 className={"textSmall headerSmall row"}>${numberCommas(salePrice)}</h4>
+            <h4 className={"textSmall headerSmall row"}>${numberCommas(args.data.price)}</h4>
             <div className="strikeThrough textSlightTransparent">
-              {numberCommas(args.data.price)}
+              {numberCommas(args.data.price + args.data.saleOf)}
             </div>
-            <div>Save ${numberCommas(args.data.price - salePrice)}</div>
+            <div>Save ${numberCommas(args.data.saleOf)}</div>
           </div>
         </div>
 

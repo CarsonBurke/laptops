@@ -23,7 +23,9 @@ enum RadioSide {
   Right
 }
 
-export default function DoubleSlider({ header, steps, labelLeft, labelRight, emit }: { header?: ReactNode, steps: number[], labelLeft?: [string, string], labelRight?: [string, string], emit: EmitFunction }) {
+export default function DoubleSlider({ header, steps, labelLeft, labelRight, background = 2, emit, }: { header?: ReactNode, steps: number[], labelLeft?: [string, string], labelRight?: [string, string], background?: number, emit: EmitFunction }) {
+
+
 
 /*   let [notchLeft, setNotchLeft] = useState(0);
   let notchLeftCopy = notchLeft
@@ -223,7 +225,7 @@ export default function DoubleSlider({ header, steps, labelLeft, labelRight, emi
           <h3 className="textXSmall textSlightTransparent doubleSliderRightLabel textCenter">{labelRight?.[0]}{Math.floor(steps[notchRightRealtime])}{}{labelRight?.[1]}</h3>
         </div>
       </div>
-      <div className="row doubleSliderBar" ref={sliderBarRef}>
+      <div className={`row doubleSliderBar background${background}`} ref={sliderBarRef}>
         <div
           className="doubleSlider primary pointer doubleSliderLeft"
           onMouseDown={(e) =>

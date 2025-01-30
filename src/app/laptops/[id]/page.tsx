@@ -3,13 +3,12 @@
 import { trpc } from "@/lib/trpc";
 import LaptopView from "./laptop";
 import * as React from "react";
-import "./page.scss"
+import "./page.scss";
 import { LaptopsOrder } from "@/types/db";
-import FilteredLaptops from "@/components/FilteredLaptops";
+import FilteredLaptops from "@/components/filteredLaptops";
 
 export default function Laptop({ params }: { params: { id: string } }) {
-
-    const { id } = React.use(params as any) as { id: string };
+  const { id } = React.use(params as any) as { id: string };
 
   let { data, isLoading } = trpc.getLaptopByName.useQuery({
     name: id.replaceAll("%20", " "),
@@ -18,22 +17,32 @@ export default function Laptop({ params }: { params: { id: string } }) {
   return (
     <main className="main">
       <section className="sectionPadded">
-        <div className="column background2 defaultBorderRadius">
+        <div className="column background2 borderBg3 defaultBorderRadius">
           {isLoading ? (
-            <h1 className="textLarge headerLarge paddingMedium textCenter">Loading...</h1>
+            <h1 className="textLarge headerLarge paddingMedium textCenter">
+              Loading...
+            </h1>
           ) : (
-            <LaptopView data={(data as any)} />
+            <LaptopView data={data as any} />
           )}
         </div>
       </section>
       <section className="section">
-          <div className="column defaultBorderRadius">
-              <h1 className="textLarge headerLarge paddingMedium textCenter">Similar Laptops</h1>
+        <div className="column defaultBorderRadius">
+          <h1 className="textLarge headerLarge paddingMedium textCenter">
+            Similar Laptops
+          </h1>
 
           <div className="row flexWrap gapMedium centerRow width100">
-            <FilteredLaptops args={{ maxLaptops: 12, background: "background3", order: LaptopsOrder.BestDeal }} />
+            <FilteredLaptops
+              args={{
+                maxLaptops: 12,
+                background: "background3",
+                order: LaptopsOrder.BestDeal,
+              }}
+            />
           </div>
-          </div>
+        </div>
       </section>
     </main>
   );

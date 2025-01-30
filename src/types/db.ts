@@ -15,7 +15,14 @@ export interface Laptop {
     forStudents: boolean
     forGaming: boolean
     forProgrammers: boolean
-    forWork: boolean
+    forOfficeWork: boolean
+    studentScore: number
+    gamingScore: number
+    programmingScore: number
+    officeWorkScore: number
+    videoEditingScore: number
+    cpuName: string
+    gpuName: string
     affiliate: string
     vram: number
     hasDedicatedGpu: boolean
@@ -26,6 +33,13 @@ export enum LaptopsOrder {
   BestDeal = "Best deal",
   PriceLowToHigh = "By price asc.",
   PriceHighToLow = "By price desc.",
+  // By Score
+  StudentScore = "Student score desc.",
+  GamingScore = "Gaming score desc.",
+  ProgrammingScore = "Programming score desc.",
+  OfficeWorkScore = "Office work score desc.",
+  VideoEditingScore = "Video editing score desc.",
+  // Advanced
   ByMemory = "By memory desc.",
   ByStorage = "By storage desc.",
   ByCores = "By cpu cores desc.",

@@ -13,6 +13,9 @@
   outline: unset;
   border: unset;
   background: unset;
+  box-sizing: border-box;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-weight: 400;
   // causing weird issues with SSR
   // animation: slideIn var(--defaultTransitionTime) ease-in-out;
 }
@@ -23,8 +26,6 @@ script {
 }
 
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  font-weight: 400;
 
   color-scheme: light dark;
   background-color: var(--background1);
@@ -65,7 +66,7 @@ script {
 
   --textXSmall: 0.95rem;
   --textSmall: 1.1rem;
-  --textMedium: 1.5rem;
+  --textMedium: 1.45rem;
   --textLarge: 2rem;
   --textXLarge: 2.9rem;
 
@@ -88,6 +89,7 @@ script {
     --background5: rgb(51, 51, 51);
     --background6: white;
     --color: white;
+    --colorSlightTransparent: rgba(255, 255, 255, 0.7);
     --defaultBorderColor: rgba(95, 255, 51, 0.1);
   }
 }
@@ -95,8 +97,13 @@ script {
 @media (prefers-color-scheme: light) {
   :root {
     --background1: rgb(255, 255, 255);
-    --background6: rgb(0, 0, 0);
+    --background2: rgb(240, 240, 240);
+    --background3: rgb(220, 220, 220);
+    --background4: rgb(200, 200, 200);
+    --background5: rgb(180, 180, 180);
+    --background6: rgb(160, 160, 160);
     --color: black;
+    --colorSlightTransparent: rgba(0, 0, 0, 0.7);
   }
 }
 

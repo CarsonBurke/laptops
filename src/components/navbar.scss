@@ -58,10 +58,6 @@
     }
 }
 
-.navbarTopSidebarButton {
-    display: none;
-}
-
 .navbarHeader:hover {
     opacity: 0.7;
 }
@@ -72,16 +68,12 @@
 }
 
 .navbarLink {
-    height: 100%;
-}
-
-.navbarTopMobileSearchButton {
-    display: none;
+    height: var(--navbarHeight);
+    padding: 0 var(--spacingSmall);
 }
 
 .navbarTopSidebarButtonActive {
-    background-color: var(--primaryTransparent);
-    color: var(--primary);
+    background-color: var(--background4);
 }
 
 .navbarSidebar {

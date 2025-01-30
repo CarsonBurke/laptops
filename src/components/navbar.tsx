@@ -28,15 +28,15 @@ export function Navbar() {
               className="headerSmall paddingMedium navbarLink button textGlowButton textSmall gapSmall row"
             >
               <span className="material-symbols-outlined">star</span>
-              Best Deals
+              Deals
             </Link>
 
             <Dropdown
               header={
-                <div className="row gapSmall centerColumn">
+                <div className="row gapSmall centerColumn navbarLink">
                   <h3 className="textSmall headerSmall">For</h3>
                   <CycleText
-                    cycles={[/* <div className="slideIn">Students</div>, <div className="slideIn">Programmers</div>, <div className="slideIn">Gaming</div>, <div className="slideIn">Work</div> */"Students", "Programmers", "Gaming", "Work"]}
+                    cycles={["Students", "Programmers", "Gaming", "Work", "Content creation"]}
                   >
                     Students
                   </CycleText>
@@ -48,24 +48,24 @@ export function Navbar() {
               }
             >
               <Link
-                href="/"
-                className="paddingMedium navbarLink button textGlowButton textSmall gapSmall row"
+                href="/laptops"
+                className="navbarLink paddingMedium button textGlowButton textXSmall gapSmall row"
               >
                 <span className="material-symbols-outlined">school</span>
                 Students
               </Link>
 
               <Link
-                href="/"
-                className="paddingMedium navbarLink button textGlowButton textSmall gapSmall row"
+                href="/laptops"
+                className="navbarLink paddingMedium button textGlowButton textXSmall gapSmall row"
               >
                 <span className="material-symbols-outlined">laptop_mac</span>
                 Programmers
               </Link>
 
               <Link
-                href="/"
-                className="paddingMedium navbarLink button textGlowButton textSmall gapSmall row"
+                href="/laptops"
+                className="navbarLink paddingMedium button textGlowButton textXSmall gapSmall row"
               >
                 <span className="material-symbols-outlined">
                   sports_esports
@@ -74,17 +74,25 @@ export function Navbar() {
               </Link>
 
               <Link
-                href="/"
-                className="paddingMedium navbarLink button textGlowButton textSmall gapSmall row"
+                href="/laptops"
+                className="navbarLink paddingMedium button textGlowButton textXSmall gapSmall row"
               >
                 <span className="material-symbols-outlined">work</span>
-                Work
+                Office work
+              </Link>
+
+              <Link
+                href="/laptops"
+                className="navbarLink paddingMedium button textGlowButton textXSmall gapSmall row"
+              >
+                <span className="material-symbols-outlined">camera</span>
+                Video editing
               </Link>
             </Dropdown>
 
             <Link
               href="/articles"
-              className="paddingMedium navbarLink button textGlowButton textSmall gapSmall row"
+              className="navbarLink button textGlowButton textXSmall gapSmall row"
             >
               <span className="material-symbols-outlined">article</span>
               Articles
@@ -102,12 +110,12 @@ export function Navbar() {
           </div> */}
 
           <div className="row gapSmall">
-            <Link
+            {/* <Link
               href="/recipes"
               className="navbarTopMobileSearchButton button buttonBg3 headerSmall textSmall"
             >
               <span className="material-symbols-outlined">search</span>
-            </Link>
+            </Link> */}
             <Button
               id="navbarTopSidebarButton"
               className="textLarge button buttonBg3 navbarTopSidebarButton mobile"

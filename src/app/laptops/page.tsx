@@ -19,7 +19,7 @@ import { edgeClient } from "../../scripts/db";
 import { trpc } from "../../lib/trpc";
 import LaptopPreview from "@/components/laptopPreview";
 import Display from "./display";
-import { LaptopsOrder } from "@/types/db";
+import { Laptop, LaptopsOrder } from "@/types/db";
 
 /* import e from '@/dbschema/edgeql-js'; */
 
@@ -200,35 +200,43 @@ export default function Laptops() {
                     LaptopsOrder.ByCores,
                     LaptopsOrder.ByCpuFrequency,
                   ],
+                  Score: [
+                    LaptopsOrder.StudentScore,
+                    LaptopsOrder.GamingScore,
+                    LaptopsOrder.OfficeWorkScore,
+                    LaptopsOrder.ProgrammingScore,
+                    LaptopsOrder.VideoEditingScore,
+                  ]
                 }}
                 groupName="sort"
                 className="borderBg3"
                 onInput={(value) => {
                   "use client";
+                  setOrder(value as LaptopsOrder)
 
-                  switch (value) {
-                    case LaptopsOrder.BestDeal:
-                      setOrder(LaptopsOrder.BestDeal);
-                      break;
-                    case LaptopsOrder.PriceLowToHigh:
-                      setOrder(LaptopsOrder.PriceLowToHigh);
-                      break;
-                    case LaptopsOrder.PriceHighToLow:
-                      setOrder(LaptopsOrder.PriceHighToLow);
-                      break;
-                    case LaptopsOrder.ByMemory:
-                      setOrder(LaptopsOrder.ByMemory);
-                      break;
-                    case LaptopsOrder.ByStorage:
-                      setOrder(LaptopsOrder.ByStorage);
-                      break;
-                    case LaptopsOrder.ByCores:
-                      setOrder(LaptopsOrder.ByCores);
-                      break;
-                    case LaptopsOrder.ByCpuFrequency:
-                      setOrder(LaptopsOrder.ByCpuFrequency);
-                      break;
-                  }
+                  // switch (value) {
+                  //   case LaptopsOrder.BestDeal:
+                  //     setOrder(LaptopsOrder.BestDeal);
+                  //     break;
+                  //   case LaptopsOrder.PriceLowToHigh:
+                  //     setOrder(LaptopsOrder.PriceLowToHigh);
+                  //     break;
+                  //   case LaptopsOrder.PriceHighToLow:
+                  //     setOrder(LaptopsOrder.PriceHighToLow);
+                  //     break;
+                  //   case LaptopsOrder.ByMemory:
+                  //     setOrder(LaptopsOrder.ByMemory);
+                  //     break;
+                  //   case LaptopsOrder.ByStorage:
+                  //     setOrder(LaptopsOrder.ByStorage);
+                  //     break;
+                  //   case LaptopsOrder.ByCores:
+                  //     setOrder(LaptopsOrder.ByCores);
+                  //     break;
+                  //   case LaptopsOrder.ByCpuFrequency:
+                  //     setOrder(LaptopsOrder.ByCpuFrequency);
+                  //     break;
+                  // }
                 }}
               />
 
@@ -455,7 +463,7 @@ export default function Laptops() {
             </div>
           </div>
         </div>
-        <div className="column gapMedium width100 centerRow centerColumn">
+        <div className="column gapLarge width100 centerRow centerColumn">
           <h1 className="textLarge headerLarge textCenter">Laptops</h1>
           <Display data={data as any} isFetching={isFetching} maxPreviews={laptopsPerPage} />
           <div className="row gapMedium centerRow centerColumn">

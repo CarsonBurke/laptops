@@ -4,7 +4,7 @@ import FakeLaptopPreview, {
   generateFakeLaptopPreviews,
 } from "../components/fakeLaptopPreview";
 import Button from "../components/button";
-import FilteredLaptops from "@/components/FilteredLaptops";
+import FilteredLaptops from "@/components/filteredLaptops";
 import { LaptopsOrder } from "@/types/db";
 
 export default function Home() {
@@ -19,7 +19,13 @@ export default function Home() {
           </div>
 
           <div className="row flexWrap gapMedium centerRow width100">
-            <FilteredLaptops args={{ maxLaptops: 12, background: "background2", order: LaptopsOrder.BestDeal }} />
+            <FilteredLaptops
+              args={{
+                maxLaptops: 12,
+                background: "background2",
+                order: LaptopsOrder.BestDeal,
+              }}
+            />
           </div>
 
           <Button linkTo="/laptops" className="textGlowButton">
@@ -42,20 +48,72 @@ export default function Home() {
             <h2 className="textMedium headerSmall">For School</h2>
 
             <div className="row flexWrap gapMedium centerRow width100">
-              {generateFakeLaptopPreviews(4, "background3")}
+              <FilteredLaptops
+                args={{
+                  maxLaptops: 3,
+                  background: "background3",
+                  order: LaptopsOrder.BestDeal,
+                  forStudents: true,
+                }}
+              />
             </div>
-            <Button linkTo="top" className="textGlowButton">
+            <Button linkTo="/laptops" className="textGlowButton">
               <h3 className="textSmall">See More</h3>
               <span className="material-symbols-outlined">arrow_forward</span>
             </Button>
           </div>
           <div className="column centerColumn width100 gapMedium">
-            <h2 className="textMedium headerSmall">For Work</h2>
+            <h2 className="textMedium headerSmall">For Programming</h2>
 
             <div className="row flexWrap gapMedium centerRow width100">
-              {generateFakeLaptopPreviews(3, "background3")}
+              <FilteredLaptops
+                args={{
+                  maxLaptops: 3,
+                  background: "background3",
+                  order: LaptopsOrder.BestDeal,
+                  forProgrammers: true,
+                }}
+              />
             </div>
-            <Button linkTo="top" className="textGlowButton">
+            <Button linkTo="/laptops" className="textGlowButton">
+              <h3 className="textSmall">See More</h3>
+              <span className="material-symbols-outlined">arrow_forward</span>
+            </Button>
+          </div>
+        </div>
+        <div className="rowCollapsible gapLarge centerRow">
+          <div className="column centerColumn width100 gapMedium">
+            <h2 className="textMedium headerSmall">For Gaming</h2>
+
+            <div className="row flexWrap gapMedium centerRow width100">
+              <FilteredLaptops
+                args={{
+                  maxLaptops: 3,
+                  background: "background3",
+                  order: LaptopsOrder.BestDeal,
+                  forGaming: true,
+                }}
+              />
+            </div>
+            <Button linkTo="/laptops" className="textGlowButton">
+              <h3 className="textSmall">See More</h3>
+              <span className="material-symbols-outlined">arrow_forward</span>
+            </Button>
+          </div>
+          <div className="column centerColumn width100 gapMedium">
+            <h2 className="textMedium headerSmall">For Office Work</h2>
+
+            <div className="row flexWrap gapMedium centerRow width100">
+              <FilteredLaptops
+                args={{
+                  maxLaptops: 3,
+                  background: "background3",
+                  order: LaptopsOrder.BestDeal,
+                  forWork: true,
+                }}
+              />
+            </div>
+            <Button linkTo="/laptops" className="textGlowButton">
               <h3 className="textSmall">See More</h3>
               <span className="material-symbols-outlined">arrow_forward</span>
             </Button>
@@ -69,7 +127,10 @@ export default function Home() {
           </h1>
           <div className="row gapXSmall centerRow centerColumn">
             <h3 className="textMedium textCenter">Try our </h3>
-            <Button linkTo="discover" className="textMedium textGlowButton defaultBorderRadius">
+            <Button
+              linkTo="discover"
+              className="textMedium textGlowButton defaultBorderRadius"
+            >
               discovery queue
               <span className="material-symbols-outlined">conditions</span>
             </Button>

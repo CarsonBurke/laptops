@@ -23,8 +23,6 @@ export default function CycleText({ children, cycles, speed }: { children: React
     // }
 
     useEffect(() => {
-        console.log("interval")
-        
         const interval = setInterval(() => {
             let i = (state[1] + 1) % cycles.length
             children = cycles[i] || children

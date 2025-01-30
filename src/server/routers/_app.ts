@@ -42,6 +42,22 @@ function orderLaptopBy(
       expression = laptop.topFrequency;
       direction = e.DESC;
       break;
+    // Scoring
+    case LaptopsOrder.StudentScore:
+      expression = laptop.studentScore;
+      direction = e.DESC;
+    case LaptopsOrder.GamingScore:
+      expression = laptop.gamingScore;
+      direction = e.DESC;
+    case LaptopsOrder.OfficeWorkScore:
+      expression = laptop.officeWorkScore;
+      direction = e.DESC;
+    case LaptopsOrder.ProgrammingScore:
+      expression = laptop.programmingScore;
+      direction = e.DESC;
+      case LaptopsOrder.VideoEditingScore:
+      expression = laptop.videoEditingScore;
+      direction = e.DESC;
   }
 
   return {
@@ -76,11 +92,18 @@ export const appRouter = router({
           forStudents: true,
           forGaming: true,
           forProgrammers: true,
-          forWork: true,
+          forOfficeWork: true,
           priceHistory: true,
           affiliate: true,
           hasDedicatedGpu: true,
           vram: true,
+          cpuName: true,
+          gpuName: true,
+          studentScore: true,
+          gamingScore: true,
+          programmingScore: true,
+          officeWorkScore: true,
+          videoEditingScore: true,
           filter_single: e.op(laptop.name, "=", input.name),
         }))
         .run(edgeClient);
@@ -136,14 +159,13 @@ export const appRouter = router({
           resolution: true,
           forStudents: true,
           forGaming: true,
-          forWork: true,
+          forOfficeWork: true,
           forProgrammers: true,
           offset: input.offset,
           limit: input.limit,
           filter: e.all(
             e.set(
               e.op(laptop.price, ">=", input.minPrice),
-              // I'm confused why it works this way but not the other way
               e.op(laptop.price, "<=", input.maxPrice),
               e.op(laptop.size, ">=", input.minSize),
               e.op(laptop.size, "<=", input.maxSize),
@@ -161,8 +183,8 @@ export const appRouter = router({
               e.op(laptop.vram, "<=", input.maxVram || Number.MAX_SAFE_INTEGER),
               e.op(
                 e.op(false, "=", input.hasDedicatedGpu || false),
-                'or',
-                e.op(laptop.hasDedicatedGpu, "=", input.hasDedicatedGpu == true),
+                "or",
+                e.op(laptop.hasDedicatedGpu, "=", input.hasDedicatedGpu == true)
               ),
               e.any(
                 e.set(
@@ -177,9 +199,9 @@ export const appRouter = router({
                     e.op(laptop.forGaming, "=", input.forGaming == true)
                   ),
                   e.op(
-                    e.op(laptop.forWork, "=", true),
+                    e.op(laptop.forOfficeWork, "=", true),
                     "and",
-                    e.op(laptop.forWork, "=", input.forWork == true)
+                    e.op(laptop.forOfficeWork, "=", input.forWork == true)
                   ),
                   e.op(
                     e.op(laptop.forProgrammers, "=", true),
@@ -216,7 +238,6 @@ export const appRouter = router({
           order_by: orderLaptopBy(laptop, input.order),
         }))
         .run(edgeClient);
-      console.log("max price", input.maxPrice);
       return laptops;
     }),
   getArticlesLoggedIn: procedure.query(async ({ ctx }: { ctx: any }) => {
