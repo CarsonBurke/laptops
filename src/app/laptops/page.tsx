@@ -2,9 +2,9 @@
 
 import { generateFakeLaptopPreviews } from "../../components/fakeLaptopPreview";
 import Slider from "../../components/slider";
-import linuxIcon from "../public/OSIcons/linux.svg";
-import macIcon from "../public/OSIcons/mac.svg";
-import windowsIcon from "../public/OSIcons/windows.svg";
+import linuxIcon from "../../../public/OSIcons/linux.svg";
+import macIcon from "../../../public/OSIcons/mac.svg";
+import windowsIcon from "../../../public/OSIcons/windows.svg";
 import Image from "next/image";
 import Accordian from "../../components/accordian";
 import Checkbox from "../../components/checkbox";

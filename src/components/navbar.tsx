@@ -5,7 +5,7 @@ import { Dropdown } from "./Dropdown";
 import Link from "next/link";
 import Button from "./button";
 import Image from "next/image";
-import logo from "../app/public/logo.svg";
+import logo from "../../public/logo.svg";
 import CycleText from "./cycleText";
 
 export function Navbar() {

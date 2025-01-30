@@ -9,13 +9,11 @@ import FakeArticlePreview, {
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import "./article.scss";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { dark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { trpc } from "@/lib/trpc";
-import Laptop from "@/app/laptops/[id]/page";
 import LaptopPreview from "@/components/laptopPreview";
 import FakeLaptopPreview from "@/components/fakeLaptopPreview";
 import { underscoresToSpaces } from "@/utils/units";
+import Image from "next/image";
 
 export default function Article({ params }: { params: { id: string } }) {
   const { id } = React.use(params as any) as { id: string };
@@ -35,16 +33,23 @@ export default function Article({ params }: { params: { id: string } }) {
   return (
     <main className="main">
       <section className="sectionPadded rowCollapsible flexWrap gapMedium centerRow">
-        <article className="column paddingMedium background2 borderBg3 article">
-          <h1 className="textLarge headerLarge textCenter">
-            Article Name {id}
-          </h1>
+        <article className="column gapLarge paddingMedium background2 borderBg3 article">
+          <div className="column centerColumn gapMedium">
+            <h1 className="textLarge headerLarge textCenter">
+              Article Name {id}
+            </h1>
 
-          <img alt="title image" />
+            <Image
+              alt="title image"
+              src="/laptopTitles/ZyphrusG14.jpg"
+              width={500}
+              height={500}
+            />
+          </div>
 
           <ReactMarkdown
             // Column on markdown text might be a very bad idea
-            className="textSmall column gapSmall"
+            className="textSmall column gapMedium"
             children={testMarkdownContent}
             components={{
               code(props) {

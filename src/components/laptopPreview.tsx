@@ -3,12 +3,11 @@
 import { useEffect, useState } from "react";
 import "./laptopPreview.scss";
 import Image from "next/image";
-import heroBg from "../app/public/heroBg.jpg";
 import Link from "next/link";
 import { formatBytes, numberCommas, spacesToUnderscores } from "@/utils/units";
-import linuxIcon from "../app/public/OSIcons/linux.svg";
-import macIcon from "../app/public/OSIcons/mac.svg";
-import windowsIcon from "../app/public/OSIcons/windows.svg";
+import linuxIcon from "../../public/OSIcons/linux.svg";
+import macIcon from "../../public/OSIcons/mac.svg";
+import windowsIcon from "../../public/OSIcons/windows.svg";
 
 interface LaptopPreviewData {
   name: string;

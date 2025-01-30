@@ -1,10 +1,10 @@
 import Image from "next/image";
-import logo from "../app/public/logo.svg";
+import logo from "../../public/logo.svg";
 import Button from "./button";
 import "./footer.scss";
-import linuxIcon from "../app/public/OSIcons/linux.svg";
-import macIcon from "../app/public/OSIcons/mac.svg";
-import windowsIcon from "../app/public/OSIcons/windows.svg";
+import linuxIcon from "../../public/OSIcons/linux.svg";
+import macIcon from "../../public/OSIcons/mac.svg";
+import windowsIcon from "../../public/OSIcons/windows.svg";
 import Link from "next/link";
 
 export default function Footer() {

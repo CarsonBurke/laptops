@@ -349,7 +349,6 @@ export default function LaptopView({ data }: { data: Laptop }) {
                     ["Video editing", data.videoEditingScore],
                   ] as [string, number][]
                 ).map(([name, score], i) => {
-                  console.log(name, score);
                   return (
                     <div
                       className="row background2 useCasePill defaultBorderRadius background3 maxBorderRadius gapSmall widthFit"

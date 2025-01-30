@@ -1,6 +1,6 @@
 import Button from "./button";
 import "./hero.scss";
-import heroBg from "../app/public/heroBg.jpg";
+import heroBg from "../../public/heroBg.jpg";
 import Image from "next/image";
 
 export default function Hero() {
