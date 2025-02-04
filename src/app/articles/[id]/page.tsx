@@ -15,18 +15,18 @@ import FakeLaptopPreview from "@/components/fakeLaptopPreview";
 import { underscoresToSpaces } from "@/utils/units";
 import Image from "next/image";
 
-export default function Article({ params }: { params: { id: string } }) {
+export default function Article({ params }: { params: Promise<any> }) {
   const { id } = React.use(params as any) as { id: string };
 
   const testMarkdownContent = `
   ## **this is markdown text** etc.
 
   ~~~laptop
-  Laptop Name 4
+  5100f3cc-e2bf-11ef-80dc-27f68e18f839
   ~~~
 
   ~~~article
-  Article Name 1
+  53973c22-e2bf-11ef-976f-67d8231d1548
   ~~~
   `;
 
@@ -41,7 +41,7 @@ export default function Article({ params }: { params: { id: string } }) {
 
             <Image
               alt="title image"
-              src="/laptopTitles/ZyphrusG14.jpg"
+              src="/laptopTitles/ZyphrusG14.png"
               width={500}
               height={500}
             />
@@ -86,13 +86,13 @@ export default function Article({ params }: { params: { id: string } }) {
 
                 if (match[1] == "laptop") {
                   // Remove trailing and proceeding whitespace
-                  let name =
+                  let cleanedId =
                     children?.toString()?.replace(/(\^\s+|\s+$)/g, "") || "";
-
+                  console.log("cleaned id", cleanedId)
                   let { data, isLoading } = trpc.getLaptopByName.useQuery({
-                    name: underscoresToSpaces(name),
+                    id: cleanedId,
                   });
-
+                  console.log("result", data)
                   return isLoading ? (
                     <FakeLaptopPreview color={"background3"} />
                   ) : (

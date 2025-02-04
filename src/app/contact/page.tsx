@@ -2,7 +2,9 @@
 
 import LabelledInput from "@/components/labelledInput";
 import LabelledTextarea from "@/components/labelledTextarea";
-import { useState } from "react";
+import { trpc } from "@/lib/trpc";
+import { Submitted } from "@/types/general";
+import { useEffect, useState } from "react";
 
 export default function Contact() {
   let [name, setName] = useState("");
@@ -10,13 +12,16 @@ export default function Contact() {
   let [message, setMessage] = useState("");
   let [submitted, setSubmitted] = useState(false);
 
-  function submit() {
-    console.log("hi");
+  const sendContact = trpc.sendContact.useMutation();
 
-    /* setName("")
-        setTitle("")
-        setMessage("") */
-    setSubmitted(true);
+  function submit() {
+    sendContact.mutate({
+      name,
+      title,
+      content: message,
+    });
+
+    setSubmitted(true)
   }
 
   return (

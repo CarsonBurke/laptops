@@ -30,7 +30,7 @@ export default function FilteredLaptops({
     forStudents: args.forStudents == undefined ? true : args.forStudents,
     forGaming: args.forGaming == undefined ? true : args.forGaming,
     forProgrammers: args.forProgrammers == undefined ? true : args.forProgrammers,
-    forWork: args.forWork == undefined ? true : args.forWork,
+    forOfficeWork: args.forWork == undefined ? true : args.forWork,
     minSize: 0,
     maxSize: Number.MAX_SAFE_INTEGER,
     minResolution: 0,

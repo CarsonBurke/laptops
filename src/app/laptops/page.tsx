@@ -12,7 +12,7 @@ import RadioGroup from "../../components/radioGroup";
 import Select from "../../components/select";
 import DoubleSlider from "../../components/doubleSlider";
 import { Suspense, useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import e from "../../../dbschema/edgeql-js";
 import { edgeClient } from "../../scripts/db";
 /* import { trpc } from "../utils/trpc"; */
@@ -25,17 +25,65 @@ import { Laptop, LaptopsOrder } from "@/types/db";
 
 const laptopsPerPage = 6;
 
+interface LaptopsSearchParams {
+  order: LaptopsOrder;
+  forStudents: boolean;
+  forGaming: boolean;
+  forProgrammers: boolean;
+  forOfficeWork: boolean;
+  forVideoEditing: boolean;
+  priceRange: [number, number];
+}
+
 export default function Laptops() {
+  const queryDefaults = useSearchParams();
+  console.log("queryDefaults", queryDefaults);
+
+  console.log(
+    "for Students",
+    queryDefaults.get("forStudents"),
+    typeof queryDefaults.get("forStudents")
+  );
+
   // Filter states
 
   let [price, setPrice] = useState([0, 5000]);
-  let [order, setOrder] = useState(LaptopsOrder.BestDeal);
+
+  const orderDefault = (queryDefaults.get("order") ||
+    LaptopsOrder.BestDeal) as LaptopsOrder;
+  let [order, setOrder] = useState(orderDefault);
 
   // Use cases
-  let [forStudents, setforStudentss] = useState(true);
-  let [forGaming, setforGaming] = useState(true);
-  let [forProgrammers, setforProgrammers] = useState(true);
-  let [forWork, setforWork] = useState(true);
+
+  const studentsDefault =
+    queryDefaults.get("forStudents") == null
+      ? true
+      : queryDefaults.get("forStudents") === "true";
+  let [forStudents, setforStudents] = useState(studentsDefault);
+
+  const gamingDefault =
+    queryDefaults.get("forGaming") == null
+      ? true
+      : queryDefaults.get("forGaming") === "true";
+  let [forGaming, setforGaming] = useState(gamingDefault);
+
+  const programmersDefault =
+    queryDefaults.get("forProgrammers") == null
+      ? true
+      : queryDefaults.get("forProgrammers") === "true";
+  let [forProgrammers, setforProgrammers] = useState(programmersDefault);
+
+  const officeWorkDefault =
+    queryDefaults.get("forOfficeWork") == null
+      ? true
+      : queryDefaults.get("forOfficeWork") === "true";
+  let [forOfficeWork, setforOfficeWork] = useState(officeWorkDefault);
+
+  const videoEditingDefault =
+    queryDefaults.get("forVideoEditing") == null
+      ? true
+      : queryDefaults.get("forVideoEditing") === "true";
+  let [forVideoEditing, setforVideoEditing] = useState(videoEditingDefault);
 
   let [hasDedicatedGpu, setHasDedicatedGpu] = useState(false);
   let [vram, setVram] = useState([4, 64]);
@@ -66,7 +114,7 @@ export default function Laptops() {
   let [isFetching, setIsFetching] = useState(true);
 
   const result = trpc.getLaptops.useQuery({
-    order: order,
+    order,
     minPrice: price[0],
     maxPrice: price[1],
     macos: macos,
@@ -87,7 +135,8 @@ export default function Laptops() {
     forStudents,
     forGaming,
     forProgrammers,
-    forWork,
+    forOfficeWork,
+    forVideoEditing,
     hasDedicatedGpu,
     minVram: vram[0],
     maxVram: vram[1],
@@ -115,7 +164,8 @@ export default function Laptops() {
     forStudents,
     forGaming,
     forProgrammers,
-    forWork,
+    forOfficeWork,
+    forVideoEditing,
     hasDedicatedGpu,
     vram,
   ]);
@@ -180,82 +230,84 @@ export default function Laptops() {
   console.log("cores", getLaptops); */
 
   return (
-    <main className="main">
-      <section className="sectionPadded rowCollapsible centerRow gapMedium">
-        <div className="columnCollapsibleScroll gapMedium">
-          <div className="column gapMedium">
-            <h3 className="textMedium headerSmall">Filter</h3>
+    <Suspense>
+      <main className="main">
+        <section className="sectionPadded rowCollapsible centerRow gapMedium">
+          <div className="columnCollapsibleScroll gapMedium">
+            <div className="column gapMedium">
+              <h3 className="textMedium headerSmall">Filter</h3>
 
-            <div className="columnCollapsible gapMedium">
-              <Select
-                optionNames={{
-                  Basic: [
-                    LaptopsOrder.BestDeal,
-                    LaptopsOrder.PriceLowToHigh,
-                    LaptopsOrder.PriceHighToLow,
-                  ],
-                  Advanced: [
-                    LaptopsOrder.ByMemory,
-                    LaptopsOrder.ByStorage,
-                    LaptopsOrder.ByCores,
-                    LaptopsOrder.ByCpuFrequency,
-                  ],
-                  Score: [
-                    LaptopsOrder.StudentScore,
-                    LaptopsOrder.GamingScore,
-                    LaptopsOrder.OfficeWorkScore,
-                    LaptopsOrder.ProgrammingScore,
-                    LaptopsOrder.VideoEditingScore,
-                  ]
-                }}
-                groupName="sort"
-                className="borderBg3"
-                onInput={(value) => {
-                  "use client";
-                  setOrder(value as LaptopsOrder)
+              <div className="columnCollapsible gapMedium">
+                <Select
+                  optionNames={{
+                    Basic: [
+                      LaptopsOrder.BestDeal,
+                      LaptopsOrder.PriceLowToHigh,
+                      LaptopsOrder.PriceHighToLow,
+                    ],
+                    Advanced: [
+                      LaptopsOrder.ByMemory,
+                      LaptopsOrder.ByStorage,
+                      LaptopsOrder.ByCores,
+                      LaptopsOrder.ByCpuFrequency,
+                    ],
+                    Score: [
+                      LaptopsOrder.StudentScore,
+                      LaptopsOrder.GamingScore,
+                      LaptopsOrder.OfficeWorkScore,
+                      LaptopsOrder.ProgrammingScore,
+                      LaptopsOrder.VideoEditingScore,
+                    ],
+                  }}
+                  groupName="sort"
+                  className="borderBg3"
+                  onInput={(value) => {
+                    "use client";
+                    setOrder(value as LaptopsOrder);
 
-                  // switch (value) {
-                  //   case LaptopsOrder.BestDeal:
-                  //     setOrder(LaptopsOrder.BestDeal);
-                  //     break;
-                  //   case LaptopsOrder.PriceLowToHigh:
-                  //     setOrder(LaptopsOrder.PriceLowToHigh);
-                  //     break;
-                  //   case LaptopsOrder.PriceHighToLow:
-                  //     setOrder(LaptopsOrder.PriceHighToLow);
-                  //     break;
-                  //   case LaptopsOrder.ByMemory:
-                  //     setOrder(LaptopsOrder.ByMemory);
-                  //     break;
-                  //   case LaptopsOrder.ByStorage:
-                  //     setOrder(LaptopsOrder.ByStorage);
-                  //     break;
-                  //   case LaptopsOrder.ByCores:
-                  //     setOrder(LaptopsOrder.ByCores);
-                  //     break;
-                  //   case LaptopsOrder.ByCpuFrequency:
-                  //     setOrder(LaptopsOrder.ByCpuFrequency);
-                  //     break;
-                  // }
-                }}
-              />
+                    // switch (value) {
+                    //   case LaptopsOrder.BestDeal:
+                    //     setOrder(LaptopsOrder.BestDeal);
+                    //     break;
+                    //   case LaptopsOrder.PriceLowToHigh:
+                    //     setOrder(LaptopsOrder.PriceLowToHigh);
+                    //     break;
+                    //   case LaptopsOrder.PriceHighToLow:
+                    //     setOrder(LaptopsOrder.PriceHighToLow);
+                    //     break;
+                    //   case LaptopsOrder.ByMemory:
+                    //     setOrder(LaptopsOrder.ByMemory);
+                    //     break;
+                    //   case LaptopsOrder.ByStorage:
+                    //     setOrder(LaptopsOrder.ByStorage);
+                    //     break;
+                    //   case LaptopsOrder.ByCores:
+                    //     setOrder(LaptopsOrder.ByCores);
+                    //     break;
+                    //   case LaptopsOrder.ByCpuFrequency:
+                    //     setOrder(LaptopsOrder.ByCpuFrequency);
+                    //     break;
+                    // }
+                  }}
+                />
 
-              <DoubleSlider
-                header={<h3 className="textSmall headerSmall">Price</h3>}
-                steps={Array.from(
-                  { length: 25 },
-                  (_, i) => Math.pow(i * 100, 1.09432) /* (i + 1) * 100 - 100 */
-                )}
-                labelLeft={["$", ""]}
-                labelRight={["$", ""]}
-                emit={(left, right) => {
-                  "use client";
+                <DoubleSlider
+                  header={<h3 className="textSmall headerSmall">Price</h3>}
+                  steps={Array.from(
+                    { length: 25 },
+                    (_, i) =>
+                      Math.pow(i * 100, 1.09432) /* (i + 1) * 100 - 100 */
+                  )}
+                  labelLeft={["$", ""]}
+                  labelRight={["$", ""]}
+                  emit={(left, right) => {
+                    "use client";
 
-                  setPrice([left, right]);
-                }}
-              />
+                    setPrice([left, right]);
+                  }}
+                />
 
-              {/* <Accordian
+                {/* <Accordian
                 open={true}
                 header={<h3 className="textSmall headerSmall">Price</h3>}
                 className="borderBg3"
@@ -287,204 +339,230 @@ export default function Laptops() {
                   </div>
                 </div>
               </Accordian> */}
-              <Accordian
-                header={<h3 className="textSmall headerSmall">Use Case</h3>}
-                open={true}
-                className="borderBg3"
-              >
-                <div className="column">
-                  <Checkbox
-                    id="forStudentss"
-                    checked={forStudents}
-                    onChange={(checked) => setforStudentss(checked)}
-                  >
-                    <h3 className="textXSmall">Students</h3>
-                  </Checkbox>
-                  <Checkbox
-                    id="forGaming"
-                    checked={forGaming}
-                    onChange={(checked) => setforGaming(checked)}
-                  >
-                    <h3 className="textXSmall">Gaming</h3>
-                  </Checkbox>
-                  <Checkbox
-                    id="forProgrammers"
-                    checked={forProgrammers}
-                    onChange={(checked) => setforProgrammers(checked)}
-                  >
-                    <h3 className="textXSmall">Programming</h3>
-                  </Checkbox>
-                  <Checkbox
-                    id="forWork"
-                    checked={forWork}
-                    onChange={(checked) => setforWork(checked)}
-                  >
-                    <h3 className="textXSmall">Work</h3>
-                  </Checkbox>
-                </div>
-              </Accordian>
+                <Accordian
+                  header={<h3 className="textSmall headerSmall">Use Case</h3>}
+                  open={true}
+                  className="borderBg3"
+                >
+                  <div className="column">
+                    <Checkbox
+                      id="forStudentss"
+                      checked={forStudents}
+                      onChange={(checked) => setforStudents(checked)}
+                    >
+                      <h3 className="textXSmall">Students</h3>
+                    </Checkbox>
+                    <Checkbox
+                      id="forGaming"
+                      checked={forGaming}
+                      onChange={(checked) => setforGaming(checked)}
+                    >
+                      <h3 className="textXSmall">Gaming</h3>
+                    </Checkbox>
+                    <Checkbox
+                      id="forProgrammers"
+                      checked={forProgrammers}
+                      onChange={(checked) => setforProgrammers(checked)}
+                    >
+                      <h3 className="textXSmall">Programming</h3>
+                    </Checkbox>
+                    <Checkbox
+                      id="forOfficeWork"
+                      checked={forOfficeWork}
+                      onChange={(checked) => setforOfficeWork(checked)}
+                    >
+                      <h3 className="textXSmall">Office work</h3>
+                    </Checkbox>
+                    <Checkbox
+                      id="forVideoEditing"
+                      checked={forOfficeWork}
+                      onChange={(checked) => setforVideoEditing(checked)}
+                    >
+                      <h3 className="textXSmall">Video editing</h3>
+                    </Checkbox>
+                  </div>
+                </Accordian>
+              </div>
+            </div>
+
+            <div className="column gapMedium">
+              <h2 className="textMedium headerSmall">Specifications</h2>
+
+              <div className="columnCollapsible gapMedium">
+                <DoubleSlider
+                  header={
+                    <h3 className="textSmall headerSmall">Display Size</h3>
+                  }
+                  steps={Array.from({ length: 6 }, (_, i) => i + 13)}
+                  labelLeft={["", " inches"]}
+                  labelRight={["", " inches"]}
+                  emit={(left, right) => {
+                    "use client";
+                    setSize([left, right]);
+                  }}
+                />
+
+                <DoubleSlider
+                  header={
+                    <h3 className="textSmall headerSmall">
+                      Display Resolution
+                    </h3>
+                  }
+                  steps={Array.from(
+                    { length: /* 41 */ 12 },
+                    (_, i) =>
+                      9 *
+                      (100 +
+                        (i + 1) *
+                          20) /* Math.pow(2, i * 9/16 + 10) */ /* Math.sqrt((i * 400 * 1080) / (16 / 9)) + 1080 */
+                  )}
+                  labelLeft={["", "p"]}
+                  labelRight={["", "p"]}
+                  emit={(left, right) => {
+                    "use client";
+                    setResolution([left, right]);
+                  }}
+                />
+                <DoubleSlider
+                  header={<h3 className="textSmall headerSmall">Memory</h3>}
+                  steps={Array.from({ length: 6 }, (_, i) =>
+                    Math.pow(2, i + 3)
+                  )}
+                  labelLeft={["", " GB"]}
+                  labelRight={["", " GB"]}
+                  emit={(left, right) => {
+                    "use client";
+                    setRam([left, right]);
+                  }}
+                />
+                <DoubleSlider
+                  header={<h3 className="textSmall headerSmall">Storage</h3>}
+                  steps={Array.from({ length: 5 }, (_, i) =>
+                    Math.pow(2, i + 9)
+                  )}
+                  labelLeft={["", " GB"]}
+                  labelRight={["", " GB"]}
+                  emit={(left, right) => {
+                    "use client";
+                    setStorage([left, right]);
+                  }}
+                />
+                <DoubleSlider
+                  header={<h3 className="textSmall headerSmall">CPU Cores</h3>}
+                  steps={Array.from({ length: 8 }, (_, i) =>
+                    Math.pow(2, i + 1)
+                  )}
+                  emit={(left, right) => {
+                    "use client";
+                    setCores([left, right]);
+                  }}
+                />
+                <DoubleSlider
+                  header={
+                    <h3 className="textSmall headerSmall">Max Frequency</h3>
+                  }
+                  steps={Array.from({ length: 6 }, (_, i) => i + 1)}
+                  labelLeft={["", " GHz"]}
+                  labelRight={["", " GHz"]}
+                  emit={(left, right) => {
+                    "use client";
+                    setTopFrequency([left, right]);
+                  }}
+                />
+
+                <Accordian
+                  header={<h3 className="textSmall headerSmall">GPU</h3>}
+                  className="borderBg3"
+                >
+                  <div className="column gapMedium">
+                    <Checkbox
+                      id="dedicatedGPU"
+                      checked={hasDedicatedGpu}
+                      onChange={(checked) => setHasDedicatedGpu(checked)}
+                    >
+                      <h3 className="textXSmall">Dedicated</h3>
+                    </Checkbox>
+                    <DoubleSlider
+                      header={<h3 className="textSmall headerSmall">VRAM</h3>}
+                      steps={Array.from({ length: 5 }, (_, i) =>
+                        Math.pow(2, i * 1 + 2)
+                      )}
+                      labelLeft={["", " GB"]}
+                      labelRight={["", " GB"]}
+                      emit={(left, right) => {
+                        "use client";
+                        setVram([left, right]);
+                      }}
+                    />
+                  </div>
+                </Accordian>
+                <Accordian
+                  header={
+                    <h3 className="textSmall headerSmall">Operating System</h3>
+                  }
+                  className="borderBg3"
+                >
+                  <div className="column">
+                    <Checkbox
+                      id="windowsCheck"
+                      checked={windows}
+                      onChange={(checked) => setWindows(checked)}
+                    >
+                      <Image
+                        src={windowsIcon}
+                        alt="windows"
+                        className="osIcon"
+                      />
+                      <h3 className="textXSmall">Windows</h3>
+                    </Checkbox>
+                    <Checkbox
+                      id="macCheck"
+                      checked={macos}
+                      onChange={(checked) => setMac(checked)}
+                    >
+                      <Image src={macIcon} alt="mac" className="osIcon" />
+                      <h3 className="textXSmall">macOS</h3>
+                    </Checkbox>
+                    <Checkbox
+                      id="linuxCheck"
+                      checked={linux}
+                      onChange={(checked) => setLinux(checked)}
+                    >
+                      <Image src={linuxIcon} alt="linux" className="osIcon" />
+                      <h3 className="textXSmall">Linux</h3>
+                    </Checkbox>
+                  </div>
+                </Accordian>
+              </div>
             </div>
           </div>
-
-          <div className="column gapMedium">
-            <h2 className="textMedium headerSmall">Specifications</h2>
-
-            <div className="columnCollapsible gapMedium">
-              <DoubleSlider
-                header={<h3 className="textSmall headerSmall">Display Size</h3>}
-                steps={Array.from({ length: 6 }, (_, i) => i + 13)}
-                labelLeft={["", " inches"]}
-                labelRight={["", " inches"]}
-                emit={(left, right) => {
-                  "use client";
-                  setSize([left, right]);
-                }}
-              />
-
-              <DoubleSlider
-                header={
-                  <h3 className="textSmall headerSmall">Display Resolution</h3>
-                }
-                steps={Array.from(
-                  { length: /* 41 */ 12 },
-                  (_, i) =>
-                    9 *
-                    (100 +
-                      (i + 1) *
-                        20) /* Math.pow(2, i * 9/16 + 10) */ /* Math.sqrt((i * 400 * 1080) / (16 / 9)) + 1080 */
-                )}
-                labelLeft={["", "p"]}
-                labelRight={["", "p"]}
-                emit={(left, right) => {
-                  "use client";
-                  setResolution([left, right]);
-                }}
-              />
-              <DoubleSlider
-                header={<h3 className="textSmall headerSmall">Memory</h3>}
-                steps={Array.from({ length: 6 }, (_, i) => Math.pow(2, i + 3))}
-                labelLeft={["", " GB"]}
-                labelRight={["", " GB"]}
-                emit={(left, right) => {
-                  "use client";
-                  setRam([left, right]);
-                }}
-              />
-              <DoubleSlider
-                header={<h3 className="textSmall headerSmall">Storage</h3>}
-                steps={Array.from({ length: 5 }, (_, i) => Math.pow(2, i + 9))}
-                labelLeft={["", " GB"]}
-                labelRight={["", " GB"]}
-                emit={(left, right) => {
-                  "use client";
-                  setStorage([left, right]);
-                }}
-              />
-              <DoubleSlider
-                header={<h3 className="textSmall headerSmall">CPU Cores</h3>}
-                steps={Array.from({ length: 8 }, (_, i) => Math.pow(2, i + 1))}
-                emit={(left, right) => {
-                  "use client";
-                  setCores([left, right]);
-                }}
-              />
-              <DoubleSlider
-                header={
-                  <h3 className="textSmall headerSmall">Max Frequency</h3>
-                }
-                steps={Array.from({ length: 6 }, (_, i) => i + 1)}
-                labelLeft={["", " GHz"]}
-                labelRight={["", " GHz"]}
-                emit={(left, right) => {
-                  "use client";
-                  setTopFrequency([left, right]);
-                }}
-              />
-
-              <Accordian
-                header={<h3 className="textSmall headerSmall">GPU</h3>}
-                className="borderBg3"
+          <div className="column gapLarge width100 centerRow centerColumn">
+            <h1 className="textLarge headerLarge textCenter">Laptops</h1>
+            <Display
+              data={data as any}
+              isFetching={isFetching}
+              maxPreviews={laptopsPerPage}
+            />
+            <div className="row gapMedium centerRow centerColumn">
+              <button
+                disabled={pageOffset === 0}
+                onClick={() => setPageOffset(pageOffset - 1)}
+                className="button buttonBg3"
               >
-                <div className="column gapMedium">
-                  <Checkbox
-                    id="dedicatedGPU"
-                    checked={hasDedicatedGpu}
-                    onChange={(checked) => setHasDedicatedGpu(checked)}
-                  >
-                    <h3 className="textXSmall">Dedicated</h3>
-                  </Checkbox>
-                  <DoubleSlider
-                    header={<h3 className="textSmall headerSmall">VRAM</h3>}
-                    steps={Array.from({ length: 5 }, (_, i) =>
-                      Math.pow(2, i * 1 + 2)
-                    )}
-                    labelLeft={["", " GB"]}
-                    labelRight={["", " GB"]}
-                    emit={(left, right) => {
-                      "use client";
-                      setVram([left, right]);
-                    }}
-                  />
-                </div>
-              </Accordian>
-              <Accordian
-                header={
-                  <h3 className="textSmall headerSmall">Operating System</h3>
-                }
-                className="borderBg3"
+                <span className="material-symbols-outlined">chevron_left</span>
+              </button>
+              <h3 className="textSmall headerSmall">{pageOffset}</h3>
+              <button
+                disabled={data.length < laptopsPerPage}
+                onClick={() => setPageOffset(pageOffset + 1)}
+                className="button buttonBg3"
               >
-                <div className="column">
-                  <Checkbox
-                    id="windowsCheck"
-                    checked={windows}
-                    onChange={(checked) => setWindows(checked)}
-                  >
-                    <Image src={windowsIcon} alt="windows" className="osIcon" />
-                    <h3 className="textXSmall">Windows</h3>
-                  </Checkbox>
-                  <Checkbox
-                    id="macCheck"
-                    checked={macos}
-                    onChange={(checked) => setMac(checked)}
-                  >
-                    <Image src={macIcon} alt="mac" className="osIcon" />
-                    <h3 className="textXSmall">macOS</h3>
-                  </Checkbox>
-                  <Checkbox
-                    id="linuxCheck"
-                    checked={linux}
-                    onChange={(checked) => setLinux(checked)}
-                  >
-                    <Image src={linuxIcon} alt="linux" className="osIcon" />
-                    <h3 className="textXSmall">Linux</h3>
-                  </Checkbox>
-                </div>
-              </Accordian>
+                <span className="material-symbols-outlined">chevron_right</span>
+              </button>
             </div>
           </div>
-        </div>
-        <div className="column gapLarge width100 centerRow centerColumn">
-          <h1 className="textLarge headerLarge textCenter">Laptops</h1>
-          <Display data={data as any} isFetching={isFetching} maxPreviews={laptopsPerPage} />
-          <div className="row gapMedium centerRow centerColumn">
-            <button
-              disabled={pageOffset === 0}
-              onClick={() => setPageOffset(pageOffset - 1)}
-              className="button buttonBg3"
-            >
-              <span className="material-symbols-outlined">chevron_left</span>
-            </button>
-            <h3 className="textSmall headerSmall">{pageOffset}</h3>
-            <button
-              disabled={data.length < laptopsPerPage}
-              onClick={() => setPageOffset(pageOffset + 1)}
-              className="button buttonBg3"
-            >
-              <span className="material-symbols-outlined">chevron_right</span>
-            </button>
-          </div>
-        </div>
-      </section>
-    </main>
+        </section>
+      </main>
+    </Suspense>
   );
 }

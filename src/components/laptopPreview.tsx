@@ -4,19 +4,20 @@ import { useEffect, useState } from "react";
 import "./laptopPreview.scss";
 import Image from "next/image";
 import Link from "next/link";
-import { formatBytes, numberCommas, spacesToUnderscores } from "@/utils/units";
+import { formatBytes, numberCommas, spacesToUnderscores, underscoresToSpaces } from "@/utils/units";
 import linuxIcon from "../../public/OSIcons/linux.svg";
 import macIcon from "../../public/OSIcons/mac.svg";
 import windowsIcon from "../../public/OSIcons/windows.svg";
 
 interface LaptopPreviewData {
+  id: string;
   name: string;
   price: number;
   saleOf: number;
   macos: boolean;
   windows: boolean;
   linux: boolean;
-  titleImage: Uint8Array;
+  titleImageName: string;
   size: number;
   resolution: number;
   ram: number;
@@ -32,7 +33,7 @@ interface LaptopPreviewArgs {
 
 export default function LaptopPreview({ args }: { args: LaptopPreviewArgs }) {
 
-  const [imageSrc, setImageSrc] = useState<string | null>(null);
+  /* const [imageSrc, setImageSrc] = useState<string | null>(null);
 
   useEffect(() => {
 
@@ -49,7 +50,7 @@ export default function LaptopPreview({ args }: { args: LaptopPreviewArgs }) {
     return () => {
       URL.revokeObjectURL(objectUrl);
     };
-  }, [args.data.titleImage]);
+  }, [args.data.titleImage]); */
 
   if (!args.color) {
     args.color = "background2";
@@ -57,7 +58,7 @@ export default function LaptopPreview({ args }: { args: LaptopPreviewArgs }) {
 
   return (
     <Link
-      href={`/laptops/${spacesToUnderscores(args.data.name)}`}
+      href={`/laptops/${spacesToUnderscores(args.data.id)}`}
       className="laptopPreview defaultBorderRadius row gapMedium paddingMedium pointer defaultTransition"
       style={
         {
@@ -66,24 +67,17 @@ export default function LaptopPreview({ args }: { args: LaptopPreviewArgs }) {
         } as React.CSSProperties
       }
     >
-      {imageSrc != null ? (
+      
         <img
           alt="laptop"
-          src={imageSrc as any}
+          src={`/laptopTitles/${args.data.titleImageName}.png`}
           className="laptopPreviewImage defaultBorderRadius"
         />
-      ) : (
-        <div
-          className={
-            args.color +
-            " laptopPreviewImage animatePlaceholder defaultBorderRadius"
-          }
-        ></div>
-      )}
+      
 
       <div className="column gapMedium width100">
         <div className="column gapSmall">
-          <h3 className={"textMedium headerSmall"}>{args.data.name}</h3>
+          <h3 className={"textMedium headerSmall"}>{underscoresToSpaces(args.data.name)}</h3>
           <div className="row gapSmall centerColumn">
             <h4 className={"textSmall headerSmall row"}>${numberCommas(args.data.price)}</h4>
             <div className="strikeThrough textSlightTransparent">

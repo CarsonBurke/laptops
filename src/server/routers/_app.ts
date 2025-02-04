@@ -55,7 +55,7 @@ function orderLaptopBy(
     case LaptopsOrder.ProgrammingScore:
       expression = laptop.programmingScore;
       direction = e.DESC;
-      case LaptopsOrder.VideoEditingScore:
+    case LaptopsOrder.VideoEditingScore:
       expression = laptop.videoEditingScore;
       direction = e.DESC;
   }
@@ -70,12 +70,13 @@ export const appRouter = router({
   getLaptopByName: procedure
     .input(
       z.object({
-        name: z.string(),
+        id: z.string(),
       })
     )
     .query(async ({ input }) => {
       const laptops = await e
         .select(e.Laptop, (laptop) => ({
+          id: true,
           name: true,
           price: true,
           saleOf: true,
@@ -86,7 +87,7 @@ export const appRouter = router({
           storage: true,
           cores: true,
           topFrequency: true,
-          titleImage: true,
+          titleImageName: true,
           size: true,
           resolution: true,
           forStudents: true,
@@ -104,7 +105,7 @@ export const appRouter = router({
           programmingScore: true,
           officeWorkScore: true,
           videoEditingScore: true,
-          filter_single: e.op(laptop.name, "=", input.name),
+          filter_single: {id: input.id}/* e.op(laptop.id, "=", input.id) */,
         }))
         .run(edgeClient);
       return laptops;
@@ -132,8 +133,9 @@ export const appRouter = router({
         maxCpuFrequency: z.number(),
         forStudents: z.boolean().optional(),
         forGaming: z.boolean().optional(),
-        forWork: z.boolean().optional(),
+        forOfficeWork: z.boolean().optional(),
         forProgrammers: z.boolean().optional(),
+        forVideoEditing: z.boolean().optional(),
         minVram: z.number().optional(),
         maxVram: z.number().optional(),
         hasDedicatedGpu: z.boolean().optional(),
@@ -144,6 +146,7 @@ export const appRouter = router({
     .query(async ({ input }) => {
       const laptops = await e
         .select(e.Laptop, (laptop) => ({
+          id: true,
           name: true,
           price: true,
           saleOf: true,
@@ -154,13 +157,14 @@ export const appRouter = router({
           storage: true,
           cores: true,
           topFrequency: true,
-          titleImage: true,
+          titleImageName: true,
           size: true,
           resolution: true,
           forStudents: true,
           forGaming: true,
           forOfficeWork: true,
           forProgrammers: true,
+          forVideoEditing: true,
           offset: input.offset,
           limit: input.limit,
           filter: e.all(
@@ -201,7 +205,7 @@ export const appRouter = router({
                   e.op(
                     e.op(laptop.forOfficeWork, "=", true),
                     "and",
-                    e.op(laptop.forOfficeWork, "=", input.forWork == true)
+                    e.op(laptop.forOfficeWork, "=", input.forOfficeWork == true)
                   ),
                   e.op(
                     e.op(laptop.forProgrammers, "=", true),
@@ -210,6 +214,15 @@ export const appRouter = router({
                       laptop.forProgrammers,
                       "=",
                       input.forProgrammers == true
+                    )
+                  ),
+                  e.op(
+                    e.op(laptop.forVideoEditing, "=", true),
+                    "and",
+                    e.op(
+                      laptop.forVideoEditing,
+                      "=",
+                      input.forVideoEditing == true
                     )
                   )
                 )
@@ -252,6 +265,24 @@ export const appRouter = router({
       .run(edgeClient);
     return laptops;
   }),
+  sendContact: procedure
+    .input(
+      z.object({
+        name: z.string(),
+        title: z.string(),
+        content: z.string(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const laptops = await e
+        .insert(e.Contact, {
+          name: input.name,
+          title: input.title,
+          content: input.content,
+        })
+        .run(edgeClient);
+      return laptops;
+    }),
 });
 
 // export type definition of API

@@ -48,11 +48,11 @@ const monthsShort = [
 ];
 
 export default function LaptopView({ data }: { data: Laptop }) {
-  const [imageSrc, setImageSrc] = useState<string | null>(null);
+  /* const [imageSrc, setImageSrc] = useState<string | null>(null);
 
   useEffect(() => {
     // Create a Blob from the byte array
-    const blob = new Blob([data.titleImage], { type: "image/jpeg" }); // Adjust MIME type as needed
+    const blob = new Blob([data.titleImageName], { type: "image/jpeg" }); // Adjust MIME type as needed
 
     // Generate an object URL
     const objectUrl = URL.createObjectURL(blob);
@@ -64,7 +64,7 @@ export default function LaptopView({ data }: { data: Laptop }) {
     return () => {
       URL.revokeObjectURL(objectUrl);
     };
-  }, [data.titleImage]);
+  }, [data.titleImageName]); */
 
   const useCases = [
     data.forStudents,
@@ -86,19 +86,13 @@ export default function LaptopView({ data }: { data: Laptop }) {
     <article className="paddingMedium column gapLarge">
       <div className="row centerRow">
         <div className="rowCollapsible gapMedium paddingMedium widthFit centerRow defaultBorderRadius centerColumn">
-          {imageSrc != null ? (
+          
             <img
               alt="laptop"
-              src={imageSrc as any}
+              src={`/laptopTitles/${data.titleImageName}.png`}
               className="laptopHeroImage defaultBorderRadius"
             />
-          ) : (
-            <div
-              className={
-                "sectionImage laptopPreviewImage animatePlaceholder defaultBorderRadius"
-              }
-            ></div>
-          )}
+          
           <div className="column gapMedium">
             <h1 className="textLarge headerLarge">{data.name}</h1>
             <div className="row gapSmall centerColumn">

@@ -11,7 +11,7 @@ export default function Articles() {
         <div className="row flexWrap gapMedium centerRow">
           {generateArticlePreviews(12, {
             color: "background2",
-            data: { title: "This is a title of an article", id: 1, titleImage: new Uint8Array() },
+            data: { title: "This is a title of an article", id: 1, titleImageName: "Macbook_Guide_2025_01_30" },
           })}
         </div>
       </section>

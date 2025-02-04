@@ -8,7 +8,7 @@ import { spacesToUnderscores } from "@/utils/units";
 interface ArticlePreviewData {
   id: number;
   title: string;
-  titleImage: Uint8Array;
+  titleImageName: string;
 }
 
 interface ArticlePreviewArgs {
@@ -17,8 +17,7 @@ interface ArticlePreviewArgs {
 }
 
 export default function ArticlePreview({ args }: { args: ArticlePreviewArgs }) {
-
-  const [imageSrc, setImageSrc] = useState<string | null>(null);
+  /* const [imageSrc, setImageSrc] = useState<string | null>(null);
 
   useEffect(() => {
 
@@ -39,7 +38,7 @@ export default function ArticlePreview({ args }: { args: ArticlePreviewArgs }) {
 
   if (!args.color) {
     args.color = "background2";
-  }
+  } */
 
   return (
     <Link
@@ -52,31 +51,27 @@ export default function ArticlePreview({ args }: { args: ArticlePreviewArgs }) {
         } as React.CSSProperties
       }
     >
-      {imageSrc != null ? (
-        <img
-          alt="article"
-          src={imageSrc as any}
-          className="articlePreviewImage defaultBorderRadius"
-        />
-      ) : (
-        <div
-          className={
-            args.color +
-            " articlePreviewImage animatePlaceholder defaultBorderRadius"
-          }
-        ></div>
-      )}
+      <img
+        alt="article"
+        src={`{/articleTitles/${args.data.titleImageName}.png}`}
+        className="articlePreviewImage defaultBorderRadius"
+      />
 
       <div className="column gapMedium width100">
         <div className="column gapSmall">
-          <h3 className={"textMedium headerSmall textCenter"}>{args.data.title}</h3>
+          <h3 className={"textMedium headerSmall textCenter"}>
+            {args.data.title}
+          </h3>
         </div>
       </div>
     </Link>
   );
 }
 
-export function generateArticlePreviews(count: number, args: ArticlePreviewArgs) {
+export function generateArticlePreviews(
+  count: number,
+  args: ArticlePreviewArgs
+) {
   const articlePreviews = [];
   for (let i = 0; i < count; i++) {
     articlePreviews.push(<ArticlePreview key={i} args={args} />);

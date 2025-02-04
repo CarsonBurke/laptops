@@ -8,11 +8,11 @@ import { LaptopsOrder } from "@/types/db";
 import FilteredLaptops from "@/components/filteredLaptops";
 import { underscoresToSpaces } from "@/utils/units";
 
-export default function Laptop({ params }: { params: { id: string } }) {
+export default function Laptop({ params }: { params: Promise<any> }) {
   const { id } = React.use(params as any) as { id: string };
-
+  
   let { data, isLoading } = trpc.getLaptopByName.useQuery({
-    name: underscoresToSpaces(id),
+    id: id,
   });
 
   return (
