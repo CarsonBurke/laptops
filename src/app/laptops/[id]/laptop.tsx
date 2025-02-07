@@ -16,7 +16,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { formatBytes, numberCommas } from "@/utils/units";
+import { formatBytes, numberCommas, spacesToUnderscores, underscoresToSpaces } from "@/utils/units";
 
 interface LaptopViewProps {
   data: Laptop;
@@ -94,7 +94,7 @@ export default function LaptopView({ data }: { data: Laptop }) {
             />
           
           <div className="column gapMedium">
-            <h1 className="textLarge headerLarge">{data.name}</h1>
+            <h1 className="textLarge headerLarge">{underscoresToSpaces(data.name)}</h1>
             <div className="row gapSmall centerColumn">
               <h4 className={"textSmall headerSmall row"}>
                 ${numberCommas(data.price)}

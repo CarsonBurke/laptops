@@ -3,6 +3,31 @@ import { procedure, router } from "../trpc";
 import e from "../../../dbschema/edgeql-js";
 import { edgeClient } from "../../scripts/db";
 import { LaptopsOrder } from "@/types/db";
+import { randomBytes, scrypt } from "crypto";
+
+async function checkLogin(
+  username: string,
+  password: string
+): Promise<boolean> {
+  const account = e.select(e.Account, (account) => ({
+    password: true,
+    filter_single: e.op(account.username, "=", username),
+  }));
+
+  return await verify(password, account.password as unknown as string);
+}
+
+async function verify(password: string, hash: string): Promise<boolean> {
+  let result = false;
+
+  const [salt, key] = hash.split(":");
+  scrypt(password, salt, 64, (err, derivedKey) => {
+    if (err) result = false;
+    result = key == derivedKey.toString("hex");
+  });
+
+  return result;
+}
 
 function orderLaptopBy(
   laptop: any,
@@ -105,7 +130,7 @@ export const appRouter = router({
           programmingScore: true,
           officeWorkScore: true,
           videoEditingScore: true,
-          filter_single: {id: input.id}/* e.op(laptop.id, "=", input.id) */,
+          filter_single: { id: input.id } /* e.op(laptop.id, "=", input.id) */,
         }))
         .run(edgeClient);
       return laptops;
@@ -282,6 +307,48 @@ export const appRouter = router({
         })
         .run(edgeClient);
       return laptops;
+    }),
+  insertLaptop: procedure
+    .input(
+      z.object({
+        name: z.string(),
+        username: z.string(),
+        password: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      if (!checkLogin(input.username, input.password)) {
+        return undefined;
+      }
+
+      const laptop = await e
+        .insert(e.Laptop, {
+          name: input.name,
+        })
+        .run(edgeClient);
+
+      return laptop;
+    }),
+  insertArticle: procedure
+    .input(
+      z.object({
+        title: z.string(),
+        username: z.string(),
+        password: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      if (!checkLogin(input.username, input.password)) {
+        return undefined;
+      }
+
+      const article = await e
+        .insert(e.Article, {
+          title: input.title,
+        })
+        .run(edgeClient);
+
+      return article;
     }),
 });
 
