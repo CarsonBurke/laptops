@@ -1,6 +1,6 @@
 import { generateFakeLaptopPreviews } from "../../components/fakeLaptopPreview";
 import "./page.scss";
-import image from "../../../public/heroBg.jpg";
+import image from "../../../public/heroBg.webp";
 import Image from "next/image";
 
 export default function Article() {

@@ -4,7 +4,7 @@ import { trpc } from "@/lib/trpc";
 import LaptopView from "./laptop";
 import * as React from "react";
 import "./page.scss";
-import { LaptopsOrder } from "@/types/db";
+import { LaptopsOrder } from "@/types/laptop";
 import FilteredLaptops from "@/components/filteredLaptops";
 import { underscoresToSpaces } from "@/utils/units";
 

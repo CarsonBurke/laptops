@@ -1,6 +1,6 @@
 import { generateFakeLaptopPreviews } from "@/components/fakeLaptopPreview";
 import LaptopPreview from "@/components/laptopPreview";
-import { Laptop } from "@/types/db";
+import { Laptop } from "@/types/laptop";
 
 export default function Display({
   data,

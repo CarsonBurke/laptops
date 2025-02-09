@@ -6,7 +6,7 @@ import linuxIcon from "../../public/OSIcons/linux.svg";
 import macIcon from "../../public/OSIcons/mac.svg";
 import windowsIcon from "../../public/OSIcons/windows.svg";
 import Link from "next/link";
-import { LaptopsOrder } from "@/types/db";
+import { LaptopsOrder } from "@/types/laptop";
 
 export default function Footer() {
   return (

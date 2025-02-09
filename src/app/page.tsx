@@ -5,7 +5,7 @@ import FakeLaptopPreview, {
 } from "../components/fakeLaptopPreview";
 import Button from "../components/button";
 import FilteredLaptops from "@/components/filteredLaptops";
-import { LaptopsOrder } from "@/types/db";
+import { LaptopsOrder } from "@/types/laptop";
 
 export default function Home() {
   return (

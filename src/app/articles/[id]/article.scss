@@ -1,13 +1,66 @@
 @use "../../../app/styles/variables.scss";
 
-@media (--desktop) {
+/* @media (--desktop) {
   .article {
-    width: calc(100% - 450px);
+    width: calc(100%);
   }
-}
+} */
 
 @media (--mobile) {
   .article {
     width: 100%;
   }
+}
+
+
+.articleContent strong {
+    font-weight: 600;
+}
+
+.articleContent h1 {
+    font-size: var(--textXLarge);
+}
+
+.articleContent h2 {
+    font-size: var(--textLarge);
+}
+
+.articleContent h3 {
+    font-size: var(--textMedium);
+}
+
+.articleContent h4 {
+    font-size: var(--textSmall);
+}
+
+.articleContent h5 {
+    font-size: var(--textXSmall);
+}
+
+.articleContent code {
+    background-color: var(--background3);
+    border-radius: var(--defaultBorderRadius);
+    padding: var(--spacingSmall);
+}
+
+.articleContent em {
+    width: fit-content;
+}
+
+.article .authorImage {
+  width: 28px;
+  object-fit: cover;
+  aspect-ratio: 1/1;
+  border-radius: 100%;
+}
+
+.article .contentImage {
+  min-height: 400px;
+  max-height: 60vh;
+  margin: auto;
+  min-width: 300px;
+  width: 80%;
+  max-width: 100%;
+  object-fit: cover;
+  border-radius: var(--defaultBorderRadius);
 }

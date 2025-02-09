@@ -12,7 +12,7 @@ export interface Laptop {
   storage: number;
   cores: number;
   topFrequency: number;
-  titleImageName: Uint8Array;
+  titleImageName: string;
   forStudents: boolean;
   forGaming: boolean;
   forProgrammers: boolean;

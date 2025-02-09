@@ -15,6 +15,8 @@ export default function Contact() {
   const sendContact = trpc.sendContact.useMutation();
 
   function submit() {
+    if (submitted) return
+
     sendContact.mutate({
       name,
       title,

@@ -1,7 +1,7 @@
-import { Laptop, LaptopUseCase } from "@/types/db";
+import { Laptop, LaptopUseCase } from "@/types/laptop";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import computerImage from "../../../../outside_media/computer.jpg";
+import computerImage from "../../../../outside_media/computer.webp";
 import TableDouble from "@/components/tableDouble";
 import Button from "@/components/button";
 import Link from "next/link";
@@ -89,7 +89,7 @@ export default function LaptopView({ data }: { data: Laptop }) {
           
             <img
               alt="laptop"
-              src={`/laptopTitles/${data.titleImageName}.png`}
+              src={`/laptopTitles/${data.titleImageName}.webp`}
               className="laptopHeroImage defaultBorderRadius"
             />
           

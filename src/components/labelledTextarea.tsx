@@ -5,7 +5,6 @@ interface LabelledTextareaArgs {
   name: string;
   label: ReactNode;
   placeholder: string;
-  initial?: string;
   value: string;
   color: number;
   onChange(value: string | number): void;
@@ -25,7 +24,6 @@ export default function LabelledTextarea({
           value={args.value}
           onChange={(e) => args.onChange(e.target.value)}
         >
-          {args.initial}
         </textarea>
       </div>
     )

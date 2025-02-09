@@ -70,7 +70,7 @@ export default function LaptopPreview({ args }: { args: LaptopPreviewArgs }) {
       
         <img
           alt="laptop"
-          src={`/laptopTitles/${args.data.titleImageName}.png`}
+          src={`/laptopTitles/${args.data.titleImageName}.webp`}
           className="laptopPreviewImage defaultBorderRadius"
         />
       

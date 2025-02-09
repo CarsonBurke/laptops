@@ -19,21 +19,11 @@ import { edgeClient } from "../../scripts/db";
 import { trpc } from "../../lib/trpc";
 import LaptopPreview from "@/components/laptopPreview";
 import Display from "./display";
-import { Laptop, LaptopsOrder } from "@/types/db";
+import { Laptop, LaptopsOrder } from "@/types/laptop";
 
 /* import e from '@/dbschema/edgeql-js'; */
 
 const laptopsPerPage = 6;
-
-interface LaptopsSearchParams {
-  order: LaptopsOrder;
-  forStudents: boolean;
-  forGaming: boolean;
-  forProgrammers: boolean;
-  forOfficeWork: boolean;
-  forVideoEditing: boolean;
-  priceRange: [number, number];
-}
 
 export default function Laptops() {
   const queryDefaults = useSearchParams();

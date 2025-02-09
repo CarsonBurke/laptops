@@ -5,9 +5,19 @@
   flex-direction: row;
 }
 
+.rowReverse {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
 .column {
   display: flex;
   flex-direction: column;
+}
+
+.columnReverse {
+  display: flex;
+  flex-direction: column-reverse;
 }
 
 .centerRow {
@@ -26,6 +36,17 @@
 @media (--mobile) {
   .rowCollapsible {
     flex-direction: column;
+  }
+}
+
+.rowCollapsibleReverse {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+@media (--mobile) {
+  .rowCollapsibleReverse {
+    flex-direction: column-reverse;
   }
 }
 
@@ -67,4 +88,12 @@
 
 .widthFit {
   width: fit-content;
+}
+
+.minWidth {
+  width: min-content;
+}
+
+.minHeight {
+  height: min-content;
 }

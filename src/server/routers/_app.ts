@@ -2,31 +2,43 @@ import { z } from "zod";
 import { procedure, router } from "../trpc";
 import e from "../../../dbschema/edgeql-js";
 import { edgeClient } from "../../scripts/db";
-import { LaptopsOrder } from "@/types/db";
-import { randomBytes, scrypt } from "crypto";
+import { LaptopsOrder } from "@/types/laptop";
+import { randomBytes, randomUUID, scrypt } from "crypto";
+import { fs } from "edgedb/dist/adapter.node";
+import { uuid } from "../../../dbschema/edgeql-js/modules/std";
 
 async function checkLogin(
   username: string,
   password: string
 ): Promise<boolean> {
-  const account = e.select(e.Account, (account) => ({
-    password: true,
-    filter_single: e.op(account.username, "=", username),
-  }));
+  const account = await e
+    .select(e.Account, (account) => ({
+      password: true,
+      filter_single: e.op(account.username, "=", username),
+    }))
+    .run(edgeClient);
 
-  return await verify(password, account.password as unknown as string);
+  if (!account) return false;
+
+  return verify(password, account.password as unknown as string);
 }
 
-async function verify(password: string, hash: string): Promise<boolean> {
-  let result = false;
+function verify(password: string, hash: string): Promise<boolean> {
+  return new Promise((resolve, reject) => {
+    const [salt, key] = hash.split(":");
 
-  const [salt, key] = hash.split(":");
-  scrypt(password, salt, 64, (err, derivedKey) => {
-    if (err) result = false;
-    result = key == derivedKey.toString("hex");
+    scrypt(password, salt, 64, (err, derivedKey) => {
+      if (err) {
+        console.error("invalid password", err);
+        reject(false);
+      }
+
+      /* console.log("derivedKey", derivedKey.toString("hex"));
+      console.log("key compare", key == derivedKey.toString("hex")); */
+
+      resolve(key == derivedKey.toString("hex"));
+    });
   });
-
-  return result;
 }
 
 function orderLaptopBy(
@@ -290,6 +302,49 @@ export const appRouter = router({
       .run(edgeClient);
     return laptops;
   }),
+  getArticleById: procedure
+    .input(
+      z.object({
+        id: z.string(),
+      })
+    )
+    .query(async ({ input }) => {
+      const article = await e
+        .select(e.Article, (article) => ({
+          id: true,
+          title: true,
+          titleImageId: true,
+          contentImageIds: true,
+          authorId: true,
+          published: true,
+          content: true,
+          filter_single: e.op(article.id, "=", e.uuid(input.id)),
+        }))
+        .run(edgeClient);
+      return article;
+    }),
+  getArticles: procedure
+    .input(
+      z.object({
+        offset: z.number(),
+        limit: z.number(),
+      })
+    )
+    .query(async ({ input }) => {
+      const laptops = await e
+        .select(e.Article, () => ({
+          id: true,
+          title: true,
+          titleImageId: true,
+          authorId: true,
+          published: true,
+          content: true,
+          offset: input.offset,
+          limit: input.limit,
+        }))
+        .run(edgeClient);
+      return laptops;
+    }),
   sendContact: procedure
     .input(
       z.object({
@@ -314,10 +369,12 @@ export const appRouter = router({
         name: z.string(),
         username: z.string(),
         password: z.string(),
+        titleImageName: z.string(),
+        titleImage: z.array(z.number()),
       })
     )
     .mutation(async ({ ctx, input }) => {
-      if (!checkLogin(input.username, input.password)) {
+      if (!(await checkLogin(input.username, input.password))) {
         return undefined;
       }
 
@@ -329,22 +386,69 @@ export const appRouter = router({
 
       return laptop;
     }),
+  getAuthorById: procedure
+    .input(
+      z.object({
+        id: z.any(),
+      })
+    )
+    .query(async ({ input }) => {
+      const author = await e
+        .select(e.Author, (author) => ({
+          id: true,
+          name: true,
+          description: true,
+          profileImageName: true,
+          filter_single: e.op(author.id, "=", e.uuid(input.id)),
+        }))
+        .run(edgeClient);
+      return author;
+    }),
   insertArticle: procedure
     .input(
       z.object({
         title: z.string(),
+        content: z.string(),
         username: z.string(),
         password: z.string(),
+        authorId: z.string(),
+        titleImage: z.any(),
+        contentImages: z.any(),
       })
     )
     .mutation(async ({ ctx, input }) => {
-      if (!checkLogin(input.username, input.password)) {
+      if (!(await checkLogin(input.username, input.password))) {
         return undefined;
+      }
+
+      // Title image
+
+      const titleImageId = randomUUID();
+      const path = `${process.cwd()}/public/articleImages/${titleImageId}.webp`;
+      const base64Buffer = Buffer.from(input.titleImage, "base64");
+      await fs.writeFile(path, base64Buffer);
+
+      // Content images
+
+      const contentImageIds = []
+      for (const file of input.contentImages) {
+        const id = randomUUID()
+        const path = `${process.cwd()}/public/articleImages/${id}.webp`;
+
+        const base64Buffer = Buffer.from(file, "base64");
+        await fs.writeFile(path, base64Buffer);
+
+        contentImageIds.push(id)
       }
 
       const article = await e
         .insert(e.Article, {
           title: input.title,
+          content: input.content,
+          authorId: e.uuid(input.authorId),
+          published: new Date(),
+          titleImageId: titleImageId,
+          contentImageIds: contentImageIds
         })
         .run(edgeClient);
 

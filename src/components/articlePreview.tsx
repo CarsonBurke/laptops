@@ -8,7 +8,7 @@ import { spacesToUnderscores } from "@/utils/units";
 interface ArticlePreviewData {
   id: number;
   title: string;
-  titleImageName: string;
+  titleImageId: string;
 }
 
 interface ArticlePreviewArgs {
@@ -34,15 +34,15 @@ export default function ArticlePreview({ args }: { args: ArticlePreviewArgs }) {
     return () => {
       URL.revokeObjectURL(objectUrl);
     };
-  }, [args.data.titleImage]);
+  }, [args.data.titleImage]); */
 
   if (!args.color) {
     args.color = "background2";
-  } */
+  }
 
   return (
     <Link
-      href={`/articles/${spacesToUnderscores(args.data.title)}`}
+      href={`/articles/${args.data.id}`}
       className="articlePreview defaultBorderRadius column gapMedium paddingMedium pointer defaultTransition"
       style={
         {
@@ -53,7 +53,7 @@ export default function ArticlePreview({ args }: { args: ArticlePreviewArgs }) {
     >
       <img
         alt="article"
-        src={`{/articleTitles/${args.data.titleImageName}.png}`}
+        src={`/articleImages/${args.data.titleImageId}.webp`}
         className="articlePreviewImage defaultBorderRadius"
       />
 
@@ -66,15 +66,4 @@ export default function ArticlePreview({ args }: { args: ArticlePreviewArgs }) {
       </div>
     </Link>
   );
-}
-
-export function generateArticlePreviews(
-  count: number,
-  args: ArticlePreviewArgs
-) {
-  const articlePreviews = [];
-  for (let i = 0; i < count; i++) {
-    articlePreviews.push(<ArticlePreview key={i} args={args} />);
-  }
-  return articlePreviews;
 }

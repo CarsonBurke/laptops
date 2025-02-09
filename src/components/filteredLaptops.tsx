@@ -1,7 +1,7 @@
 "use client"
 import LaptopPreview, { generateLaptopPreviews } from "./laptopPreview";
 import { trpc } from "@/lib/trpc";
-import { Laptop, LaptopsOrder } from "@/types/db";
+import { Laptop, LaptopsOrder } from "@/types/laptop";
 import { generateFakeLaptopPreviews } from "./fakeLaptopPreview";
 
 interface FilteredLaptopsArgs {
