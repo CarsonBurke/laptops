@@ -9,9 +9,9 @@ import { trpc } from "@/lib/trpc";
 import LaptopView from "@/app/laptops/[id]/laptop";
 import Checkbox from "@/components/checkbox";
 import Image from "next/image";
-import linuxIcon from "../../../public/OSIcons/linux.svg";
-import macIcon from "../../../public/OSIcons/mac.svg";
-import windowsIcon from "../../../public/OSIcons/windows.svg";
+import linuxIcon from "../../../../public/OSIcons/linux.svg";
+import macIcon from "../../../../public/OSIcons/mac.svg";
+import windowsIcon from "../../../../public/OSIcons/windows.svg";
 
 export default function LaptopUpload() {
   let [laptopName, setLaptopName] = useState("Laptop Name");
@@ -85,7 +85,7 @@ export default function LaptopUpload() {
           <div className="column gapLarge centerColumn background2 borderBg3 paddingMedium">
             <div className="column centerColumn gapMedium">
               <h1 className="textLarge headerLarge textCenter">
-                Upload Article
+                Upload Laptop
               </h1>
 
               <LabelledInput

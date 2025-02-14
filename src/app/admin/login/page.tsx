@@ -1,3 +1,5 @@
+"use client"
+
 import LabelledInput from "@/components/labelledInput";
 
 export default function Login() {

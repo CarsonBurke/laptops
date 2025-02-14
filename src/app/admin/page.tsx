@@ -12,7 +12,7 @@ export default function Admin() {
               Laptop upload
             </Link>
             <Link
-              href={"/admin/article-upload"}
+              href="/admin/article-upload"
               className="button buttonPrimary"
             >
               Article upload

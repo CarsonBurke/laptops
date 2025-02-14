@@ -243,7 +243,7 @@ export default function ArticleUpload() {
                 id: "fakeId",
                 published: new Date(),
                 authorId: authorId,
-                titleImageId: "Macbook_Guide_2025_01_30",
+                titleImageId: "0c9ae1f3-a98c-4c39-bd5d-1dce32ebc95f",
                 contentImageIds: [],
                 title: articleTitle,
                 content: articleContent,

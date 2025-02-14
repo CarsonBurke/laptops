@@ -26,7 +26,17 @@ import { Laptop, LaptopsOrder } from "@/types/laptop";
 const laptopsPerPage = 6;
 
 export default function Laptops() {
-  const queryDefaults = useSearchParams();
+  const [queryDefaults, setQueryDefaults] = /* useSearchParams() */useState(new URLSearchParams());
+
+  useEffect(() => {
+    setQueryDefaults(new URLSearchParams(window.location.search));
+
+    const updateParams = () => setQueryDefaults(new URLSearchParams(window.location.search));
+    window.addEventListener("popstate", updateParams);
+
+    return () => window.removeEventListener("popstate", updateParams);
+  }, []);
+
   console.log("queryDefaults", queryDefaults);
 
   console.log(
@@ -228,58 +238,58 @@ export default function Laptops() {
               <h3 className="textMedium headerSmall">Filter</h3>
 
               <div className="columnCollapsible gapMedium">
-                <Select
-                  optionNames={{
-                    Basic: [
-                      LaptopsOrder.BestDeal,
-                      LaptopsOrder.PriceLowToHigh,
-                      LaptopsOrder.PriceHighToLow,
-                    ],
-                    Advanced: [
-                      LaptopsOrder.ByMemory,
-                      LaptopsOrder.ByStorage,
-                      LaptopsOrder.ByCores,
-                      LaptopsOrder.ByCpuFrequency,
-                    ],
-                    Score: [
-                      LaptopsOrder.StudentScore,
-                      LaptopsOrder.GamingScore,
-                      LaptopsOrder.OfficeWorkScore,
-                      LaptopsOrder.ProgrammingScore,
-                      LaptopsOrder.VideoEditingScore,
-                    ],
-                  }}
-                  groupName="sort"
-                  className="borderBg3"
-                  onInput={(value) => {
-                    "use client";
-                    setOrder(value as LaptopsOrder);
+                  <Select
+                    optionNames={{
+                      Basic: [
+                        LaptopsOrder.BestDeal,
+                        LaptopsOrder.PriceLowToHigh,
+                        LaptopsOrder.PriceHighToLow,
+                      ],
+                      Advanced: [
+                        LaptopsOrder.ByMemory,
+                        LaptopsOrder.ByStorage,
+                        LaptopsOrder.ByCores,
+                        LaptopsOrder.ByCpuFrequency,
+                      ],
+                      Score: [
+                        LaptopsOrder.StudentScore,
+                        LaptopsOrder.GamingScore,
+                        LaptopsOrder.OfficeWorkScore,
+                        LaptopsOrder.ProgrammingScore,
+                        LaptopsOrder.VideoEditingScore,
+                      ],
+                    }}
+                    groupName="sort"
+                    className="borderBg3"
+                    onInput={(value) => {
+                      "use client";
+                      setOrder(value as LaptopsOrder);
 
-                    // switch (value) {
-                    //   case LaptopsOrder.BestDeal:
-                    //     setOrder(LaptopsOrder.BestDeal);
-                    //     break;
-                    //   case LaptopsOrder.PriceLowToHigh:
-                    //     setOrder(LaptopsOrder.PriceLowToHigh);
-                    //     break;
-                    //   case LaptopsOrder.PriceHighToLow:
-                    //     setOrder(LaptopsOrder.PriceHighToLow);
-                    //     break;
-                    //   case LaptopsOrder.ByMemory:
-                    //     setOrder(LaptopsOrder.ByMemory);
-                    //     break;
-                    //   case LaptopsOrder.ByStorage:
-                    //     setOrder(LaptopsOrder.ByStorage);
-                    //     break;
-                    //   case LaptopsOrder.ByCores:
-                    //     setOrder(LaptopsOrder.ByCores);
-                    //     break;
-                    //   case LaptopsOrder.ByCpuFrequency:
-                    //     setOrder(LaptopsOrder.ByCpuFrequency);
-                    //     break;
-                    // }
-                  }}
-                />
+                      // switch (value) {
+                      //   case LaptopsOrder.BestDeal:
+                      //     setOrder(LaptopsOrder.BestDeal);
+                      //     break;
+                      //   case LaptopsOrder.PriceLowToHigh:
+                      //     setOrder(LaptopsOrder.PriceLowToHigh);
+                      //     break;
+                      //   case LaptopsOrder.PriceHighToLow:
+                      //     setOrder(LaptopsOrder.PriceHighToLow);
+                      //     break;
+                      //   case LaptopsOrder.ByMemory:
+                      //     setOrder(LaptopsOrder.ByMemory);
+                      //     break;
+                      //   case LaptopsOrder.ByStorage:
+                      //     setOrder(LaptopsOrder.ByStorage);
+                      //     break;
+                      //   case LaptopsOrder.ByCores:
+                      //     setOrder(LaptopsOrder.ByCores);
+                      //     break;
+                      //   case LaptopsOrder.ByCpuFrequency:
+                      //     setOrder(LaptopsOrder.ByCpuFrequency);
+                      //     break;
+                      // }
+                    }}
+                  />
 
                 <DoubleSlider
                   header={<h3 className="textSmall headerSmall">Price</h3>}
@@ -329,49 +339,49 @@ export default function Laptops() {
                   </div>
                 </div>
               </Accordian> */}
-                <Accordian
-                  header={<h3 className="textSmall headerSmall">Use Case</h3>}
-                  open={true}
-                  className="borderBg3"
-                >
-                  <div className="column">
-                    <Checkbox
-                      id="forStudentss"
-                      checked={forStudents}
-                      onChange={(checked) => setforStudents(checked)}
-                    >
-                      <h3 className="textXSmall">Students</h3>
-                    </Checkbox>
-                    <Checkbox
-                      id="forGaming"
-                      checked={forGaming}
-                      onChange={(checked) => setforGaming(checked)}
-                    >
-                      <h3 className="textXSmall">Gaming</h3>
-                    </Checkbox>
-                    <Checkbox
-                      id="forProgrammers"
-                      checked={forProgrammers}
-                      onChange={(checked) => setforProgrammers(checked)}
-                    >
-                      <h3 className="textXSmall">Programming</h3>
-                    </Checkbox>
-                    <Checkbox
-                      id="forOfficeWork"
-                      checked={forOfficeWork}
-                      onChange={(checked) => setforOfficeWork(checked)}
-                    >
-                      <h3 className="textXSmall">Office work</h3>
-                    </Checkbox>
-                    <Checkbox
-                      id="forVideoEditing"
-                      checked={forOfficeWork}
-                      onChange={(checked) => setforVideoEditing(checked)}
-                    >
-                      <h3 className="textXSmall">Video editing</h3>
-                    </Checkbox>
-                  </div>
-                </Accordian>
+                  <Accordian
+                    header={<h3 className="textSmall headerSmall">Use Case</h3>}
+                    open={true}
+                    className="borderBg3"
+                  >
+                    <div className="column">
+                      <Checkbox
+                        id="forStudentss"
+                        checked={forStudents}
+                        onChange={(checked) => setforStudents(checked)}
+                      >
+                        <h3 className="textXSmall">Students</h3>
+                      </Checkbox>
+                      <Checkbox
+                        id="forGaming"
+                        checked={forGaming}
+                        onChange={(checked) => setforGaming(checked)}
+                      >
+                        <h3 className="textXSmall">Gaming</h3>
+                      </Checkbox>
+                      <Checkbox
+                        id="forProgrammers"
+                        checked={forProgrammers}
+                        onChange={(checked) => setforProgrammers(checked)}
+                      >
+                        <h3 className="textXSmall">Programming</h3>
+                      </Checkbox>
+                      <Checkbox
+                        id="forOfficeWork"
+                        checked={forOfficeWork}
+                        onChange={(checked) => setforOfficeWork(checked)}
+                      >
+                        <h3 className="textXSmall">Office work</h3>
+                      </Checkbox>
+                      <Checkbox
+                        id="forVideoEditing"
+                        checked={forOfficeWork}
+                        onChange={(checked) => setforVideoEditing(checked)}
+                      >
+                        <h3 className="textXSmall">Video editing</h3>
+                      </Checkbox>
+                    </div>
+                  </Accordian>
               </div>
             </div>
 
