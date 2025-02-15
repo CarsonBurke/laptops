@@ -26,3 +26,8 @@ export function spacesToUnderscores(str: string) {
 export function underscoresToSpaces(str: string) {
     return str.replace(/_/g, " ");
 }
+
+export function roundTo(num: number, decimals = 2) {
+    const factor = 10 ** decimals
+    return Math.round(num * factor) / factor
+}

@@ -57,6 +57,19 @@
     border-color: var(--background5);
 }
 
+.buttonBg4 {
+    background-color: var(--background4);
+    padding: var(--spacingSmall) var(--spacingMedium);
+    border-radius: var(--defaultBorderRadius);
+    border: solid var(--background4) 1.5px;
+    cursor: pointer;
+}
+
+.buttonBg4:hover {
+    background-color: var(--background5);
+    border-color: var(--background6);
+}
+
 .buttonBig {
     padding: var(--spacingMedium) var(--spacingLarge);
 }
