@@ -167,11 +167,11 @@ export default function Laptops() {
     hasDedicatedGpu,
     minVram: vram[0],
     maxVram: vram[1],
-    studentScoreWeight: parseInt(queryDefaults.get("studentScoreWeight") || ""),
-    gamingScoreWeight: parseInt(queryDefaults.get("gamingScoreWeight") || ""),
-    programmingScoreWeight: parseInt(queryDefaults.get("programmingScoreWeight") || ""),
-    officeWorkScoreWeight: parseInt(queryDefaults.get("officeWorkScoreWeight") || ""),
-    videoEditingScoreWeight: parseInt(queryDefaults.get("videoEditingScoreWeight") || ""),
+    studentScoreWeight: parseInt(queryDefaults.get("studentScoreWeight") || "0"),
+    gamingScoreWeight: parseInt(queryDefaults.get("gamingScoreWeight") || "0"),
+    programmingScoreWeight: parseInt(queryDefaults.get("programmingScoreWeight") || "0"),
+    officeWorkScoreWeight: parseInt(queryDefaults.get("officeWorkScoreWeight") || "0"),
+    videoEditingScoreWeight: parseInt(queryDefaults.get("videoEditingScoreWeight") || "0"),
     limit: 1,
     offset: offset + pageOffset * laptopsPerPage,
   });
@@ -407,7 +407,7 @@ export default function Laptops() {
                     </Checkbox>
                     <Checkbox
                       id="forVideoEditing"
-                      checked={forOfficeWork}
+                      checked={forVideoEditing}
                       onChange={(checked) => setforVideoEditing(checked)}
                     >
                       <h3 className="textXSmall">Video editing</h3>
