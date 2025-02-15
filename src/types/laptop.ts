@@ -35,11 +35,12 @@ export enum LaptopsOrder {
   PriceLowToHigh = "By price asc.",
   PriceHighToLow = "By price desc.",
   // By Score
-  StudentScore = "Student score desc.",
-  GamingScore = "Gaming score desc.",
-  ProgrammingScore = "Programming score desc.",
-  OfficeWorkScore = "Office work score desc.",
-  VideoEditingScore = "Video editing score desc.",
+  StudentScore = "School work",
+  GamingScore = "Gaming",
+  ProgrammingScore = "Programming",
+  OfficeWorkScore = "Office work",
+  VideoEditingScore = "Video editing",
+  WeightedScore = "Weighted score",
   // Advanced
   ByMemory = "By memory desc.",
   ByStorage = "By storage desc.",

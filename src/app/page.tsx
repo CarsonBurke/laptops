@@ -6,6 +6,13 @@ import FakeLaptopPreview, {
 import Button from "../components/button";
 import FilteredLaptops from "@/components/filteredLaptops";
 import { LaptopsOrder } from "@/types/laptop";
+import Link from "next/link";
+import {
+  onlyForGaming,
+  onlyForOfficeWork,
+  onlyForProgrammers,
+  onlyForStudents,
+} from "@/constants/query";
 
 export default function Home() {
   return (
@@ -28,10 +35,16 @@ export default function Home() {
             />
           </div>
 
-          <Button linkTo="/laptops" className="textGlowButton">
+          <Link
+            href={{
+              pathname: "/laptops",
+              query: { order: LaptopsOrder.BestDeal },
+            }}
+            className="button textGlowButton"
+          >
             <h3 className="textSmall">See More</h3>
             <span className="material-symbols-outlined">arrow_forward</span>
-          </Button>
+          </Link>
         </div>
       </section>
       <section className="sectionPadded background2 column gapLarge">
@@ -57,10 +70,16 @@ export default function Home() {
                 }}
               />
             </div>
-            <Button linkTo="/laptops" className="textGlowButton">
+            <Link
+              href={{
+                pathname: "/laptops",
+                query: onlyForStudents,
+              }}
+              className="button textGlowButton"
+            >
               <h3 className="textSmall">See More</h3>
               <span className="material-symbols-outlined">arrow_forward</span>
-            </Button>
+            </Link>
           </div>
           <div className="column centerColumn width100 gapMedium">
             <h2 className="textMedium headerSmall">For Programming</h2>
@@ -75,10 +94,13 @@ export default function Home() {
                 }}
               />
             </div>
-            <Button linkTo="/laptops" className="textGlowButton">
+            <Link
+              href={{ pathname: "/laptops", query: onlyForProgrammers }}
+              className="button textGlowButton"
+            >
               <h3 className="textSmall">See More</h3>
               <span className="material-symbols-outlined">arrow_forward</span>
-            </Button>
+            </Link>
           </div>
         </div>
         <div className="rowCollapsible gapLarge centerRow">
@@ -95,10 +117,13 @@ export default function Home() {
                 }}
               />
             </div>
-            <Button linkTo="/laptops" className="textGlowButton">
+            <Link
+              href={{ pathname: "/laptops", query: onlyForGaming }}
+              className="button textGlowButton"
+            >
               <h3 className="textSmall">See More</h3>
               <span className="material-symbols-outlined">arrow_forward</span>
-            </Button>
+            </Link>
           </div>
           <div className="column centerColumn width100 gapMedium">
             <h2 className="textMedium headerSmall">For Office Work</h2>
@@ -113,10 +138,13 @@ export default function Home() {
                 }}
               />
             </div>
-            <Button linkTo="/laptops" className="textGlowButton">
+            <Link
+              href={{ pathname: "/laptops", query: onlyForOfficeWork }}
+              className="button textGlowButton"
+            >
               <h3 className="textSmall">See More</h3>
               <span className="material-symbols-outlined">arrow_forward</span>
-            </Button>
+            </Link>
           </div>
         </div>
       </section>

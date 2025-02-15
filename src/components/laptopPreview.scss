@@ -1,7 +1,7 @@
 .laptopPreview {
     border-width: 2px;
     border-style: solid;
-    max-width: 550px;
+    max-width: 480px;
     min-width: 300px;
     width: 100%;
 }
@@ -29,7 +29,7 @@
 .laptopPreviewImage {
     aspect-ratio: 4 / 3;
     width: 100%;
-    max-width: 550px;
+    max-width: 250px;
     max-height: 300px;
-    object-fit: cover;
+    object-fit: contain;
 }

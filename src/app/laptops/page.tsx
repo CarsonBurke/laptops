@@ -167,6 +167,11 @@ export default function Laptops() {
     hasDedicatedGpu,
     minVram: vram[0],
     maxVram: vram[1],
+    studentScoreWeight: parseInt(queryDefaults.get("studentScoreWeight") || ""),
+    gamingScoreWeight: parseInt(queryDefaults.get("gamingScoreWeight") || ""),
+    programmingScoreWeight: parseInt(queryDefaults.get("programmingScoreWeight") || ""),
+    officeWorkScoreWeight: parseInt(queryDefaults.get("officeWorkScoreWeight") || ""),
+    videoEditingScoreWeight: parseInt(queryDefaults.get("videoEditingScoreWeight") || ""),
     limit: 1,
     offset: offset + pageOffset * laptopsPerPage,
   });

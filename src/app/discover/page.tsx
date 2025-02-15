@@ -4,6 +4,7 @@ import Button from "@/components/button";
 import DoubleSlider from "@/components/doubleSlider";
 import LabelledInput from "@/components/labelledInput";
 import Slider from "@/components/slider";
+import { LaptopsOrder } from "@/types/laptop";
 import { roundTo } from "@/utils/units";
 import Link from "next/link";
 import { useState } from "react";
@@ -134,10 +135,19 @@ export default function DiscoverPage() {
                     Back
                   </Button>
                   <Link
-                    href="/laptops"
+                    href={{pathname: "/laptops", query: {
+                      studentScoreWeight: roundTo(studentScore, 2),
+                      gamingScoreWeight: roundTo(gamingScore, 2),
+                      programmingScoreWeight: roundTo(programmingScore, 2),
+                      officeWorkScoreWeight: roundTo(officeWorkScore, 2),
+                      videoEditingScoreWeight: roundTo(videoEditingScore, 2),
+                      minPrice: price[0],
+                      maxPrice: price[1],
+                      order: LaptopsOrder.WeightedScore
+                    }}}
                     className="button row gapXSmall buttonPrimary"
                   >
-                    Submit
+                    Go
                     <span className="material-symbols-outlined">
                       arrow_forward
                     </span>

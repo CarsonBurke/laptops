@@ -124,9 +124,9 @@ export default function LaptopPreview({ args }: { args: LaptopPreviewArgs }) {
             </h4> */}
           </div>
           <div className="row flexWrap gapSmall">
-              {args.data.windows ? <Image src={windowsIcon} alt="windows" width={20} height={20} /> : <></>}
-              {args.data.macos ? <Image src={macIcon} alt="macos" width={20} height={20} /> : <></>}
-              {args.data.linux ? <Image src={linuxIcon} alt="linux" width={20} height={20} /> : <></>}
+              {args.data.windows ? <Image src={windowsIcon} alt="windows" width={20} height={20} title="Windows" /> : <></>}
+              {args.data.macos ? <Image src={macIcon} alt="macos" width={20} height={20} title="macOS"/> : <></>}
+              {args.data.linux ? <Image src={linuxIcon} alt="linux" width={20} height={20} title="Linux"/> : <></>}
           </div>
         </div>
       </div>

@@ -43,12 +43,19 @@ function verify(password: string, hash: string): Promise<boolean> {
 
 function orderLaptopBy(
   laptop: any,
-  order: LaptopsOrder
+  input: {
+    order: LaptopsOrder;
+    studentScoreWeight?: number;
+    gamingScoreWeight?: number;
+    programmingScoreWeight?: number;
+    officeWorkScoreWeight?: number;
+    videoEditingScoreWeight?: number;
+  }
 ) /* : [number, typeof e.DESC | typeof e.ASC] */ {
   let expression;
   let direction: typeof e.DESC | typeof e.ASC;
 
-  switch (order) {
+  switch (input.order) {
     // Basic
     case LaptopsOrder.BestDeal:
       expression = laptop.saleOf;
@@ -95,6 +102,40 @@ function orderLaptopBy(
     case LaptopsOrder.VideoEditingScore:
       expression = laptop.videoEditingScore;
       direction = e.DESC;
+    case LaptopsOrder.WeightedScore:
+      expression = e.op(
+        e.op(
+          e.op(
+            e.op(laptop.studentScore, "*", input.studentScoreWeight || 0),
+            "+",
+            e.op(laptop.gamingScore, "*", input.gamingScoreWeight || 0)
+          ),
+          "+",
+          e.op(
+            e.op(
+              laptop.programmingScore,
+              "*",
+              input.programmingScoreWeight || 0
+            ),
+            "+",
+            e.op(laptop.officeWorkScore, "*", input.officeWorkScoreWeight || 0)
+          )
+        ),
+        "+",
+        e.op(laptop.videoEditingScore, "*", input.videoEditingScoreWeight || 0)
+      );
+      /* e.op(e.op(laptop.studentScore, "*", (input.studentScoreWeight || 0)), "+",
+        e.op(laptop.gamingScore, "*", (input.gamingScoreWeight || 0))), "+",
+        e.op(e.op(laptop.programmingScore, "*", (input.programmingScoreWeight || 0)), "+",
+        e.op(e.op(laptop.officeWorkScore, "*", (input.officeWorkScoreWeight || 0)), "+",
+        e.op(e.op(laptop.videoEditingScore, "*", (input.videoEditingScoreWeight || 0)))))) */
+      /* laptop.gamingScore * (input.gamingScoreWeight || 0) +
+        laptop.programmingScore * (input.programmingScoreWeight || 0) +
+        laptop.officeWorkScore * (input.officeWorkScoreWeight || 0) +
+        laptop.videoEditingScore * (input.videoEditingScoreWeight || 0); */
+
+      direction = e.DESC;
+      break;
   }
 
   return {
@@ -178,6 +219,11 @@ export const appRouter = router({
         hasDedicatedGpu: z.boolean().optional(),
         offset: z.number(),
         limit: z.number(),
+        studentScoreWeight: z.number().optional().or(z.literal(100)),
+        gamingScoreWeight: z.number().optional().or(z.literal(100)),
+        programmingScoreWeight: z.number().optional().or(z.literal(100)),
+        officeWorkScoreWeight: z.number().optional().or(z.literal(100)),
+        videoEditingScoreWeight: z.number().optional().or(z.literal(100)),
       })
     )
     .query(async ({ input }) => {
@@ -285,7 +331,7 @@ export const appRouter = router({
               )
             )
           ),
-          order_by: orderLaptopBy(laptop, input.order),
+          order_by: orderLaptopBy(laptop, input),
         }))
         .run(edgeClient);
       return laptops;
@@ -430,15 +476,15 @@ export const appRouter = router({
 
       // Content images
 
-      const contentImageIds = []
+      const contentImageIds = [];
       for (const file of input.contentImages) {
-        const id = randomUUID()
+        const id = randomUUID();
         const path = `${process.cwd()}/public/articleImages/${id}.webp`;
 
         const base64Buffer = Buffer.from(file, "base64");
         await fs.writeFile(path, base64Buffer);
 
-        contentImageIds.push(id)
+        contentImageIds.push(id);
       }
 
       const article = await e
@@ -448,7 +494,7 @@ export const appRouter = router({
           authorId: e.uuid(input.authorId),
           published: new Date(),
           titleImageId: titleImageId,
-          contentImageIds: contentImageIds
+          contentImageIds: contentImageIds,
         })
         .run(edgeClient);
 
