@@ -106,23 +106,23 @@ function orderLaptopBy(
       expression = e.op(
         e.op(
           e.op(
-            e.op(laptop.studentScore, "*", input.studentScoreWeight || 0),
+            e.op(laptop.studentScore, "*", input.studentScoreWeight || 1),
             "+",
-            e.op(laptop.gamingScore, "*", input.gamingScoreWeight || 0)
+            e.op(laptop.gamingScore, "*", input.gamingScoreWeight || 1)
           ),
           "+",
           e.op(
             e.op(
               laptop.programmingScore,
               "*",
-              input.programmingScoreWeight || 0
+              input.programmingScoreWeight || 1
             ),
             "+",
-            e.op(laptop.officeWorkScore, "*", input.officeWorkScoreWeight || 0)
+            e.op(laptop.officeWorkScore, "*", input.officeWorkScoreWeight || 1)
           )
         ),
         "+",
-        e.op(laptop.videoEditingScore, "*", input.videoEditingScoreWeight || 0)
+        e.op(laptop.videoEditingScore, "*", input.videoEditingScoreWeight || 1)
       );
       /* e.op(e.op(laptop.studentScore, "*", (input.studentScoreWeight || 0)), "+",
         e.op(laptop.gamingScore, "*", (input.gamingScoreWeight || 0))), "+",

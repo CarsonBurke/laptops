@@ -205,9 +205,6 @@ export default function DoubleSlider({ header, steps, labelLeft, labelRight, bac
 
   // Properly align the right radio on page load
   useEffect(() => {
-
-    console.log(parent)
-
     let sliderBar = sliderBarRef.current as HTMLDivElement;
 
     let sliderRight = sliderBar.getElementsByClassName("doubleSliderRight")[0] as HTMLDivElement;
