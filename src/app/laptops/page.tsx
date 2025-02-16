@@ -71,9 +71,6 @@ export default function Laptops() {
     typeof queryDefaults.get("forStudents")
   ); */
 
-  const searchParams = new URLSearchParams(window.location.search);
-  const [queryDefaults, setQueryDefaults] = useState(searchParams)
-
   /* useEffect(() => {
     console.log("HI UPDATED")
     setQueryDefaults(searchParams)
@@ -81,6 +78,20 @@ export default function Laptops() {
     setforStudents(
       queryDefaults.get("forStudents") != "false")
   }, [searchParams]) */
+
+  const [queryDefaults, setQueryDefaults] = useState(
+    new URLSearchParams()
+  );
+
+  useEffect(() => {
+    setQueryDefaults(new URLSearchParams(window.location.search));
+
+    const updateParams = () =>
+      setQueryDefaults(new URLSearchParams(window.location.search));
+    window.addEventListener("popstate", updateParams);
+
+    return () => window.removeEventListener("popstate", updateParams);
+  }, []);
 
   // Filter states
 
@@ -92,24 +103,19 @@ export default function Laptops() {
 
   // Use cases
 
-  const studentsDefault =
-    queryDefaults.get("forStudents") != "false"
+  const studentsDefault = queryDefaults.get("forStudents") != "false";
   let [forStudents, setforStudents] = useState(studentsDefault);
 
-  const gamingDefault =
-    queryDefaults.get("forGaming") != "false"
+  const gamingDefault = queryDefaults.get("forGaming") != "false";
   let [forGaming, setforGaming] = useState(gamingDefault);
 
-  const programmersDefault =
-    queryDefaults.get("forProgrammers") != "false"
+  const programmersDefault = queryDefaults.get("forProgrammers") != "false";
   let [forProgrammers, setforProgrammers] = useState(programmersDefault);
 
-  const officeWorkDefault =
-    queryDefaults.get("forOfficeWork") != "false"
+  const officeWorkDefault = queryDefaults.get("forOfficeWork") != "false";
   let [forOfficeWork, setforOfficeWork] = useState(officeWorkDefault);
 
-  const videoEditingDefault =
-    queryDefaults.get("forVideoEditing") != "false"
+  const videoEditingDefault = queryDefaults.get("forVideoEditing") != "false";
   let [forVideoEditing, setforVideoEditing] = useState(videoEditingDefault);
 
   let [hasDedicatedGpu, setHasDedicatedGpu] = useState(false);
@@ -167,11 +173,19 @@ export default function Laptops() {
     hasDedicatedGpu,
     minVram: vram[0],
     maxVram: vram[1],
-    studentScoreWeight: parseInt(queryDefaults.get("studentScoreWeight") || "0"),
+    studentScoreWeight: parseInt(
+      queryDefaults.get("studentScoreWeight") || "0"
+    ),
     gamingScoreWeight: parseInt(queryDefaults.get("gamingScoreWeight") || "0"),
-    programmingScoreWeight: parseInt(queryDefaults.get("programmingScoreWeight") || "0"),
-    officeWorkScoreWeight: parseInt(queryDefaults.get("officeWorkScoreWeight") || "0"),
-    videoEditingScoreWeight: parseInt(queryDefaults.get("videoEditingScoreWeight") || "0"),
+    programmingScoreWeight: parseInt(
+      queryDefaults.get("programmingScoreWeight") || "0"
+    ),
+    officeWorkScoreWeight: parseInt(
+      queryDefaults.get("officeWorkScoreWeight") || "0"
+    ),
+    videoEditingScoreWeight: parseInt(
+      queryDefaults.get("videoEditingScoreWeight") || "0"
+    ),
     limit: 1,
     offset: offset + pageOffset * laptopsPerPage,
   });
@@ -272,10 +286,7 @@ export default function Laptops() {
               <div className="columnCollapsible gapMedium">
                 <Select
                   optionNames={{
-                    Basic: [
-                      LaptopsOrder.BestDeal,
-                      LaptopsOrder.PriceHighToLow,
-                    ],
+                    Basic: [LaptopsOrder.BestDeal, LaptopsOrder.PriceHighToLow],
                     Advanced: [
                       LaptopsOrder.ByMemory,
                       LaptopsOrder.ByStorage,
