@@ -71,7 +71,7 @@ export default function Laptops() {
     typeof queryDefaults.get("forStudents")
   ); */
 
-  const searchParams = useSearchParams();
+  const searchParams = new URLSearchParams(window.location.search);
   const [queryDefaults, setQueryDefaults] = useState(searchParams)
 
   /* useEffect(() => {
