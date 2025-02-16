@@ -22,7 +22,7 @@ import { Laptop, LaptopsOrder } from "@/types/laptop";
 
 /* import e from '@/dbschema/edgeql-js'; */
 
-const laptopsPerPage = 6;
+const laptopsPerPage = 20;
 
 export default function Laptops() {
   /* const [queryDefaults, setQueryDefaults] = useState(
@@ -274,7 +274,6 @@ export default function Laptops() {
                   optionNames={{
                     Basic: [
                       LaptopsOrder.BestDeal,
-                      LaptopsOrder.PriceLowToHigh,
                       LaptopsOrder.PriceHighToLow,
                     ],
                     Advanced: [

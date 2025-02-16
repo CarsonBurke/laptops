@@ -61,10 +61,6 @@ function orderLaptopBy(
       expression = laptop.saleOf;
       direction = e.DESC;
       break;
-    case LaptopsOrder.PriceLowToHigh:
-      expression = laptop.price;
-      direction = e.ASC;
-      break;
     case LaptopsOrder.PriceHighToLow:
       expression = laptop.price;
       direction = e.DESC;

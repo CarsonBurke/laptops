@@ -32,8 +32,7 @@ export interface Laptop {
 
 export enum LaptopsOrder {
   BestDeal = "Best deal",
-  PriceLowToHigh = "By price asc.",
-  PriceHighToLow = "By price desc.",
+  PriceHighToLow = "Best price",
   // By Score
   StudentScore = "School work",
   GamingScore = "Gaming",
@@ -42,10 +41,10 @@ export enum LaptopsOrder {
   VideoEditingScore = "Video editing",
   WeightedScore = "Weighted score",
   // Advanced
-  ByMemory = "By memory desc.",
-  ByStorage = "By storage desc.",
-  ByCores = "By cpu cores desc.",
-  ByCpuFrequency = "By cpu speed desc.",
+  ByMemory = "Memory",
+  ByStorage = "Storage",
+  ByCores = "Cpu cores",
+  ByCpuFrequency = "Cpu speed",
 }
 
 export enum LaptopUseCase {
