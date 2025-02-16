@@ -3,7 +3,7 @@
     border-style: solid;
     max-width: 480px;
     min-width: 300px;
-    width: 100%;
+    width: fit-content;
 }
 
 .laptopPreview:hover {
@@ -21,6 +21,10 @@
         background-color: var(--background2);
     }
 } */
+
+.fakeLaptopPreviewPrice {
+    width: 100%;
+}
 
 .animatePlaceholder {
     animation: animatePlaceholder 1s infinite;

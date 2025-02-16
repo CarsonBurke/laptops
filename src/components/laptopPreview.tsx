@@ -59,7 +59,7 @@ export default function LaptopPreview({ args }: { args: LaptopPreviewArgs }) {
   return (
     <Link
       href={`/laptops/${spacesToUnderscores(args.data.id)}`}
-      className="laptopPreview defaultBorderRadius row gapMedium paddingMedium pointer defaultTransition"
+      className="laptopPreview defaultBorderRadius rowCollapsible gapMedium paddingMedium pointer defaultTransition"
       style={
         {
           borderColor: `var(--${args.color})`,

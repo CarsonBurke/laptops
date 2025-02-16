@@ -17,7 +17,7 @@ export default function Hero() {
             We provide you the information you need to find your next device
           </h2>
         </div>
-        <div className="row gapMedium">
+        <div className="rowCollapsible centerColumn gapMedium">
           <Button className="buttonBg3 buttonBig" linkTo="/laptops">
             <span className="material-symbols-outlined">star</span>
             <h3 className="textMedium headerSmall">Top Picks</h3>

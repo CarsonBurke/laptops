@@ -60,7 +60,7 @@ export default function Home() {
           <div className="column centerColumn width100 gapMedium">
             <h2 className="textMedium headerSmall">For School</h2>
 
-            <div className="row flexWrap gapMedium centerRow width100">
+            <div className="rowCollapsible centerColumn gapMedium centerRow width100">
               <FilteredLaptops
                 args={{
                   maxLaptops: 3,
@@ -84,7 +84,7 @@ export default function Home() {
           <div className="column centerColumn width100 gapMedium">
             <h2 className="textMedium headerSmall">For Programming</h2>
 
-            <div className="row flexWrap gapMedium centerRow width100">
+            <div className="rowCollapsible centerColumn gapMedium centerRow width100">
               <FilteredLaptops
                 args={{
                   maxLaptops: 3,
@@ -107,7 +107,7 @@ export default function Home() {
           <div className="column centerColumn width100 gapMedium">
             <h2 className="textMedium headerSmall">For Gaming</h2>
 
-            <div className="row flexWrap gapMedium centerRow width100">
+            <div className="rowCollapsible centerColumn gapMedium centerRow width100">
               <FilteredLaptops
                 args={{
                   maxLaptops: 3,
@@ -128,7 +128,7 @@ export default function Home() {
           <div className="column centerColumn width100 gapMedium">
             <h2 className="textMedium headerSmall">For Office Work</h2>
 
-            <div className="row flexWrap gapMedium centerRow width100">
+            <div className="rowCollapsible centerColumn gapMedium centerRow width100">
               <FilteredLaptops
                 args={{
                   maxLaptops: 3,
