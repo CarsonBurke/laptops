@@ -53,3 +53,17 @@ export enum LaptopUseCase {
   Work = "Work",
   Programmers = "Programmers",
 }
+
+export interface UseCaseQuery {
+  forStudents: boolean;
+  forGaming: boolean;
+  forProgrammers: boolean;
+  forOfficeWork: boolean;
+  forVideoEditing: boolean;
+}
+
+export interface OperatingSystemQuery {
+  macos: boolean;
+  windows: boolean;
+  linux: boolean;
+}

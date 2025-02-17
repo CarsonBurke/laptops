@@ -114,7 +114,6 @@ export default function DoubleSlider({ header, steps, labelLeft, labelRight, bac
     /* setNotch(vX) */
     setNotchLeftRealtime(vX)
     notchLeft = vX
-    console.log("set notch", vX)
   
     // Move label
   

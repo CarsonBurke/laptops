@@ -34,9 +34,6 @@ function verify(password: string, hash: string): Promise<boolean> {
         reject(false);
       }
 
-      /* console.log("derivedKey", derivedKey.toString("hex"));
-      console.log("key compare", key == derivedKey.toString("hex")); */
-
       resolve(key == derivedKey.toString("hex"));
     });
   });

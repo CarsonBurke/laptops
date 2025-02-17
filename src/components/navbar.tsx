@@ -7,6 +7,7 @@ import Button from "./button";
 import Image from "next/image";
 import logo from "../../public/logo.svg";
 import CycleText from "./cycleText";
+import { queryUseCaseOnly } from "@/utils/query";
 
 export function Navbar() {
   return (
@@ -53,24 +54,22 @@ export function Navbar() {
               }
             >
               <Link
-                href="/laptops"
-                className="navbarLink paddingMedium button textGlowButton textXSmall gapSmall row"
+                href={{
+                  pathname: "/laptops",
+                  query: queryUseCaseOnly("forStudents"),
+                }}
+                className="navbarDropdownLink paddingMedium textXSmall gapSmall row"
               >
                 <span className="material-symbols-outlined">school</span>
                 Students
               </Link>
 
               <Link
-                href="/laptops"
-                className="navbarLink paddingMedium button textGlowButton textXSmall gapSmall row"
-              >
-                <span className="material-symbols-outlined">laptop_mac</span>
-                Programmers
-              </Link>
-
-              <Link
-                href="/laptops"
-                className="navbarLink paddingMedium button textGlowButton textXSmall gapSmall row"
+                href={{
+                  pathname: "/laptops",
+                  query: queryUseCaseOnly("forGaming"),
+                }}
+                className="navbarDropdownLink paddingMedium textXSmall gapSmall row"
               >
                 <span className="material-symbols-outlined">
                   sports_esports
@@ -79,16 +78,33 @@ export function Navbar() {
               </Link>
 
               <Link
-                href="/laptops"
-                className="navbarLink paddingMedium button textGlowButton textXSmall gapSmall row"
+                href={{
+                  pathname: "/laptops",
+                  query: queryUseCaseOnly("forProgrammers"),
+                }}
+                className="navbarDropdownLink paddingMedium textXSmall gapSmall row"
+              >
+                <span className="material-symbols-outlined">laptop_mac</span>
+                Programmers
+              </Link>
+
+              <Link
+                href={{
+                  pathname: "/laptops",
+                  query: queryUseCaseOnly("forOfficeWork"),
+                }}
+                className="navbarDropdownLink paddingMedium textXSmall gapSmall row"
               >
                 <span className="material-symbols-outlined">work</span>
                 Office work
               </Link>
 
               <Link
-                href="/laptops"
-                className="navbarLink paddingMedium button textGlowButton textXSmall gapSmall row"
+                href={{
+                  pathname: "/laptops",
+                  query: queryUseCaseOnly("forVideoEditing"),
+                }}
+                className="navbarDropdownLink paddingMedium textXSmall gapSmall row"
               >
                 <span className="material-symbols-outlined">camera</span>
                 Video editing

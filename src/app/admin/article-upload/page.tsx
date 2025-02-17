@@ -52,8 +52,6 @@ export default function ArticleUpload() {
     });
 
     setSubmitted(true);
-
-    console.log("Submitted");
   }
 
   return (

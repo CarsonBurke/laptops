@@ -1,5 +1,3 @@
-"use client"
-
 export default function Checkbox({
   children,
   id,
@@ -16,7 +14,7 @@ export default function Checkbox({
       className="row gapSmall centerColumn paddingSmall pointer"
       htmlFor={id}
     >
-      <input type="checkbox" id={id} defaultChecked={checked} onChange={(e) => onChange(e.target.checked)} />
+      <input type="checkbox" id={id} checked={checked} onChange={(e) => onChange(e.target.checked)} />
       <div className="row gapSmall centerColumn">{children}</div>
     </label>
   );

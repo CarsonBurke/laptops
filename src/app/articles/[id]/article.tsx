@@ -115,11 +115,11 @@ export default function ArticleView({
               // Remove trailing and proceeding whitespace
               const cleanedId =
                 children?.toString()?.replace(/(\^\s+|\s+$)/g, "") || "";
-              console.log("cleaned id", cleanedId);
+              
               let { data, isLoading } = trpc.getLaptopById.useQuery({
                 id: cleanedId,
               });
-              console.log("result", data);
+              
               return isLoading || !data ? (
                 <FakeLaptopPreview color={"background3"} />
               ) : (

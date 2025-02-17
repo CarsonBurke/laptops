@@ -59,7 +59,6 @@ export default function LaptopUpload() {
 
   async function submit() {
     if (submitted) return;
-    console.log("providing titleImageFile", titleImageFile);
 
     const titleImage = await titleImageFile?.arrayBuffer();
 
@@ -72,8 +71,6 @@ export default function LaptopUpload() {
     });
 
     setSubmitted(true);
-
-    console.log("Submitted");
   }
 
   return (
@@ -159,7 +156,6 @@ export default function LaptopUpload() {
                     onChange={(e) => {
                       "use client";
                       const file = e.target.files;
-                      console.log("file", file);
 
                       if (file != null)
                         console.log("url", URL.createObjectURL(file[0]));

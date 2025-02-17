@@ -10,8 +10,13 @@ import Checkbox from "../../components/checkbox";
 import RadioGroup from "../../components/radioGroup";
 import Select from "../../components/select";
 import DoubleSlider from "../../components/doubleSlider";
-import { Suspense, useEffect, useState } from "react";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useState, useTransition } from "react";
+import {
+  redirect,
+  useParams,
+  useRouter,
+  useSearchParams,
+} from "next/navigation";
 import e from "../../../dbschema/edgeql-js";
 import { edgeClient } from "../../scripts/db";
 /* import { trpc } from "../utils/trpc"; */
@@ -35,7 +40,33 @@ enum PageOffsetStatus {
 
 export default function Laptops() {
   const rawSearchParams = useSearchParams();
-  const queryDefaults = new URLSearchParams(rawSearchParams);
+  const [queryDefaults, setQueryDefaults] = useState(
+    new URLSearchParams(rawSearchParams)
+  );
+
+  useEffect(() => {
+    console.log("search params updated");
+    const newQuery = new URLSearchParams(rawSearchParams);
+    setQueryDefaults(newQuery);
+
+    // Update order
+
+    setOrder((newQuery.get("order") as LaptopsOrder) || LaptopsOrder.BestDeal);
+
+    // Update use case
+
+    setforStudents(newQuery.get("forStudents") != "false");
+    setforGaming(newQuery.get("forGaming") != "false");
+    setforProgrammers(newQuery.get("forProgrammers") != "false");
+    setforOfficeWork(newQuery.get("forOfficeWork") != "false");
+    setforVideoEditing(newQuery.get("forVideoEditing") != "false");
+
+    // Update operating system
+
+    setWindows(newQuery.get("windows") != "false");
+    setLinux(newQuery.get("linux") != "false");
+    setMac(newQuery.get("macos") != "false");
+  }, [rawSearchParams]);
 
   const router = useRouter();
   /* const [queryDefaults, setQueryDefaults] = useState(
@@ -110,7 +141,11 @@ export default function Laptops() {
 
   // Filter states
 
-  let [price, setPrice] = useState([0, 5000]);
+  const defaultPrice = [
+    parseInt(queryDefaults.get("minPrice") || "0"),
+    parseInt(queryDefaults.get("maxPrice") || "5000"),
+  ];
+  let [price, setPrice] = useState(defaultPrice);
 
   const orderDefault = (queryDefaults.get("order") ||
     LaptopsOrder.BestDeal) as LaptopsOrder;
@@ -154,7 +189,9 @@ export default function Laptops() {
 
   let [pageOffset, setPageOffset] = useState(pageOffsetDefault);
   let [pageOffsetStatus, setPageOffsetStatus] = useState(
-    queryDefaults.get("pageOffset") ? PageOffsetStatus.QueryDefault : PageOffsetStatus.Custom
+    queryDefaults.get("pageOffset")
+      ? PageOffsetStatus.QueryDefault
+      : PageOffsetStatus.Custom
   );
   let [offset, setOffset] = useState(0);
 
@@ -607,40 +644,61 @@ export default function Laptops() {
           </div>
           <div className="column gapLarge width100 centerRow centerColumn">
             <h1 className="textLarge headerLarge textCenter">Laptops</h1>
-            <Display
-              data={data as any}
-              isFetching={isFetching}
-              maxPreviews={laptopsPerPage}
-            />
-            <div className="row gapMedium centerRow centerColumn">
-              <button
-                disabled={pageOffset === 0}
-                onClick={() => {
-                  queryDefaults.set("pageOffset", (pageOffset - 1).toString());
-                  router.replace(`?${queryDefaults.toString()}`);
+            {!isFetching && data.length == 0 ? (
+              <div className="column centerColumn gapMedium">
+                <div className="column centerColumn">
+                  <h1 className="textMedium headerSmall">No laptops found</h1>
+                  <h4 className="textSmall textSlightTransparent">
+                    Please loosen your search parameters
+                  </h4>
+                </div>
+              </div>
+            ) : (
+              <>
+                <Display
+                  data={data as any}
+                  isFetching={isFetching}
+                  maxPreviews={laptopsPerPage}
+                />
+                <div className="row gapMedium centerRow centerColumn">
+                  <button
+                    disabled={pageOffset === 0}
+                    onClick={() => {
+                      queryDefaults.set(
+                        "pageOffset",
+                        (pageOffset - 1).toString()
+                      );
+                      router.replace(`?${queryDefaults.toString()}`);
 
-                  setPageOffset(pageOffset - 1);
-                }}
-                className={"button buttonBg3"}
-              >
-                <span className="material-symbols-outlined">chevron_left</span>
-              </button>
-              <h3 className="textSmall headerSmall">
-                {pageOffset}
-              </h3>
-              <button
-                disabled={data.length < laptopsPerPage}
-                onClick={() => {
-                  queryDefaults.set("pageOffset", (pageOffset + 1).toString());
-                  router.replace(`?${queryDefaults.toString()}`);
+                      setPageOffset(pageOffset - 1);
+                    }}
+                    className={"button buttonBg3"}
+                  >
+                    <span className="material-symbols-outlined">
+                      chevron_left
+                    </span>
+                  </button>
+                  <h3 className="textSmall headerSmall">{pageOffset}</h3>
+                  <button
+                    disabled={data.length < laptopsPerPage}
+                    onClick={() => {
+                      queryDefaults.set(
+                        "pageOffset",
+                        (pageOffset + 1).toString()
+                      );
+                      router.replace(`?${queryDefaults.toString()}`);
 
-                  setPageOffset(pageOffset + 1);
-                }}
-                className="button buttonBg3"
-              >
-                <span className="material-symbols-outlined">chevron_right</span>
-              </button>
-            </div>
+                      setPageOffset(pageOffset + 1);
+                    }}
+                    className="button buttonBg3"
+                  >
+                    <span className="material-symbols-outlined">
+                      chevron_right
+                    </span>
+                  </button>
+                </div>
+              </>
+            )}
           </div>
         </section>
       </main>
