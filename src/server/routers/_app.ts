@@ -6,6 +6,7 @@ import { LaptopsOrder } from "@/types/laptop";
 import { randomBytes, randomUUID, scrypt } from "crypto";
 import { fs } from "edgedb/dist/adapter.node";
 import { uuid } from "../../../dbschema/edgeql-js/modules/std";
+import { Article } from "../../../dbschema/edgeql-js/modules/default";
 
 async function checkLogin(
   username: string,
@@ -141,7 +142,7 @@ function orderLaptopBy(
 }
 
 export const appRouter = router({
-  getLaptopByName: procedure
+  getLaptopById: procedure
     .input(
       z.object({
         id: z.string(),
@@ -365,6 +366,56 @@ export const appRouter = router({
         .run(edgeClient);
       return article;
     }),
+  getArticlesWithoutId: procedure
+    .input(
+      z.object({
+        blacklistId: z.string(),
+        offset: z.number(),
+        limit: z.number(),
+      })
+    )
+    .query(async ({ input }) => {
+      const laptops = await e
+        .select(e.Article, (article) => ({
+          id: true,
+          title: true,
+          titleImageId: true,
+          authorId: true,
+          published: true,
+          offset: input.offset,
+          limit: input.limit,
+          filter: e.op(article.id, "!=", e.uuid(input.blacklistId)),
+        }))
+        .run(edgeClient);
+      return laptops;
+    }),
+  getAuthorArticles: procedure
+    .input(
+      z.object({
+        authorId: z.string(),
+        offset: z.number(),
+        limit: z.number(),
+      })
+    )
+    .query(async ({ input }) => {
+      const laptops = await e
+        .select(e.Article, (article) => ({
+          id: true,
+          title: true,
+          titleImageId: true,
+          authorId: true,
+          published: true,
+          offset: input.offset,
+          limit: input.limit,
+          order_by: {
+            expression: article.published,
+            direction: e.DESC,
+          },
+          filter: e.op(article.authorId, "=", e.uuid(input.authorId)),
+        }))
+        .run(edgeClient);
+      return laptops;
+    }),
   getArticles: procedure
     .input(
       z.object({
@@ -380,7 +431,6 @@ export const appRouter = router({
           titleImageId: true,
           authorId: true,
           published: true,
-          content: true,
           offset: input.offset,
           limit: input.limit,
         }))

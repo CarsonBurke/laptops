@@ -116,7 +116,7 @@ export default function ArticleView({
               const cleanedId =
                 children?.toString()?.replace(/(\^\s+|\s+$)/g, "") || "";
               console.log("cleaned id", cleanedId);
-              let { data, isLoading } = trpc.getLaptopByName.useQuery({
+              let { data, isLoading } = trpc.getLaptopById.useQuery({
                 id: cleanedId,
               });
               console.log("result", data);
@@ -171,8 +171,8 @@ export default function ArticleView({
       <div className="column gapSmall background3 borderBg4 paddingMedium defaultBorderRadius">
         <div className="row centerColumn gapSmall">
           <Image
-            width={100}
-            height={100}
+            width={50}
+            height={50}
             alt={`author: ${authorResult.data?.name}`}
             src={`/${authorResult.data?.profileImageName}.webp`}
             className="authorImage"

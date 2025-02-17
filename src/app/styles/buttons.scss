@@ -12,6 +12,11 @@
     pointer-events: none;
 }
 
+.buttonDisabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
 /* .textGlowButton {
     color: inherit;
 } */

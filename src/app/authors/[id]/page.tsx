@@ -4,6 +4,7 @@ import { trpc } from "@/lib/trpc";
 import React from "react";
 import "./page.scss";
 import Image from "next/image";
+import AuthorArticles from "./authorArticles";
 
 export default function Author({ params }: { params: Promise<any> }) {
   const { id } = React.use(params as any) as { id: string };
@@ -15,19 +16,28 @@ export default function Author({ params }: { params: Promise<any> }) {
   return (
     <main className="main">
       <section className="sectionPadded">
-        <div className="column paddingMedium background2 borderBg3 centerColumn gapMedium">
-          <div className="row centerColumn gapSmall">
-            <Image
-              width={100}
-              height={100}
-              alt={`author: ${data?.name}`}
-              src={`/${data?.profileImageName}.webp`}
-              className="authorImage"
-            />
-            <h1 className="textLarge headerLarge textCenter">{data?.name}</h1>
-          </div>
+        <div className="column paddingMedium background2 borderBg3 centerColumn gapLarge">
+          <div className="column gapSmall centerColumn">
+            <div className="row centerColumn gapSmall">
+              <Image
+                width={100}
+                height={100}
+                alt={`author: ${data?.name}`}
+                src={`/${data?.profileImageName}.webp`}
+                className="authorImage"
+              />
+              <h1 className="textLarge headerLarge textCenter">{data?.name}</h1>
+            </div>
 
-          <p className="textSmall textSlightTransparent">{data?.description}</p>
+            <p className="textSmall textSlightTransparent">
+              {data?.description}
+            </p>
+          </div>
+          <div className="column gapMedium">
+            <h2 className="textLarge headerSmall textCenter">Latest from {data?.name}</h2>
+
+            <AuthorArticles authorId={data?.id || ""} />
+          </div>
         </div>
       </section>
     </main>

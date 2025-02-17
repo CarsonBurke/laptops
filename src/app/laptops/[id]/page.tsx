@@ -12,7 +12,7 @@ import Loading from "@/components/loadingSpinner";
 export default function Laptop({ params }: { params: Promise<any> }) {
   const { id } = React.use(params as any) as { id: string };
   
-  let { data, isLoading } = trpc.getLaptopByName.useQuery({
+  let { data, isLoading } = trpc.getLaptopById.useQuery({
     id: id,
   });
 
