@@ -59,7 +59,7 @@ export default function LaptopPreview({ args }: { args: LaptopPreviewArgs }) {
   return (
     <Link
       href={`/laptops/${spacesToUnderscores(args.data.id)}`}
-      className="laptopPreview defaultBorderRadius rowCollapsible gapMedium paddingMedium pointer defaultTransition"
+      className="laptopPreview defaultBorderRadius centerColumn rowCollapsible gapMedium paddingMedium pointer defaultTransition"
       style={
         {
           borderColor: `var(--${args.color})`,
@@ -68,17 +68,19 @@ export default function LaptopPreview({ args }: { args: LaptopPreviewArgs }) {
       }
     >
       
-        <img
-          alt="laptop"
+        <Image
+          width={800}
+          height={500}
+          alt={`laptop: ${args.data.name}`}
           src={`/laptopTitles/${args.data.titleImageName}.webp`}
           className="laptopPreviewImage defaultBorderRadius"
         />
       
 
-      <div className="column gapMedium width100">
+      <div className="column gapMedium marginAuto">
         <div className="column gapSmall">
           <h3 className={"textMedium headerSmall"}>{underscoresToSpaces(args.data.name)}</h3>
-          <div className="row gapSmall centerColumn">
+          <div className="row flexWrap gapSmall centerColumn">
             <h4 className={"textSmall headerSmall row"}>${numberCommas(args.data.price)}</h4>
             <div className="strikeThrough textSlightTransparent">
               {numberCommas(args.data.price + args.data.saleOf)}

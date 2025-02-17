@@ -24,7 +24,7 @@ export default function Display({
 
   return (
     <>
-      <div className="rowCollapsible flexWrap gapMedium centerRow centerColumn">
+      <div className="rowCollapsible flexWrap gapMedium centerRow">
         {previews}
         {isFetching && generateFakeLaptopPreviews(maxPreviews - data.length, "background2")}
       </div>

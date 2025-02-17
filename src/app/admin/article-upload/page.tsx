@@ -1,7 +1,6 @@
 "use client";
 
 import ArticleView from "@/app/articles/[id]/article";
-import Article from "@/articles/[id]/page";
 import LabelledInput from "@/components/labelledInput";
 import LabelledTextarea from "@/components/labelledTextarea";
 import { useState } from "react";

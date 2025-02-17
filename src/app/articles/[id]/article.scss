@@ -6,12 +6,23 @@
   }
 } */
 
+.article {
+  width: 65%;
+  overflow: hidden;
+}
+
 @media (--mobile) {
   .article {
     width: 100%;
   }
 }
 
+.articleTitleImage {
+  max-width: min(100%, 1200px);
+  max-height: 50vh;
+  object-fit: contain;
+  border-radius: var(--defaultBorderRadius);
+}
 
 .articleContent strong {
     font-weight: 600;
@@ -61,6 +72,6 @@
   min-width: 300px;
   width: 80%;
   max-width: 100%;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: var(--defaultBorderRadius);
 }

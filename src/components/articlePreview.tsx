@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import "./articlePreview.scss";
 import Link from "next/link";
 import { spacesToUnderscores } from "@/utils/units";
+import Image from "next/image";
 
 interface ArticlePreviewData {
   id: number;
@@ -51,8 +52,10 @@ export default function ArticlePreview({ args }: { args: ArticlePreviewArgs }) {
         } as React.CSSProperties
       }
     >
-      <img
-        alt="article"
+      <Image
+        width={500}
+        height={500}
+        alt="article preview image"
         src={`/articleImages/${args.data.titleImageId}.webp`}
         className="articlePreviewImage defaultBorderRadius"
       />

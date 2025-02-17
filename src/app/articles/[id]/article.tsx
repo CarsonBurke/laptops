@@ -10,6 +10,7 @@ import FakeArticlePreview from "@/components/fakeArticlePreview";
 import { Article } from "@/types/article";
 import "./article.scss";
 import Link from "next/link";
+import Loading from "@/components/loadingSpinner";
 
 /* interface ArticleArgs {
     title: string,
@@ -48,7 +49,7 @@ export default function ArticleView({
 
           <div className="row gapSmall centerColumn textSlightTransparent">
             {authorResult.isLoading ? (
-              <h2 className="textSmall headerSmall textCenter">Loading...</h2>
+              <Loading color={3} />
             ) : (
               <Link
                 href={`/authors/${authorResult.data?.id}`}
@@ -65,10 +66,11 @@ export default function ArticleView({
         </div>
 
         <Image
-          alt="title image"
+          className="articleTitleImage"
+          alt={args.data.title || "unknown"}
           src={`/articleImages/${args.data.titleImageId}.webp`}
-          width={500}
-          height={500}
+          width={1200}
+          height={900}
         />
       </div>
 
@@ -135,7 +137,15 @@ export default function ArticleView({
               const image = args.data.contentImageIds?.[parseInt(cleanedId)];
 
               if (image) {
-                return <img src={`/articleImages/${image}.webp`} className="contentImage" />;
+                return (
+                  <Image
+                    width={500}
+                    height={500}
+                    alt="Embedded article image"
+                    src={`/articleImages/${image}.webp`}
+                    className="contentImage"
+                  />
+                );
               }
 
               return <div className="contentImage background3"></div>;
@@ -159,14 +169,17 @@ export default function ArticleView({
       />
 
       <div className="column gapSmall background3 borderBg4 paddingMedium defaultBorderRadius">
-        <div className="row gapSmall">
-          <img
+        <div className="row centerColumn gapSmall">
+          <Image
+            width={100}
+            height={100}
+            alt={`author: ${authorResult.data?.name}`}
             src={`/${authorResult.data?.profileImageName}.webp`}
             className="authorImage"
           />
           <Link
             href={`/authors/${authorResult.data?.id}`}
-            className="textSmall button textGlowButton"
+            className="textSmall headerSmall button textGlowButton"
           >
             By {underscoresToSpaces(authorResult.data?.name || "")}
           </Link>

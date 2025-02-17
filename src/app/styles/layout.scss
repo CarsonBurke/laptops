@@ -74,6 +74,18 @@
   }
 }
 
+@media (--mobile) {
+  .rowCenterMobile {
+    justify-content: center;
+  }
+}
+
+@media (--mobile) {
+  .columnCenterMobile {
+    align-items: center;
+  }
+}
+
 .spaceBetween {
   justify-content: space-between;
 }
@@ -96,4 +108,14 @@
 
 .minHeight {
   height: min-content;
+}
+
+.marginAuto {
+  margin: auto;
+}
+
+@media (--mobile) {
+  .marginAutoMobile {
+    margin: auto;
+  }
 }

@@ -3,6 +3,8 @@
 import { trpc } from "@/lib/trpc";
 import ArticleView from "./[id]/article";
 import ArticlePreview from "@/components/articlePreview";
+import Loading from "@/components/loadingSpinner";
+import FakeArticlePreview, { generateFakeArticlePreviews } from "@/components/fakeArticlePreview";
 
 export default function Articles() {
   const { data, isLoading } = trpc.getArticles.useQuery({
@@ -17,9 +19,7 @@ export default function Articles() {
 
         <div className="row flexWrap gapMedium centerRow">
           {isLoading || !data ? (
-            <h1 className="textLarge headerLarge paddingMedium textCenter">
-              Loading...
-            </h1>
+            generateFakeArticlePreviews(12, "background2")
           ) : (
             data.map((article) => (
               <ArticlePreview key={article.id} args={{data: article as any}} />

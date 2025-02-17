@@ -7,6 +7,7 @@ import "./page.scss";
 import { LaptopsOrder } from "@/types/laptop";
 import FilteredLaptops from "@/components/filteredLaptops";
 import { underscoresToSpaces } from "@/utils/units";
+import Loading from "@/components/loadingSpinner";
 
 export default function Laptop({ params }: { params: Promise<any> }) {
   const { id } = React.use(params as any) as { id: string };
@@ -18,15 +19,11 @@ export default function Laptop({ params }: { params: Promise<any> }) {
   return (
     <main className="main">
       <section className="sectionPadded">
-        <div className="column background2 borderBg3 defaultBorderRadius">
           {isLoading ? (
-            <h1 className="textLarge headerLarge paddingMedium textCenter">
-              Loading...
-            </h1>
+            <Loading color={2} />
           ) : (
             <LaptopView data={data as any} />
           )}
-        </div>
       </section>
       <section className="section">
         <div className="column defaultBorderRadius">

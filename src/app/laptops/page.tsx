@@ -23,6 +23,7 @@ import { Laptop, LaptopsOrder } from "@/types/laptop";
 /* import e from '@/dbschema/edgeql-js'; */
 
 const laptopsPerPage = 20;
+const laptopsLoadGroupSize = 10;
 
 export default function Laptops() {
   /* const [queryDefaults, setQueryDefaults] = useState(
@@ -80,7 +81,9 @@ export default function Laptops() {
   }, [searchParams]) */
 
   const [queryDefaults, setQueryDefaults] = useState(
-    new URLSearchParams()
+    new URLSearchParams(
+      typeof window !== "undefined" ? window?.location.search : ""
+    )
   );
 
   useEffect(() => {
@@ -186,7 +189,7 @@ export default function Laptops() {
     videoEditingScoreWeight: parseInt(
       queryDefaults.get("videoEditingScoreWeight") || "0"
     ),
-    limit: 1,
+    limit: laptopsLoadGroupSize,
     offset: offset + pageOffset * laptopsPerPage,
   });
 
@@ -232,11 +235,11 @@ export default function Laptops() {
 
     setData((prev: any) => prev.concat(result.data));
 
-    if (offset + 1 >= laptopsPerPage) {
+    if (offset + laptopsLoadGroupSize >= laptopsPerPage) {
       setIsFetching(false);
     }
 
-    setOffset((prev) => prev + 1);
+    setOffset((prev) => prev + laptopsLoadGroupSize);
   }, [result]);
 
   // EdgeDB qeury
@@ -562,7 +565,7 @@ export default function Laptops() {
                       checked={macos}
                       onChange={(checked) => setMac(checked)}
                     >
-                      <Image src={macIcon} alt="mac" className="osIcon" />
+                      <Image src={macIcon} alt="macos" className="osIcon" />
                       <h3 className="textXSmall">macOS</h3>
                     </Checkbox>
                     <Checkbox

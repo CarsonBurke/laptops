@@ -3,12 +3,12 @@ import "./laptopPreview.scss";
 export default function FakeLaptopPreview({ color }: { color?: string }) {
   return (
     <div
-      className="laptopPreview defaultBorderRadius centerColumn rowCollapsible gapMedium paddingMedium"
+      className="laptopPreview defaultBorderRadius rowCollapsible gapMedium paddingMedium"
       style={{ borderColor: `var(--${color})` }}
     >
       <div
         className={
-          color + " laptopPreviewImage animatePlaceholder defaultBorderRadius"
+          color + " marginAuto laptopPreviewImage animatePlaceholder defaultBorderRadius"
         }
       ></div>
       <div className="column gapSmall width100">

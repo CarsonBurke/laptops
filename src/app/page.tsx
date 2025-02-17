@@ -21,8 +21,8 @@ export default function Home() {
       <section className="section bg1To2">
         <div className="column background1 container centerColumn gapLarge defaultBorderRadius">
           <div className="column">
-            <h2 className="textLarge textCenter headerSmall">Huge Deals</h2>
-            <h3>The best prices we - or anyone - could find</h3>
+            <h2 className="textLarge textCenter headerSmall slideIn">Huge Deals</h2>
+            <h3 className="textSmall textSlightTransparent slideIn">The best prices we - or anyone - could find</h3>
           </div>
 
           <div className="row flexWrap gapMedium centerRow width100">
@@ -60,7 +60,7 @@ export default function Home() {
           <div className="column centerColumn width100 gapMedium">
             <h2 className="textMedium headerSmall">For School</h2>
 
-            <div className="rowCollapsible centerColumn gapMedium centerRow width100">
+            <div className="column centerColumn gapMedium centerRow width100">
               <FilteredLaptops
                 args={{
                   maxLaptops: 3,
@@ -84,7 +84,7 @@ export default function Home() {
           <div className="column centerColumn width100 gapMedium">
             <h2 className="textMedium headerSmall">For Programming</h2>
 
-            <div className="rowCollapsible centerColumn gapMedium centerRow width100">
+            <div className="column centerColumn gapMedium centerRow width100">
               <FilteredLaptops
                 args={{
                   maxLaptops: 3,
@@ -107,7 +107,7 @@ export default function Home() {
           <div className="column centerColumn width100 gapMedium">
             <h2 className="textMedium headerSmall">For Gaming</h2>
 
-            <div className="rowCollapsible centerColumn gapMedium centerRow width100">
+            <div className="column centerColumn gapMedium centerRow width100">
               <FilteredLaptops
                 args={{
                   maxLaptops: 3,
@@ -128,7 +128,7 @@ export default function Home() {
           <div className="column centerColumn width100 gapMedium">
             <h2 className="textMedium headerSmall">For Office Work</h2>
 
-            <div className="rowCollapsible centerColumn gapMedium centerRow width100">
+            <div className="column centerColumn gapMedium centerRow width100">
               <FilteredLaptops
                 args={{
                   maxLaptops: 3,

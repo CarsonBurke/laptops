@@ -41,15 +41,15 @@ export default function Footer() {
         </div>
         <div className="column gapSmall">
           <h2 className="textMedium headerSmall">Operating Systems</h2>
-          <Link href="discover" className="button textGlowButton">
+          <Link href="/discover" className="button textGlowButton">
             <Image src={windowsIcon} alt="windows" className="osIcon" />
             <h3 className="textSmall">Windows</h3>
           </Link>
-          <Link href="discover" className="button textGlowButton">
+          <Link href="/discover" className="button textGlowButton">
             <Image src={macIcon} alt="linux" className="osIcon" />
             <h3 className="textSmall">macos</h3>
           </Link>
-          <Link href="discover" className="button textGlowButton">
+          <Link href="/discover" className="button textGlowButton">
             <Image src={linuxIcon} alt="linux" className="osIcon" />
             <h3 className="textSmall">Linux</h3>
           </Link>

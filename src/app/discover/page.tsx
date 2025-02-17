@@ -136,6 +136,7 @@ export default function DiscoverPage() {
                   </Button>
                   <Link
                     href={{pathname: "/laptops", query: {
+                      order: LaptopsOrder.WeightedScore,
                       studentScoreWeight: roundTo(studentScore, 2),
                       gamingScoreWeight: roundTo(gamingScore, 2),
                       programmingScoreWeight: roundTo(programmingScore, 2),
@@ -143,7 +144,6 @@ export default function DiscoverPage() {
                       videoEditingScoreWeight: roundTo(videoEditingScore, 2),
                       minPrice: price[0],
                       maxPrice: price[1],
-                      order: LaptopsOrder.WeightedScore
                     }}}
                     className="button row gapXSmall buttonPrimary"
                   >
@@ -162,7 +162,7 @@ export default function DiscoverPage() {
             have feedback?
           </h4>
           <Link
-            className="button textGlowButton textSlightTransparent"
+            className="button textPrimary textGlowButton textSlightTransparent"
             href="/contact"
           >
             Let us know

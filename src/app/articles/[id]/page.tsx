@@ -13,6 +13,7 @@ import { underscoresToSpaces } from "@/utils/units";
 import Image from "next/image";
 import ArticleView from "./article";
 import { Article } from "@/types/article";
+import Loading from "@/components/loadingSpinner";
 
 export default function ArticlePage({ params }: { params: Promise<any> }) {
   const { id } = React.use(params as any) as { id: string };
@@ -23,19 +24,17 @@ export default function ArticlePage({ params }: { params: Promise<any> }) {
 
   return (
     <main className="main">
-      <section className="sectionPadded rowCollapsibleReverse flexWrap gapMedium centerRow">
-        <div className="column gapMedium">
+      <section className="sectionPadded rowCollapsible flexWrap gapMedium centerRow">
+        {isLoading ? (
+          <Loading color={2} />
+        ) : (
+          <ArticleView args={{ data: data as any as Article }} />
+        )}
+        <div className="column gapMedium centerColumn">
           <h2 className="textMedium headerSmall textCenter">Other Articles</h2>
 
           {generateFakeArticlePreviews(12, "background2")}
         </div>
-        {isLoading ? (
-          <h1 className="textLarge headerLarge paddingMedium textCenter">
-            Loading...
-          </h1>
-        ) : (
-          <ArticleView args={{ data: data as any as Article }} />
-        )}
       </section>
     </main>
   );

@@ -1,13 +1,19 @@
+@use "../app/styles/variables.scss";
+
 .laptopPreview {
-    border-width: 2px;
-    border-style: solid;
-    max-width: 480px;
-    min-width: 300px;
-    width: fit-content;
+  border-width: 2px;
+  border-style: solid;
+  width: 440px;
+}
+
+@media (--mobile) {
+  .laptopPreview {
+    width: 100%;
+  }
 }
 
 .laptopPreview:hover {
-    background-color: var(--laptopBackground);
+  background-color: var(--laptopBackground);
 }
 
 /* @keyframes animatePlaceholder {
@@ -23,17 +29,22 @@
 } */
 
 .fakeLaptopPreviewPrice {
-    width: 100%;
+  width: 100%;
 }
 
 .animatePlaceholder {
-    animation: animatePlaceholder 1s infinite;
+  animation: animatePlaceholder 1s infinite;
 }
 
 .laptopPreviewImage {
-    aspect-ratio: 4 / 3;
-    width: 100%;
-    max-width: 250px;
-    max-height: 300px;
-    object-fit: contain;
+  aspect-ratio: 4 / 3;
+  width: 40%;
+  max-height: 300px;
+  object-fit: contain;
+}
+
+@media (--mobile) {
+  .laptopPreviewImage {
+    width: 70%;
+  }
 }

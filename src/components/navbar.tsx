@@ -16,7 +16,6 @@ export function Navbar() {
           <div className="row gapMedium">
             <Link href="/">
               <header className="row centerColumn gapSmall navbarHeader defaultTransition">
-
                 <Image src={logo} alt="icon" className="navbarIcon" />
               </header>
             </Link>
@@ -36,7 +35,13 @@ export function Navbar() {
                 <div className="row gapSmall centerColumn navbarLink">
                   <h3 className="textSmall headerSmall">For</h3>
                   <CycleText
-                    cycles={["Students", "Programmers", "Gaming", "Work", "Content creation"]}
+                    cycles={[
+                      "Students",
+                      "Programmers",
+                      "Gaming",
+                      "Work",
+                      "Content creation",
+                    ]}
                   >
                     Students
                   </CycleText>
@@ -136,33 +141,49 @@ export function Navbar() {
         </div>
       </nav>
       <div
-        className="navbarSidebar background1 mobile invisible"
+        className="navbarSidebar column gapMedium background1 mobile invisible"
         id="navbarSidebar"
       >
-        <div className="navbarSidebarChild column gapSmall background2 defaultBorderRadius" onClick={() => openCloseSidebar()}>
-          <Button
-            linkTo="/laptops"
-            className="headerSmall paddingMedium navSidebarLink textGlowButton textSmall width100"
-          >
-            Featured
-          </Button>
+        <div
+          className="navbarSidebarChild column gapSmall background2 defaultBorderRadius"
+          onClick={() => openCloseSidebar()}
+        >
           <Link
-            href="/recipes"
-            className="headerSmall paddingMedium navSidebarLink textGlowButton textSmall"
+            href="/laptops"
+            className="button width100 headerSmall paddingMedium navSidebarLink textGlowButton textSmall"
           >
-            Meals
+            <span className="material-symbols-outlined">star</span>Top deals
           </Link>
           <Link
-            href="/recipes"
-            className="headerSmall paddingMedium navSidebarLink textGlowButton textSmall"
+            href="/discover"
+            className="button width100 headerSmall paddingMedium navSidebarLink textGlowButton textSmall"
           >
-            Diets
+            <span className="material-symbols-outlined">search</span>Recommend
+            me a Laptop
           </Link>
           <Link
-            href="/recipes"
-            className="headerSmall paddingMedium navSidebarLink textGlowButton textSmall"
+            href="/articles"
+            className="button width100 headerSmall paddingMedium navSidebarLink textGlowButton textSmall"
           >
-            Cousines
+            <span className="material-symbols-outlined">article</span>
+            Articles
+          </Link>
+        </div>
+        <div
+          className="navbarSidebarChild column gapSmall background2 defaultBorderRadius"
+          onClick={() => openCloseSidebar()}
+        >
+          <Link
+            href="/about"
+            className="button width100 headerSmall paddingMedium navSidebarLink textGlowButton textSmall"
+          >
+            About
+          </Link>
+          <Link
+            href="/contact"
+            className="button width100 headerSmall paddingMedium navSidebarLink textGlowButton textSmall width100"
+          >
+            Contact us
           </Link>
         </div>
       </div>

@@ -16,7 +16,12 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { formatBytes, numberCommas, spacesToUnderscores, underscoresToSpaces } from "@/utils/units";
+import {
+  formatBytes,
+  numberCommas,
+  spacesToUnderscores,
+  underscoresToSpaces,
+} from "@/utils/units";
 
 interface LaptopViewProps {
   data: Laptop;
@@ -83,56 +88,67 @@ export default function LaptopView({ data }: { data: Laptop }) {
   const recommendBuy = data.price <= avgHistoryPrice;
 
   return (
-    <article className="paddingMedium column gapLarge">
-      <div className="row centerRow">
-        <div className="rowCollapsible gapMedium paddingMedium widthFit centerRow defaultBorderRadius centerColumn">
-          
-            <img
-              alt="laptop"
+    <div className="column gapSmall">
+      <article className="paddingMedium column gapLarge column background2 borderBg3 defaultBorderRadius">
+        <div className="row centerRow">
+          <div className="rowCollapsible gapMedium paddingMedium widthFit centerRow defaultBorderRadius centerColumn">
+            <Image
+              width={1000}
+              height={800}
+              alt={`laptop: ${data.name}`}
               src={`/laptopTitles/${data.titleImageName}.webp`}
               className="laptopHeroImage defaultBorderRadius"
             />
-          
-          <div className="column gapMedium">
-            <h1 className="textLarge headerLarge">{underscoresToSpaces(data.name)}</h1>
-            <div className="row gapSmall centerColumn">
-              <h4 className={"textSmall headerSmall row"}>
-                ${numberCommas(data.price)}
-              </h4>
-              <div className="strikeThrough textSlightTransparent">
-                {numberCommas(data.price + data.saleOf)}
-              </div>
-              <div>Save ${numberCommas(data.saleOf)}</div>
-            </div>
-            <div className="row gapSmall flexWrap">
-              {useCaseNames.map((useCase, i) => {
-                return (
-                  <div
-                    key={i}
-                    className="column background2 useCasePill defaultBorderRadius background3 maxBorderRadius"
-                  >
-                    <h3 className="textXSmall">{useCase}</h3>
+
+            <div className="column gapMedium">
+              <div className="column">
+                <h1 className="textLarge headerLarge">
+                  {underscoresToSpaces(data.name)}
+                </h1>
+                <div className="row gapSmall centerColumn">
+                  <h4 className={"textSmall headerSmall row"}>
+                    ${numberCommas(data.price)}
+                  </h4>
+                  <div className="strikeThrough textSlightTransparent">
+                    {numberCommas(data.price + data.saleOf)}
                   </div>
-                );
-              })}
+                  <div>Save ${numberCommas(data.saleOf)}</div>
+                </div>
+              </div>
+
+              <div className="column gapSmall">
+                <div className="row gapSmall flexWrap rowCenterMobile">
+                  {useCaseNames.map((useCase, i) => {
+                    return (
+                      <div
+                        key={i}
+                        className="column background2 useCasePill defaultBorderRadius background3 maxBorderRadius"
+                      >
+                        <h3 className="textXSmall">{useCase}</h3>
+                      </div>
+                    );
+                  })}
+                </div>
+                <Link
+                  href="https://www.example.com"
+                  target="_blank"
+                  className="width100Mobile button buttonPrimary textSmall headerSmall row centerRow centerColumn"
+                >
+                  <span className="material-symbols-outlined">
+                    shopping_cart
+                  </span>
+                  Buy
+                </Link>
+              </div>
             </div>
-            <Link
-              href="https://www.example.com"
-              target="_blank"
-              className="button buttonPrimary textSmall headerSmall row centerRow centerColumn"
-            >
-              <span className="material-symbols-outlined">shopping_cart</span>
-              Buy
-            </Link>
           </div>
         </div>
-      </div>
 
-      <div className="rowCollapsible gapLarge">
-        <div className="width100 column centerRow centerColumn gapMedium">
-          <h2 className="textMedium headerLarge">Overview</h2>
+        <div className="rowCollapsible gapLarge">
+          <div className="width100 column centerRow centerColumn gapMedium">
+            <h2 className="textMedium headerLarge">Overview</h2>
 
-          {/*           <TableDouble
+            {/*           <TableDouble
             header={
               <h2 className="textSmall headerSmall row gapSmall">
                 <span className="material-symbols-outlined">overview_key</span>
@@ -170,194 +186,210 @@ export default function LaptopView({ data }: { data: Laptop }) {
             background="background3"
           /> */}
 
-          <TableDouble
-            header={
-              <h2 className="textSmall headerSmall row gapSmall">
-                <span className="material-symbols-outlined">laptop</span>
-                Screen
-                <div className="textSlightTransparent">{/* Screen Type */}</div>
-              </h2>
-            }
-            rows={[
-              [
-                <h3 className="textXSmall headerSmall">Size</h3>,
-                <h3 className="textXSmall">{data.size} inches</h3>,
-              ],
-              [
-                <h3 className="textXSmall headerSmall">Resolution</h3>,
-                <h3 className="textXSmall">{data.resolution}p</h3>,
-              ],
-            ]}
-            background="background3"
-          />
+            <TableDouble
+              header={
+                <div className="row gapSmall centerColumn flexWrap">
+                  <h2 className="textSmall headerSmall row gapSmall">
+                    <span className="material-symbols-outlined">laptop</span>
+                    Screen
+                    <div className="textSlightTransparent">
+                      {/* Screen Type */}
+                    </div>
+                  </h2>
+                  <div className="textSlightTransparent">Unknown</div>
+                </div>
+              }
+              rows={[
+                [
+                  <h3 className="textXSmall headerSmall">Size</h3>,
+                  <h3 className="textXSmall">{data.size} inches</h3>,
+                ],
+                [
+                  <h3 className="textXSmall headerSmall">Resolution</h3>,
+                  <h3 className="textXSmall">{data.resolution}p</h3>,
+                ],
+              ]}
+              background="background3"
+            />
 
-          <TableDouble
-            header={
-              <h2 className="textSmall headerSmall row gapSmall">
-                <span className="material-symbols-outlined">memory_alt</span>
-                Storage
-                {/* <div className="textSlightTransparent">Storage Device</div> */}
-              </h2>
-            }
-            rows={[
-              [
-                <h3 className="textXSmall headerSmall">Storage</h3>,
-                <h3 className="textXSmall">{formatBytes(data.storage)}</h3>,
-              ],
-              [
-                <h3 className="textXSmall headerSmall">Memory</h3>,
-                <h3 className="textXSmall">{data.ram} GB</h3>,
-              ],
-            ]}
-            background="background3"
-          />
+            <TableDouble
+              header={
+                <div className="row gapSmall centerColumn flexWrap">
+                  <h2 className="textSmall headerSmall row gapSmall">
+                    <span className="material-symbols-outlined">
+                      memory_alt
+                    </span>
+                    Storage
+                    {/* <div className="textSlightTransparent">Storage Device</div> */}
+                  </h2>
+                  <div className="textSlightTransparent">Unknown</div>
+                </div>
+              }
+              rows={[
+                [
+                  <h3 className="textXSmall headerSmall">Storage</h3>,
+                  <h3 className="textXSmall">{formatBytes(data.storage)}</h3>,
+                ],
+                [
+                  <h3 className="textXSmall headerSmall">Memory</h3>,
+                  <h3 className="textXSmall">{data.ram} GB</h3>,
+                ],
+              ]}
+              background="background3"
+            />
 
-          <TableDouble
-            header={
-              <h2 className="textSmall headerSmall row gapSmall">
-                <span className="material-symbols-outlined">memory</span>
-                Processor
-                <div className="textSlightTransparent">{data.cpuName}</div>
-              </h2>
-            }
-            rows={[
-              [
-                <h3 className="textXSmall headerSmall">Logical Cores</h3>,
-                <h3 className="textXSmall">{data.cores}</h3>,
-              ],
-              [
-                <h3 className="textXSmall headerSmall">Top speed</h3>,
-                <h3 className="textXSmall">
-                  {data.topFrequency.toFixed(1)} GHz
-                </h3>,
-              ],
-            ]}
-            background="background3"
-          />
+            <TableDouble
+              header={
+                <div className="row gapSmall centerColumn flexWrap">
+                  <h2 className="textSmall headerSmall row gapSmall flexWrap">
+                    <span className="material-symbols-outlined">memory</span>
+                    Processor
+                  </h2>
+                  <div className="textSlightTransparent">{data.cpuName}</div>
+                </div>
+              }
+              rows={[
+                [
+                  <h3 className="textXSmall headerSmall">Logical Cores</h3>,
+                  <h3 className="textXSmall">{data.cores}</h3>,
+                ],
+                [
+                  <h3 className="textXSmall headerSmall">Top speed</h3>,
+                  <h3 className="textXSmall">
+                    {data.topFrequency.toFixed(1)} GHz
+                  </h3>,
+                ],
+              ]}
+              background="background3"
+            />
 
-          <TableDouble
-            header={
-              <div className="row gapSmall centerColumn">
-                <h2 className="textSmall headerSmall row gapSmall">
-                  <span className="material-symbols-outlined">
-                    audio_video_receiver
-                  </span>
-                  Graphics
-                  <div className="textSlightTransparent">{data.gpuName}</div>
-                </h2>
-                <h3 className="textXSmall textSlightTransparent">
-                  ({data.hasDedicatedGpu ? <>Dedicated</> : <>Integrated</>})
-                </h3>
-              </div>
-            }
-            rows={[
-              /* [
+            <TableDouble
+              header={
+                <div className="row gapSmall centerColumn flexWrap">
+                  <h2 className="textSmall headerSmall row gapSmall">
+                    <span className="material-symbols-outlined">
+                      audio_video_receiver
+                    </span>
+                    Graphics
+                    <div className="textSlightTransparent">{data.gpuName}</div>
+                  </h2>
+                  <h3 className="textXSmall textSlightTransparent">
+                    ({data.hasDedicatedGpu ? <>Dedicated</> : <>Integrated</>})
+                  </h3>
+                </div>
+              }
+              rows={[
+                /* [
                 <h3 className="textXSmall headerSmall">Cores</h3>,
                 <h3 className="textXSmall">{data.cores}</h3>,
               ], */
-              [
-                <h3 className="textXSmall headerSmall">Virtual Memory</h3>,
-                <h3 className="textXSmall">
-                  {data.vram || "Unknown"} GB
-                  {/* {data.topFrequency.toFixed(1)} GB */}
-                </h3>,
-              ],
-            ]}
-            background="background3"
-          />
+                [
+                  <h3 className="textXSmall headerSmall">Virtual Memory</h3>,
+                  <h3 className="textXSmall">
+                    {data.vram || "Unknown"} GB
+                    {/* {data.topFrequency.toFixed(1)} GB */}
+                  </h3>,
+                ],
+              ]}
+              background="background3"
+            />
 
-          <h3 className="row gapXSmall flexWrap">
-            Not sure what these mean? See our{" "}
-            <Link
-              className="button textGlowButton textPrimary"
-              href="/cheatsheet"
-            >
-              guide
-            </Link>
-          </h3>
-        </div>
-        <div className="width100 column gapLarge">
-          <div className="column gapMedium">
-            <h2 className="textMedium headerLarge textCenter">Price History</h2>
+            <h3 className="row gapXSmall flexWrap">
+              Not sure what these mean? See our{" "}
+              <Link
+                className="button textGlowButton textPrimary"
+                href="/cheatsheet"
+              >
+                guide
+              </Link>
+            </h3>
+          </div>
+          <div className="column gapLarge">
+            <div className="column gapMedium">
+              <h2 className="textMedium headerLarge textCenter">
+                Price History
+              </h2>
 
-            {/* <h3 className="textSmall textSlightTrasparent textCenter">No Data at this time, sorry</h3> */}
+              {/* <h3 className="textSmall textSlightTrasparent textCenter">No Data at this time, sorry</h3> */}
 
-            <Line
-              options={{
-                plugins: {
-                  tooltip: {
-                    callbacks: {
-                      label: (context) => {
-                        return ` $${context.parsed.y}`;
+              <Line
+                options={{
+                  plugins: {
+                    tooltip: {
+                      callbacks: {
+                        label: (context) => {
+                          return ` $${context.parsed.y}`;
+                        },
                       },
                     },
                   },
-                },
-              }}
-              data={{
-                labels: data.priceHistory.map((_, i) => {
-                  const offsetDate = new Date(
-                    new Date().setDate(new Date().getDate() - i * 7)
-                  );
-                  const month = monthsShort[offsetDate.getMonth()];
-                  return `${month} ${offsetDate.getDate()}`;
-                }),
-                datasets: [
-                  {
-                    label: "Price",
-                    data: data.priceHistory,
-                    backgroundColor: "rgb(10, 106, 202)",
-                    borderColor: "rgb(9, 119, 228)",
-                    borderWidth: 3,
-                    pointRadius: 6,
-                    fill: true,
-                  },
-                ],
-              }}
-            />
+                }}
+                data={{
+                  labels: data.priceHistory.map((_, i) => {
+                    const offsetDate = new Date(
+                      new Date().setDate(new Date().getDate() - i * 7)
+                    );
+                    const month = monthsShort[offsetDate.getMonth()];
+                    return `${month} ${offsetDate.getDate()}`;
+                  }),
+                  datasets: [
+                    {
+                      label: "Price",
+                      data: data.priceHistory,
+                      backgroundColor: "rgb(10, 106, 202)",
+                      borderColor: "rgb(9, 119, 228)",
+                      borderWidth: 3,
+                      pointRadius: 6,
+                      fill: true,
+                    },
+                  ],
+                }}
+              />
 
-            <h3 className="textSmall row gapSmall centerRow textSlightTransparent">
-              Determination:{" "}
-              {recommendBuy ? (
-                <div className="textPositive">Good deal</div>
-              ) : (
-                <div className="textDestructive">Overpriced</div>
-              )}
-            </h3>
-          </div>
-
-          <div className="column gapMedium">
-            <div className="column">
-              <h2 className="textMedium headerLarge textCenter">Our Scores</h2>
-              <h3 className="textSmall textSlightTransparent textCenter">Relative scores based on expected hardware needs</h3>
+              <h3 className="textSmall row gapSmall centerRow textSlightTransparent">
+                Determination:{" "}
+                {recommendBuy ? (
+                  <div className="textPositive">Good deal</div>
+                ) : (
+                  <div className="textDestructive">Overpriced</div>
+                )}
+              </h3>
             </div>
 
-            <div className="column gapSmall">
-              <div className="row flexWrap gapSmall centerRow">
-                {(
-                  [
-                    ["Students", data.studentScore],
-                    ["Gaming", data.gamingScore],
-                    ["Programming", data.programmingScore],
-                    ["Office work", data.officeWorkScore],
-                    ["Video editing", data.videoEditingScore],
-                  ] as [string, number][]
-                ).map(([name, score], i) => {
-                  return (
-                    <div
-                      className="row background2 useCasePill defaultBorderRadius background3 maxBorderRadius gapSmall widthFit"
-                      key={i}
-                    >
-                      <h3 className="textXSmall">{name}</h3>
-                      <h3 className="textXSmall headerSmall">
-                        {score}%
-                      </h3>
-                    </div>
-                  );
-                })}
+            <div className="column gapMedium">
+              <div className="column">
+                <h2 className="textMedium headerLarge textCenter">
+                  Our Scores
+                </h2>
+                <h3 className="textSmall textSlightTransparent textCenter">
+                  Relative scores based on expected hardware needs
+                </h3>
               </div>
 
-              {/* <div className="row gapSmall centerRow">
+              <div className="column gapSmall">
+                <div className="row flexWrap gapSmall centerRow">
+                  {(
+                    [
+                      ["Students", data.studentScore],
+                      ["Gaming", data.gamingScore],
+                      ["Programming", data.programmingScore],
+                      ["Office work", data.officeWorkScore],
+                      ["Video editing", data.videoEditingScore],
+                    ] as [string, number][]
+                  ).map(([name, score], i) => {
+                    return (
+                      <div
+                        className="row background2 useCasePill defaultBorderRadius background3 maxBorderRadius gapSmall widthFit"
+                        key={i}
+                      >
+                        <h3 className="textXSmall">{name}</h3>
+                        <h3 className="textXSmall headerSmall">{score}%</h3>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* <div className="row gapSmall centerRow">
                 <h3 className="textSmall row gapSmall centerRow textSlightTransparent">
                   How did we come up with these?
                 </h3>
@@ -368,14 +400,26 @@ export default function LaptopView({ data }: { data: Laptop }) {
                   Here's how
                 </Link>
               </div> */}
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* <div className="column centerColumn">
+        {/* <div className="column centerColumn">
         <h2 className="textMedium headerLarge">Detailed Specifications</h2>
       </div> */}
-    </article>
+      </article>
+      <div className="row gapXSmall centerRow">
+        <h4 className="textXSmall textCenter textSlightTransparent">
+          Think something is missing?
+        </h4>
+        <Link
+          className="button textPrimary textGlowButton textSlightTransparent"
+          href="/contact"
+        >
+          Let us know
+        </Link>
+      </div>
+    </div>
   );
 }

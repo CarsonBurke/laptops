@@ -1,15 +1,31 @@
+@use "./variables.scss";
+
 .maxWidth {
-    width: max-content
+  width: max-content;
 }
 
 .width100 {
-    width: 100%
+  width: 100%;
+}
+
+@media (--mobile) {
+  .width100Mobile {
+    width: 100%;
+  }
 }
 
 .width50 {
-    width: 50%;
+  width: 50%;
 }
 
 .maxHeight {
-    height: max-content;
+  height: max-content;
+}
+
+.overflowScroll {
+  overflow: scroll;
+}
+
+.overflowHidden {
+  overflow: hidden;
 }

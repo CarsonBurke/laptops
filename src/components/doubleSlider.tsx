@@ -226,13 +226,19 @@ export default function DoubleSlider({ header, steps, labelLeft, labelRight, bac
         <div
           className="doubleSlider primary pointer doubleSliderLeft"
           onMouseDown={(e) =>
-            followCursor(e, steps.length, /* setNotchLeft, */ notchRightRealtime, RadioSide.Left)
-          } /* onMouseDown={(e) => followCursor(e)} */ /* onMouseMove={(e) => {executeDrag(e, steps.size, draggingLeft); setDraggingLeft(false)}} onMouseUp={(e) => {executeDrag(e, steps.size, draggingLeft); setDraggingLeft(false)}} */
+            followCursor(e, steps.length, notchRightRealtime, RadioSide.Left)
+          }
+          onTouchMove={(e) =>
+            followCursor(e as any, steps.length, notchRightRealtime, RadioSide.Left)
+          }
         ></div>
         <div
           className="doubleSlider primary pointer doubleSliderRight"
           onMouseDown={(e) =>
-            followCursor(e, steps.length, /* setNotchRight, */ notchLeftRealtime, RadioSide.Right)
+            followCursor(e, steps.length, notchLeftRealtime, RadioSide.Right)
+          }
+          onTouchMove={(e) =>
+            followCursor(e as any, steps.length, notchLeftRealtime, RadioSide.Right)
           }
         ></div>
         <div className="doubleSliderBetween"></div>
