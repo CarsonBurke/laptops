@@ -33,9 +33,34 @@ import { parseUrl } from "next/dist/shared/lib/router/utils/parse-url";
 const laptopsPerPage = 20;
 const laptopsLoadGroupSize = 10;
 
-enum PageOffsetStatus {
-  QueryDefault,
-  Custom,
+enum QueryKey {
+  Order = "order",
+  MinPrice = "minPrice",
+  MaxPrice = "maxPrice",
+  ForStudents = "forStudents",
+  ForGaming = "forGaming",
+  ForProgrammers = "forProgrammers",
+  ForOfficeWork = "forOfficeWork",
+  ForVideoEditing = "forVideoEditing",
+  MinDisplaySize = "minDisplaySize",
+  MaxDisplaySize = "maxDisplaySize",
+  MinDisplayResolution = "minDisplayResolution",
+  MaxDisplayResolution = "maxDisplayResolution",
+  MinMemory = "minMemory",
+  MaxMemory = "maxMemory",
+  MinStorage = "minStorage",
+  MaxStorage = "maxStorage",
+  MinCores = "minCores",
+  MaxCores = "maxCores",
+  MinCpuFrequency = "minCpuFrequency",
+  MaxCpuFrequency = "maxCpuFrequency",
+  DedicatedGPU = "dedicatedGPU",
+  MinVram = "minVram",
+  MaxVram = "maxVram",
+  Windows = "windows",
+  Linux = "linux",
+  Macos = "macos",
+  PageOffset = "pageOffset",
 }
 
 export default function Laptops() {
@@ -51,29 +76,37 @@ export default function Laptops() {
 
     // Update order
 
-    setOrder((newQuery.get("order") as LaptopsOrder) || LaptopsOrder.BestDeal);
+    setOrder(
+      (newQuery.get(QueryKey.Order) as LaptopsOrder) || LaptopsOrder.BestDeal
+    );
 
     // Update price
 
     const defaultPrice = [
-      parseInt(queryDefaults.get("minPrice") || "0"),
-      parseInt(queryDefaults.get("maxPrice") || "5000"),
+      parseInt(queryDefaults.get(QueryKey.MinPrice) || "0"),
+      parseInt(queryDefaults.get(QueryKey.MaxPrice) || "5000"),
     ];
     setPrice(defaultPrice);
 
     // Update use case
 
-    setforStudents(newQuery.get("forStudents") != "false");
-    setforGaming(newQuery.get("forGaming") != "false");
-    setforProgrammers(newQuery.get("forProgrammers") != "false");
-    setforOfficeWork(newQuery.get("forOfficeWork") != "false");
-    setforVideoEditing(newQuery.get("forVideoEditing") != "false");
+    setforStudents(newQuery.get(QueryKey.ForStudents) != "false");
+    setforGaming(newQuery.get(QueryKey.ForGaming) != "false");
+    setforProgrammers(newQuery.get(QueryKey.ForProgrammers) != "false");
+    setforOfficeWork(newQuery.get(QueryKey.ForOfficeWork) != "false");
+    setforVideoEditing(newQuery.get(QueryKey.ForVideoEditing) != "false");
 
     // Update operating system
 
-    setWindows(newQuery.get("windows") != "false");
-    setLinux(newQuery.get("linux") != "false");
-    setMac(newQuery.get("macos") != "false");
+    setWindows(newQuery.get(QueryKey.Windows) != "false");
+    setLinux(newQuery.get(QueryKey.Linux) != "false");
+    setMac(newQuery.get(QueryKey.Macos) != "false");
+
+    //
+
+    //
+
+    setPageOffset(parseInt(newQuery.get(QueryKey.PageOffset) || "0"));
   }, [rawSearchParams]);
 
   const router = useRouter();
@@ -150,59 +183,95 @@ export default function Laptops() {
   // Filter states
 
   const defaultPrice = [
-    parseInt(queryDefaults.get("minPrice") || "0"),
-    parseInt(queryDefaults.get("maxPrice") || "5000"),
+    parseInt(queryDefaults.get(QueryKey.MinPrice) || "0"),
+    parseInt(queryDefaults.get(QueryKey.MaxPrice) || "5000"),
   ];
-  console.log("default price", defaultPrice)
-  let [price, setPrice] = useState(defaultPrice);
-  console.log("price", price)
 
-  const orderDefault = (queryDefaults.get("order") ||
+  let [price, setPrice] = useState(defaultPrice);
+
+  const orderDefault = (queryDefaults.get(QueryKey.Order) ||
     LaptopsOrder.BestDeal) as LaptopsOrder;
   let [order, setOrder] = useState(orderDefault);
 
   // Use cases
 
-  const studentsDefault = queryDefaults.get("forStudents") != "false";
+  const studentsDefault = queryDefaults.get(QueryKey.ForStudents) != "false";
   let [forStudents, setforStudents] = useState(studentsDefault);
 
-  const gamingDefault = queryDefaults.get("forGaming") != "false";
+  const gamingDefault = queryDefaults.get(QueryKey.ForGaming) != "false";
   let [forGaming, setforGaming] = useState(gamingDefault);
 
-  const programmersDefault = queryDefaults.get("forProgrammers") != "false";
+  const programmersDefault =
+    queryDefaults.get(QueryKey.ForProgrammers) != "false";
   let [forProgrammers, setforProgrammers] = useState(programmersDefault);
 
-  const officeWorkDefault = queryDefaults.get("forOfficeWork") != "false";
+  const officeWorkDefault =
+    queryDefaults.get(QueryKey.ForOfficeWork) != "false";
   let [forOfficeWork, setforOfficeWork] = useState(officeWorkDefault);
 
-  const videoEditingDefault = queryDefaults.get("forVideoEditing") != "false";
+  const videoEditingDefault =
+    queryDefaults.get(QueryKey.ForVideoEditing) != "false";
   let [forVideoEditing, setforVideoEditing] = useState(videoEditingDefault);
 
-  let [hasDedicatedGpu, setHasDedicatedGpu] = useState(false);
-  let [vram, setVram] = useState([4, 64]);
+  const hasDedicatedGpuDefault =
+    queryDefaults.get(QueryKey.DedicatedGPU) == "true";
+  let [hasDedicatedGpu, setHasDedicatedGpu] = useState(hasDedicatedGpuDefault);
+  const vramDefault = [
+    parseInt(queryDefaults.get(QueryKey.MinVram) || "4"),
+    parseInt(queryDefaults.get(QueryKey.MaxVram) || "64"),
+  ];
+  let [vram, setVram] = useState(vramDefault);
 
-  let [linux, setLinux] = useState(true);
-  let [macos, setMac] = useState(true);
-  let [windows, setWindows] = useState(true);
+  const linuxDefault = queryDefaults.get(QueryKey.Linux) != "false";
+  let [linux, setLinux] = useState(linuxDefault);
+  const macosDefault = queryDefaults.get(QueryKey.Macos) != "false";
+  let [macos, setMac] = useState(macosDefault);
+  const windowsDefault = queryDefaults.get(QueryKey.Windows) != "false";
+  let [windows, setWindows] = useState(windowsDefault);
 
-  let [size, setSize] = useState([13, 18]);
-  let [resolution, setResolution] = useState([1080, 3060]);
-  let [ram, setRam] = useState([4, 64]);
-  let [storage, setStorage] = useState([512, 8192]);
+  const sizeDefault = [
+    parseInt(queryDefaults.get(QueryKey.MinDisplaySize) || "13"),
+    parseInt(queryDefaults.get(QueryKey.MaxDisplaySize) || "18"),
+  ];
+  let [size, setSize] = useState(sizeDefault);
 
-  let [topFrequency, setTopFrequency] = useState([1, 5]);
-  let [cores, setCores] = useState([2, 256]);
+  const resolutionDefault = [
+    parseInt(queryDefaults.get(QueryKey.MinDisplayResolution) || "1080"),
+    parseInt(queryDefaults.get(QueryKey.MaxDisplayResolution) || "3060"),
+  ];
+  let [resolution, setResolution] = useState(resolutionDefault);
+
+  const memoryDefault = [
+    parseInt(queryDefaults.get(QueryKey.MinMemory) || "8"),
+    parseInt(queryDefaults.get(QueryKey.MaxMemory) || "256"),
+  ];
+  let [ram, setRam] = useState(memoryDefault);
+
+  const storageDefault = [
+    parseInt(queryDefaults.get(QueryKey.MinStorage) || "512"),
+    parseInt(queryDefaults.get(QueryKey.MaxStorage) || "8192"),
+  ];
+  let [storage, setStorage] = useState(storageDefault);
+
+  const cpuFrequencyDefault = [
+    parseInt(queryDefaults.get(QueryKey.MinCpuFrequency) || "1"),
+    parseInt(queryDefaults.get(QueryKey.MaxCpuFrequency) || "6"),
+  ];
+  let [topFrequency, setTopFrequency] = useState(cpuFrequencyDefault);
+
+  const coresDefault = [
+    parseInt(queryDefaults.get(QueryKey.MinCores) || "2"),
+    parseInt(queryDefaults.get(QueryKey.MaxCores) || "256"),
+  ];
+  let [cores, setCores] = useState(coresDefault);
 
   let [data, setData] = useState([] as any);
 
-  const pageOffsetDefault = parseInt(queryDefaults.get("pageOffset") || "0");
+  const pageOffsetDefault = parseInt(
+    queryDefaults.get(QueryKey.PageOffset) || "0"
+  );
 
   let [pageOffset, setPageOffset] = useState(pageOffsetDefault);
-  let [pageOffsetStatus, setPageOffsetStatus] = useState(
-    queryDefaults.get("pageOffset")
-      ? PageOffsetStatus.QueryDefault
-      : PageOffsetStatus.Custom
-  );
   let [offset, setOffset] = useState(0);
 
   /* if (!isLoading) {
@@ -258,43 +327,50 @@ export default function Laptops() {
     offset: offset + pageOffset * laptopsPerPage,
   });
 
-  useEffect(() => {
+  function changeQuery() {
     setData([]);
     setOffset(0);
     setIsFetching(true);
+    setPageOffset(0);
+  }
 
-    // Ignore the first page load (which will inact the useEffect call) so that query params are utilized
-    if (pageOffsetStatus === PageOffsetStatus.QueryDefault) {
-      setPageOffsetStatus(PageOffsetStatus.Custom);
-    } else {
-      setPageOffset(0);
-    }
-  }, [
-    order,
-    price,
-    macos,
-    windows,
-    linux,
-    size,
-    resolution,
-    ram,
-    storage,
-    cores,
-    topFrequency,
-    forStudents,
-    forGaming,
-    forProgrammers,
-    forOfficeWork,
-    forVideoEditing,
-    hasDedicatedGpu,
-    vram,
-  ]);
+  // useEffect(() => {
+  //   setData([]);
+  //   setOffset(0);
+  //   setIsFetching(true);
 
-  useEffect(() => {
+  //   // Ignore the first page load (which will inact the useEffect call) so that query params are utilized
+  //   if (pageOffsetStatus === PageOffsetStatus.QueryDefault) {
+  //     setPageOffsetStatus(PageOffsetStatus.Custom);
+  //   } else {
+  //     setPageOffset(0);
+  //   }
+  // }, [
+  //   order,
+  //   price,
+  //   macos,
+  //   windows,
+  //   linux,
+  //   size,
+  //   resolution,
+  //   ram,
+  //   storage,
+  //   cores,
+  //   topFrequency,
+  //   forStudents,
+  //   forGaming,
+  //   forProgrammers,
+  //   forOfficeWork,
+  //   forVideoEditing,
+  //   hasDedicatedGpu,
+  //   vram,
+  // ]);
+
+  function ChangePageOffset() {
     setData([]);
     setOffset(0);
     setIsFetching(true);
-  }, [pageOffset]);
+  }
 
   useEffect(() => {
     if (result.isLoading) {
@@ -375,35 +451,17 @@ export default function Laptops() {
                       LaptopsOrder.VideoEditingScore,
                     ],
                   }}
+                  value={order}
                   groupName="sort"
                   className="borderBg3"
                   onInput={(value) => {
                     "use client";
                     setOrder(value as LaptopsOrder);
 
-                    // switch (value) {
-                    //   case LaptopsOrder.BestDeal:
-                    //     setOrder(LaptopsOrder.BestDeal);
-                    //     break;
-                    //   case LaptopsOrder.PriceLowToHigh:
-                    //     setOrder(LaptopsOrder.PriceLowToHigh);
-                    //     break;
-                    //   case LaptopsOrder.PriceHighToLow:
-                    //     setOrder(LaptopsOrder.PriceHighToLow);
-                    //     break;
-                    //   case LaptopsOrder.ByMemory:
-                    //     setOrder(LaptopsOrder.ByMemory);
-                    //     break;
-                    //   case LaptopsOrder.ByStorage:
-                    //     setOrder(LaptopsOrder.ByStorage);
-                    //     break;
-                    //   case LaptopsOrder.ByCores:
-                    //     setOrder(LaptopsOrder.ByCores);
-                    //     break;
-                    //   case LaptopsOrder.ByCpuFrequency:
-                    //     setOrder(LaptopsOrder.ByCpuFrequency);
-                    //     break;
-                    // }
+                    queryDefaults.set(QueryKey.Order, value.toString());
+                    router.replace(`?${queryDefaults.toString()}`, {
+                      scroll: false,
+                    });
                   }}
                 />
 
@@ -412,7 +470,9 @@ export default function Laptops() {
                   steps={Array.from(
                     { length: 25 },
                     (_, i) =>
-                      Math.pow(i * 100, 1.09432) /* (i + 1) * 100 - 100 */
+                      Math.floor(
+                        Math.pow(i * 100, 1.09432)
+                      ) /* (i + 1) * 100 - 100 */
                   )}
                   labelLeft={["$", ""]}
                   labelRight={["$", ""]}
@@ -422,6 +482,13 @@ export default function Laptops() {
                     "use client";
 
                     setPrice([left, right]);
+
+                    queryDefaults.set(QueryKey.MinPrice, left.toString());
+                    queryDefaults.set(QueryKey.MaxPrice, right.toString());
+                    router.replace(`?${queryDefaults.toString()}`, {
+                      scroll: false,
+                    });
+                    changeQuery();
                   }}
                 />
 
@@ -464,37 +531,90 @@ export default function Laptops() {
                 >
                   <div className="column">
                     <Checkbox
-                      id="forStudentss"
+                      id="forStudents"
                       checked={forStudents}
-                      onChange={(checked) => setforStudents(checked)}
+                      onChange={(checked) => {
+                        setforStudents(checked);
+
+                        queryDefaults.set(
+                          QueryKey.ForStudents,
+                          checked.toString()
+                        );
+                        router.replace(`?${queryDefaults.toString()}`, {
+                          scroll: false,
+                        });
+                        changeQuery();
+                      }}
                     >
                       <h3 className="textXSmall">Students</h3>
                     </Checkbox>
                     <Checkbox
                       id="forGaming"
                       checked={forGaming}
-                      onChange={(checked) => setforGaming(checked)}
+                      onChange={(checked) => {
+                        setforGaming(checked);
+
+                        queryDefaults.set(
+                          QueryKey.ForGaming,
+                          checked.toString()
+                        );
+                        router.replace(`?${queryDefaults.toString()}`, {
+                          scroll: false,
+                        });
+                        changeQuery();
+                      }}
                     >
                       <h3 className="textXSmall">Gaming</h3>
                     </Checkbox>
                     <Checkbox
                       id="forProgrammers"
                       checked={forProgrammers}
-                      onChange={(checked) => setforProgrammers(checked)}
+                      onChange={(checked) => {
+                        setforProgrammers(checked);
+
+                        queryDefaults.set(
+                          QueryKey.ForProgrammers,
+                          checked.toString()
+                        );
+                        router.replace(`?${queryDefaults.toString()}`, {
+                          scroll: false,
+                        });
+                        changeQuery();
+                      }}
                     >
                       <h3 className="textXSmall">Programming</h3>
                     </Checkbox>
                     <Checkbox
                       id="forOfficeWork"
                       checked={forOfficeWork}
-                      onChange={(checked) => setforOfficeWork(checked)}
+                      onChange={(checked) => {
+                        setforOfficeWork(checked);
+
+                        queryDefaults.set(
+                          QueryKey.ForOfficeWork,
+                          checked.toString()
+                        );
+                        router.replace(`?${queryDefaults.toString()}`, {
+                          scroll: false,
+                        });
+                        changeQuery();
+                      }}
                     >
                       <h3 className="textXSmall">Office work</h3>
                     </Checkbox>
                     <Checkbox
                       id="forVideoEditing"
                       checked={forVideoEditing}
-                      onChange={(checked) => setforVideoEditing(checked)}
+                      onChange={(checked) => {
+                        setforVideoEditing(checked);
+
+                        queryDefaults.set(
+                          QueryKey.ForVideoEditing,
+                          checked.toString()
+                        );
+                        router.replace(`?${queryDefaults.toString()}`);
+                        changeQuery();
+                      }}
                     >
                       <h3 className="textXSmall">Video editing</h3>
                     </Checkbox>
@@ -511,12 +631,26 @@ export default function Laptops() {
                   header={
                     <h3 className="textSmall headerSmall">Display Size</h3>
                   }
-                  steps={Array.from({ length: 6 }, (_, i) => i + 13)}
+                  leftValue={size[0]}
+                  rightValue={size[1]}
+                  steps={Array.from({ length: 6 }, (_, i) =>
+                    Math.floor(i + 13)
+                  )}
                   labelLeft={["", " inches"]}
                   labelRight={["", " inches"]}
                   emit={(left, right) => {
                     "use client";
                     setSize([left, right]);
+
+                    queryDefaults.set(QueryKey.MinDisplaySize, left.toString());
+                    queryDefaults.set(
+                      QueryKey.MaxDisplaySize,
+                      right.toString()
+                    );
+                    router.replace(`?${queryDefaults.toString()}`, {
+                      scroll: false,
+                    });
+                    changeQuery();
                   }}
                 />
 
@@ -529,62 +663,124 @@ export default function Laptops() {
                   steps={Array.from(
                     { length: /* 41 */ 12 },
                     (_, i) =>
-                      9 *
-                      (100 +
-                        (i + 1) *
-                          20) /* Math.pow(2, i * 9/16 + 10) */ /* Math.sqrt((i * 400 * 1080) / (16 / 9)) + 1080 */
+                      Math.floor(
+                        9 * (100 + (i + 1) * 20)
+                      )
                   )}
+                  leftValue={resolution[0]}
+                  rightValue={resolution[1]}
                   labelLeft={["", "p"]}
                   labelRight={["", "p"]}
                   emit={(left, right) => {
                     "use client";
                     setResolution([left, right]);
+
+                    queryDefaults.set(
+                      QueryKey.MinDisplayResolution,
+                      left.toString()
+                    );
+                    queryDefaults.set(
+                      QueryKey.MaxDisplayResolution,
+                      right.toString()
+                    );
+                    router.replace(`?${queryDefaults.toString()}`, {
+                      scroll: false,
+                    });
+                    changeQuery();
                   }}
                 />
                 <DoubleSlider
                   header={<h3 className="textSmall headerSmall">Memory</h3>}
                   steps={Array.from({ length: 6 }, (_, i) =>
-                    Math.pow(2, i + 3)
+                    Math.floor(Math.pow(2, i + 3))
                   )}
                   labelLeft={["", " GB"]}
                   labelRight={["", " GB"]}
+                  leftValue={ram[0]}
+                  rightValue={ram[1]}
                   emit={(left, right) => {
                     "use client";
                     setRam([left, right]);
+
+                    queryDefaults.set(
+                      QueryKey.MinMemory,
+                      left.toString()
+                    );
+                    queryDefaults.set(
+                      QueryKey.MaxMemory,
+                      right.toString()
+                    );
+                    router.replace(`?${queryDefaults.toString()}`, {
+                      scroll: false,
+                    });
+                    changeQuery();
                   }}
                 />
                 <DoubleSlider
                   header={<h3 className="textSmall headerSmall">Storage</h3>}
                   steps={Array.from({ length: 5 }, (_, i) =>
-                    Math.pow(2, i + 9)
+                    Math.floor(Math.pow(2, i + 9))
                   )}
                   labelLeft={["", " GB"]}
                   labelRight={["", " GB"]}
+                  leftValue={storage[0]}
+                  rightValue={storage[1]}
                   emit={(left, right) => {
                     "use client";
                     setStorage([left, right]);
+
+                    queryDefaults.set(QueryKey.MinStorage, left.toString());
+                    queryDefaults.set(QueryKey.MaxStorage, right.toString());
+                    router.replace(`?${queryDefaults.toString()}`, {
+                      scroll: false,
+                    });
+                    changeQuery();
                   }}
                 />
                 <DoubleSlider
                   header={<h3 className="textSmall headerSmall">CPU Cores</h3>}
                   steps={Array.from({ length: 8 }, (_, i) =>
-                    Math.pow(2, i + 1)
+                    Math.floor(Math.pow(2, i + 1))
                   )}
+                  leftValue={cores[0]}
+                  rightValue={cores[1]}
                   emit={(left, right) => {
                     "use client";
                     setCores([left, right]);
+
+                    queryDefaults.set(QueryKey.MinCores, left.toString());
+                    queryDefaults.set(QueryKey.MaxCores, right.toString());
+                    router.replace(`?${queryDefaults.toString()}`, {
+                      scroll: false,
+                    });
+                    changeQuery();
                   }}
                 />
                 <DoubleSlider
                   header={
                     <h3 className="textSmall headerSmall">Max Frequency</h3>
                   }
-                  steps={Array.from({ length: 6 }, (_, i) => i + 1)}
+                  steps={Array.from({ length: 6 }, (_, i) => Math.floor(i + 1))}
                   labelLeft={["", " GHz"]}
                   labelRight={["", " GHz"]}
+                  leftValue={topFrequency[0]}
+                  rightValue={topFrequency[1]}
                   emit={(left, right) => {
                     "use client";
                     setTopFrequency([left, right]);
+
+                    queryDefaults.set(
+                      QueryKey.MinCpuFrequency,
+                      left.toString()
+                    );
+                    queryDefaults.set(
+                      QueryKey.MaxCpuFrequency,
+                      right.toString()
+                    );
+                    router.replace(`?${queryDefaults.toString()}`, {
+                      scroll: false,
+                    });
+                    changeQuery();
                   }}
                 />
 
@@ -596,20 +792,40 @@ export default function Laptops() {
                     <Checkbox
                       id="dedicatedGPU"
                       checked={hasDedicatedGpu}
-                      onChange={(checked) => setHasDedicatedGpu(checked)}
+                      onChange={(checked) => {
+                        setHasDedicatedGpu(checked);
+
+                        queryDefaults.set(
+                          QueryKey.DedicatedGPU,
+                          checked.toString()
+                        );
+                        router.replace(`?${queryDefaults.toString()}`, {
+                          scroll: false,
+                        });
+                        changeQuery();
+                      }}
                     >
-                      <h3 className="textXSmall">Dedicated</h3>
+                      <h3 className="textXSmall">Only Dedicated</h3>
                     </Checkbox>
                     <DoubleSlider
                       header={<h3 className="textSmall headerSmall">VRAM</h3>}
                       steps={Array.from({ length: 5 }, (_, i) =>
-                        Math.pow(2, i * 1 + 2)
+                        Math.floor(Math.pow(2, i * 1 + 2))
                       )}
                       labelLeft={["", " GB"]}
                       labelRight={["", " GB"]}
+                      leftValue={vram[0]}
+                      rightValue={vram[1]}
                       emit={(left, right) => {
                         "use client";
                         setVram([left, right]);
+
+                        queryDefaults.set(QueryKey.MinVram, left.toString());
+                        queryDefaults.set(QueryKey.MaxVram, right.toString());
+                        router.replace(`?${queryDefaults.toString()}`, {
+                          scroll: false,
+                        });
+                        changeQuery();
                       }}
                     />
                   </div>
@@ -624,7 +840,15 @@ export default function Laptops() {
                     <Checkbox
                       id="windowsCheck"
                       checked={windows}
-                      onChange={(checked) => setWindows(checked)}
+                      onChange={(checked) => {
+                        setWindows(checked);
+
+                        queryDefaults.set(QueryKey.Windows, checked.toString());
+                        router.replace(`?${queryDefaults.toString()}`, {
+                          scroll: false,
+                        });
+                        changeQuery();
+                      }}
                     >
                       <Image
                         src={windowsIcon}
@@ -636,7 +860,15 @@ export default function Laptops() {
                     <Checkbox
                       id="macCheck"
                       checked={macos}
-                      onChange={(checked) => setMac(checked)}
+                      onChange={(checked) => {
+                        setMac(checked);
+
+                        queryDefaults.set(QueryKey.Macos, checked.toString());
+                        router.replace(`?${queryDefaults.toString()}`, {
+                          scroll: false,
+                        });
+                        changeQuery();
+                      }}
                     >
                       <Image src={macIcon} alt="macos" className="osIcon" />
                       <h3 className="textXSmall">macOS</h3>
@@ -644,7 +876,15 @@ export default function Laptops() {
                     <Checkbox
                       id="linuxCheck"
                       checked={linux}
-                      onChange={(checked) => setLinux(checked)}
+                      onChange={(checked) => {
+                        setLinux(checked);
+
+                        queryDefaults.set(QueryKey.Linux, checked.toString());
+                        router.replace(`?${queryDefaults.toString()}`, {
+                          scroll: false,
+                        });
+                        changeQuery();
+                      }}
                     >
                       <Image src={linuxIcon} alt="linux" className="osIcon" />
                       <h3 className="textXSmall">Linux</h3>
@@ -656,7 +896,7 @@ export default function Laptops() {
           </div>
           <div className="column gapLarge width100 centerRow centerColumn">
             <h1 className="textLarge headerLarge textCenter">Laptops</h1>
-            {!isFetching && data.length == 0 ? (
+            {!isFetching && data.length == 0 && pageOffset == 0 ? (
               <div className="column centerColumn gapMedium">
                 <div className="column centerColumn">
                   <h1 className="textMedium headerSmall">No laptops found</h1>
@@ -676,6 +916,21 @@ export default function Laptops() {
                   <button
                     disabled={pageOffset === 0}
                     onClick={() => {
+                      queryDefaults.set("pageOffset", (0).toString());
+                      router.replace(`?${queryDefaults.toString()}`);
+
+                      setPageOffset(0);
+                      ChangePageOffset();
+                    }}
+                    className={"button buttonBg3"}
+                  >
+                    <span className="material-symbols-outlined">
+                      first_page
+                    </span>
+                  </button>
+                  <button
+                    disabled={pageOffset === 0}
+                    onClick={() => {
                       queryDefaults.set(
                         "pageOffset",
                         (pageOffset - 1).toString()
@@ -683,6 +938,7 @@ export default function Laptops() {
                       router.replace(`?${queryDefaults.toString()}`);
 
                       setPageOffset(pageOffset - 1);
+                      ChangePageOffset();
                     }}
                     className={"button buttonBg3"}
                   >
@@ -701,6 +957,7 @@ export default function Laptops() {
                       router.replace(`?${queryDefaults.toString()}`);
 
                       setPageOffset(pageOffset + 1);
+                      ChangePageOffset();
                     }}
                     className="button buttonBg3"
                   >

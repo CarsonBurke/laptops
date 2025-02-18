@@ -359,7 +359,7 @@ export default function LaptopView({ data }: { data: Laptop }) {
             <div className="column gapMedium">
               <div className="column">
                 <h2 className="textMedium headerLarge textCenter">
-                  Our Scores
+                  Our Rating
                 </h2>
                 <h3 className="textSmall textSlightTransparent textCenter">
                   Relative scores based on expected hardware needs

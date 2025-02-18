@@ -1,4 +1,5 @@
 "use client"
+
 import LaptopPreview, { generateLaptopPreviews } from "./laptopPreview";
 import { trpc } from "@/lib/trpc";
 import { Laptop, LaptopsOrder } from "@/types/laptop";

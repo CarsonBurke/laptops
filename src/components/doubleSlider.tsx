@@ -17,13 +17,23 @@ import "./doubleSlider.scss";
 const BOUND_LEFT = 0;
 const RADIO_DIAMETER = 9;
 /// In pixels
-const WIDTH = 180
+const WIDTH = 180;
 
-type EmitFunction = (notchLeft: number, notchRight: number) => void;
+type EmitFunction = (
+  valueLeft: number,
+  valueRight: number,
+  notchLeft?: number,
+  notchRight?: number
+) => void;
 
 enum RadioSide {
   Left,
   Right,
+}
+
+function getStepsToValues(steps: number[]) {
+  // Flip axes and indexes
+  return new Map(steps.map((step, index) => [step, index]));
 }
 
 export default function DoubleSlider({
@@ -31,8 +41,8 @@ export default function DoubleSlider({
   steps,
   labelLeft,
   labelRight,
-  leftValue = steps[0],
-  rightValue = steps[steps.length - 1],
+  leftValue,
+  rightValue,
   background = 2,
   emit,
 }: {
@@ -45,21 +55,36 @@ export default function DoubleSlider({
   background?: number;
   emit: EmitFunction;
 }) {
-  /*   let [notchLeft, setNotchLeft] = useState(0);
-  let notchLeftCopy = notchLeft
-  let [notchRight, setNotchRight] = useState(steps.length - 1); */
+  const stepsToValues = getStepsToValues(steps);
 
-  console.log("left, right", leftValue, rightValue);
-  console.log("right step");
+  const leftStep = (() => {
+    if (leftValue === undefined) return 0;
 
+    const stepForValue = stepsToValues.get(leftValue);
+    if (stepForValue === undefined) throw new Error(`[Double slider]: Left value (${leftValue}) doesn't align with steps (${steps})`);
+
+    return stepForValue;
+  })()
   // These are so we can update the HTML values and track the other in calculation
-  const leftStep =
-    Math.floor(leftValue / steps[steps.length - 1]) * (steps.length - 1);
+  /* const leftStep = leftValue
+    ? Math.round(leftValue / steps[steps.length - 1] * (steps.length))
+    : 0; */
   let [notchLeftRealtime, setNotchLeftRealtime] = useState(leftStep);
 
-  const rightStep = Math.floor(
-    (rightValue / steps[steps.length - 1]) * (steps.length - 1)
-  );
+  // const rightStep = rightValue
+  //   ? Math.round(
+  //       (rightValue / steps[steps.length - 1]) * steps.length
+  //       /* (rightValue / steps[steps.length - 1]) */
+  //     ) /* / (steps.length) */
+  //   : steps.length - 1;
+  const rightStep = (() => {
+    if (rightValue === undefined) return steps.length;
+
+    const stepForValue = stepsToValues.get(rightValue);
+    if (stepForValue === undefined) throw new Error(`[Double slider]: Right value (${rightValue}) doesn't align with steps (${steps})`);
+
+    return stepForValue;
+  })()
   let [notchRightRealtime, setNotchRightRealtime] = useState(rightStep);
   // These are to trail the real-time values, properly emitting as mouseover seems to end before mouseup
   let notchLeft = notchLeftRealtime;
@@ -71,13 +96,8 @@ export default function DoubleSlider({
     otherRadioNotch: number,
     side: RadioSide
   ) {
-    /* let newX = e.clientX */
-
     let el = e.target as HTMLDivElement;
-
     let parentEl = el.parentElement as HTMLDivElement;
-
-    /* target.style.left = `${newX}px` */
 
     let stopMove = new AbortController();
 
@@ -117,7 +137,6 @@ export default function DoubleSlider({
     newX: number,
     el: HTMLDivElement,
     parentEl: HTMLDivElement,
-    /* setNotch: Dispatch<SetStateAction<number>>, */
     otherRadioNotch: number
   ) {
     let boundRight = parentEl.offsetWidth - RADIO_DIAMETER * 2;
@@ -130,14 +149,23 @@ export default function DoubleSlider({
     let percentX = (boundedX / boundRight) * 100;
 
     // 0-stepsCount
-    let vX = Math.min(
+    let step = Math.min(
       Math.round(percentX / (100 / steps.length)),
       otherRadioNotch - 1
     );
 
+    moveToStepLeft(step, el, parentEl, otherRadioNotch);
+  }
+
+  function moveToStepLeft(
+    step: number,
+    el: HTMLDivElement,
+    parentEl: HTMLDivElement,
+    otherRadioNotch: number
+  ) {
     // 0-boundRight
     let roundX =
-      vX *
+      step *
       (100 / steps.length) *
       ((parentEl.offsetWidth - RADIO_DIAMETER * 1.5) / 100);
 
@@ -146,8 +174,8 @@ export default function DoubleSlider({
     //
 
     /* setNotch(vX) */
-    setNotchLeftRealtime(vX);
-    notchLeft = vX;
+    setNotchLeftRealtime(step);
+    notchLeft = step;
 
     // Move label
 
@@ -195,32 +223,6 @@ export default function DoubleSlider({
     );
 
     moveToStepRight(step, el, parentEl, otherRadioNotch);
-    // // 0-boundRight
-    // let roundX =
-    //   vX *
-    //   (100 / (stepsCount - 1)) *
-    //   ((parentEl.offsetWidth - RADIO_DIAMETER * 2) / 100);
-
-    // el.style.transform = `translateX(${roundX}px)`;
-
-    // //
-
-    // /* setNotch(vX) */
-    // setNotchRightRealtime(vX)
-    // notchRight = vX
-
-    // // Move label
-
-    // let label = parentEl.parentElement?.getElementsByClassName("doubleSliderRightLabel")[0] as HTMLDivElement;
-
-    // let min = otherRadioNotch * ((parentEl.offsetWidth) / stepsCount) - parentEl.offsetWidth + label.offsetWidth * 2.5
-
-    // let labelX = Math.max(roundX - boundRight /* - (RADIO_DIAMETER / 2) */, min);
-    // label.style.transform = `translateX(${labelX}px)`;
-
-    // let between = parentEl.parentElement?.getElementsByClassName("doubleSliderBetween")[0] as HTMLDivElement;
-
-    // between.style.right = `${parentEl.offsetWidth - RADIO_DIAMETER - roundX}px`;
   }
 
   function moveToStepRight(
@@ -235,13 +237,12 @@ export default function DoubleSlider({
     let roundX =
       step *
       (100 / (steps.length - 1)) *
-      ((WIDTH - RADIO_DIAMETER * 2) / 100);
+      ((parentEl.offsetWidth - RADIO_DIAMETER * 2) / 100);
 
     el.style.transform = `translateX(${roundX}px)`;
 
     //
 
-    /* setNotch(vX) */
     setNotchRightRealtime(step);
     notchRight = step;
 
@@ -252,21 +253,18 @@ export default function DoubleSlider({
     )[0] as HTMLDivElement;
 
     let min =
-      otherRadioNotch * (WIDTH / steps.length) -
-      WIDTH +
+      otherRadioNotch * (parentEl.offsetWidth / steps.length) -
+      parentEl.offsetWidth +
       label.offsetWidth * 2.5;
 
-    let labelX = Math.max(
-      roundX - boundRight /* - (RADIO_DIAMETER / 2) */,
-      min
-    );
+    let labelX = Math.max(roundX - boundRight, min);
     label.style.transform = `translateX(${labelX}px)`;
 
     let between = parentEl.parentElement?.getElementsByClassName(
       "doubleSliderBetween"
     )[0] as HTMLDivElement;
 
-    between.style.right = `${WIDTH - RADIO_DIAMETER - roundX}px`;
+    between.style.right = `${parentEl.offsetWidth - RADIO_DIAMETER - roundX}px`;
   }
 
   function onDragStop(stopMove: AbortController, stopSelf: AbortController) {
@@ -280,44 +278,54 @@ export default function DoubleSlider({
     // based on left vs right (order from direction)
 
     emit(steps[notchLeft], steps[notchRight]);
-
-    /* if (radioNotch < otherRadioNotch) {
-      emit(radioNotch, otherRadioNotch)
-    } else {
-      emit(otherRadioNotch, radioNotch)
-    } */
   }
 
   const sliderBarRef = useRef<HTMLDivElement>(null);
 
   // Properly align the right radio on page load
   useEffect(() => {
-    let sliderBar = sliderBarRef.current as HTMLDivElement;
+    const sliderBar = sliderBarRef.current as HTMLDivElement;
 
-    let sliderRight = sliderBar.getElementsByClassName(
-      "doubleSliderRight"
-    )[0] as HTMLDivElement;
-    sliderRight.style.transform = `translateX(${
-      WIDTH - RADIO_DIAMETER * 2
-    }px)`;
+    // If the left radio is not on the first step
 
-    moveToStepRight(rightStep, sliderRight, sliderBar, notchLeft);
-    /* setNotchRight(steps.length - 1) */
+    if (leftStep != 0) {
+      const sliderLeft = sliderBar.getElementsByClassName(
+        "doubleSliderLeft"
+      )[0] as HTMLDivElement;
+      sliderLeft.style.transform = `translateX(${RADIO_DIAMETER}px)`;
+
+      moveToStepLeft(leftStep, sliderLeft, sliderBar, notchRight);
+    }
+
+    // If the right radio is not on the last step
+    if (rightStep != steps.length - 1) {
+      const sliderRight = sliderBar.getElementsByClassName(
+        "doubleSliderRight"
+      )[0] as HTMLDivElement;
+      sliderRight.style.transform = `translateX(${
+        WIDTH - RADIO_DIAMETER * 2
+      }px)`;
+
+      moveToStepRight(rightStep, sliderRight, sliderBar, notchLeft);
+    }
   }, []);
 
   return (
-    <div className="column gapSmall noSelect doubleSliderContainer" style={{ width: `${WIDTH}px` }}>
+    <div
+      className="column gapSmall noSelect doubleSliderContainer"
+      style={{ width: `${WIDTH}px` }}
+    >
       {header}
       <div className="column">
         <div className="row spaceBetween">
           <h3 className="textXSmall textSlightTransparent doubleSliderLeftLabel textCenter">
             {labelLeft?.[0]}
-            {Math.floor(steps[notchLeftRealtime])}
+            {steps[notchLeftRealtime]}
             {labelLeft?.[1]}
           </h3>
           <h3 className="textXSmall textSlightTransparent doubleSliderRightLabel textCenter">
             {labelRight?.[0]}
-            {Math.floor(steps[notchRightRealtime])}
+            {steps[notchRightRealtime]}
             {}
             {labelRight?.[1]}
           </h3>
@@ -337,11 +345,9 @@ export default function DoubleSlider({
           }
         ></div>
         <div
-        style={{
-          transform: `translateX(${
-            WIDTH - RADIO_DIAMETER * 2
-          }px)`
-        }}
+          style={{
+            transform: `translateX(${WIDTH - RADIO_DIAMETER * 2}px)`,
+          }}
           className="doubleSlider primary pointer doubleSliderRight"
           onMouseDown={(e) =>
             followCursor(e, notchLeftRealtime, RadioSide.Right)

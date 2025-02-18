@@ -7,12 +7,7 @@ import Button from "../components/button";
 import FilteredLaptops from "@/components/filteredLaptops";
 import { LaptopsOrder } from "@/types/laptop";
 import Link from "next/link";
-import {
-  onlyForGaming,
-  onlyForOfficeWork,
-  onlyForProgrammers,
-  onlyForStudents,
-} from "@/constants/query";
+import { queryUseCaseOnly } from "@/utils/query";
 
 export default function Home() {
   return (
@@ -73,7 +68,7 @@ export default function Home() {
             <Link
               href={{
                 pathname: "/laptops",
-                query: onlyForStudents,
+                query: queryUseCaseOnly("forStudents"),
               }}
               className="button textGlowButton"
             >
@@ -95,7 +90,7 @@ export default function Home() {
               />
             </div>
             <Link
-              href={{ pathname: "/laptops", query: onlyForProgrammers }}
+              href={{ pathname: "/laptops", query: queryUseCaseOnly("forProgrammers") }}
               className="button textGlowButton"
             >
               <h3 className="textSmall">See More</h3>
@@ -118,7 +113,7 @@ export default function Home() {
               />
             </div>
             <Link
-              href={{ pathname: "/laptops", query: onlyForGaming }}
+              href={{ pathname: "/laptops", query: queryUseCaseOnly("forGaming") }}
               className="button textGlowButton"
             >
               <h3 className="textSmall">See More</h3>
@@ -139,7 +134,7 @@ export default function Home() {
               />
             </div>
             <Link
-              href={{ pathname: "/laptops", query: onlyForOfficeWork }}
+              href={{ pathname: "/laptops", query: queryUseCaseOnly("forOfficeWork") }}
               className="button textGlowButton"
             >
               <h3 className="textSmall">See More</h3>

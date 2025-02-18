@@ -4,10 +4,12 @@ export default function Select({
   optionNames,
   groupName,
   className,
+  value,
   onInput,
 }: {
   optionNames: { [label: string]: string[] };
   groupName: string;
+  value?: string
   className?: string;
   onInput: (value: string) => void;
 }) {
@@ -35,6 +37,7 @@ export default function Select({
     <select
       name={groupName}
       id={groupName}
+      value={value}
       className={className + " paddingMedium pointer"}
       onChange={(event) => onInput(event.target.value)}
     >
