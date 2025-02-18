@@ -192,11 +192,10 @@ export default function LaptopView({ data }: { data: Laptop }) {
                   <h2 className="textSmall headerSmall row gapSmall">
                     <span className="material-symbols-outlined">laptop</span>
                     Screen
-                    <div className="textSlightTransparent">
-                      {/* Screen Type */}
-                    </div>
                   </h2>
-                  <div className="textSlightTransparent">Unknown</div>
+                  <div className="textXSmall center textSlightTransparent">
+                    Unknown
+                  </div>
                 </div>
               }
               rows={[
@@ -222,7 +221,9 @@ export default function LaptopView({ data }: { data: Laptop }) {
                     Storage
                     {/* <div className="textSlightTransparent">Storage Device</div> */}
                   </h2>
-                  <div className="textSlightTransparent">Unknown</div>
+                  <div className="textXSmall textSlightTransparent">
+                    Unknown
+                  </div>
                 </div>
               }
               rows={[
@@ -245,7 +246,9 @@ export default function LaptopView({ data }: { data: Laptop }) {
                     <span className="material-symbols-outlined">memory</span>
                     Processor
                   </h2>
-                  <div className="textSlightTransparent">{data.cpuName}</div>
+                  <div className="textXSmall textSlightTransparent">
+                    {data.cpuName}
+                  </div>
                 </div>
               }
               rows={[
@@ -270,9 +273,11 @@ export default function LaptopView({ data }: { data: Laptop }) {
                     <span className="material-symbols-outlined">
                       audio_video_receiver
                     </span>
-                    Graphics
-                    <div className="textSlightTransparent">{data.gpuName}</div>
                   </h2>
+                  Graphics
+                  <div className="textXSmall textSlightTransparent">
+                    {data.gpuName}
+                  </div>
                   <h3 className="textXSmall textSlightTransparent">
                     ({data.hasDedicatedGpu ? <>Dedicated</> : <>Integrated</>})
                   </h3>
@@ -361,7 +366,7 @@ export default function LaptopView({ data }: { data: Laptop }) {
                 <h2 className="textMedium headerLarge textCenter">
                   Our Rating
                 </h2>
-                <h3 className="textSmall textSlightTransparent textCenter">
+                <h3 className="textXSmall textSlightTransparent textCenter">
                   Relative scores based on expected hardware needs
                 </h3>
               </div>

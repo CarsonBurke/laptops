@@ -1,5 +1,13 @@
+@use "../app/styles/variables.scss";
+
 .tableDoubleContainer {
     width: 80%;
+}
+
+@media (--mobile) {
+    .tableDoubleContainer {
+        width: 100%;
+    }
 }
 
 .tableDouble {

@@ -16,8 +16,12 @@ export default function Home() {
       <section className="section bg1To2">
         <div className="column background1 container centerColumn gapLarge defaultBorderRadius">
           <div className="column">
-            <h2 className="textLarge textCenter headerSmall slideIn">Huge Deals</h2>
-            <h3 className="textSmall textSlightTransparent slideIn">The best prices we - or anyone - could find</h3>
+            <h2 className="textLarge textCenter headerSmall slideIn">
+              Huge Deals
+            </h2>
+            <h3 className="textSmall textSlightTransparent slideIn">
+              The best prices we - or anyone - could find
+            </h3>
           </div>
 
           <div className="row flexWrap gapMedium centerRow width100">
@@ -90,7 +94,10 @@ export default function Home() {
               />
             </div>
             <Link
-              href={{ pathname: "/laptops", query: queryUseCaseOnly("forProgrammers") }}
+              href={{
+                pathname: "/laptops",
+                query: queryUseCaseOnly("forProgrammers"),
+              }}
               className="button textGlowButton"
             >
               <h3 className="textSmall">See More</h3>
@@ -113,7 +120,10 @@ export default function Home() {
               />
             </div>
             <Link
-              href={{ pathname: "/laptops", query: queryUseCaseOnly("forGaming") }}
+              href={{
+                pathname: "/laptops",
+                query: queryUseCaseOnly("forGaming"),
+              }}
               className="button textGlowButton"
             >
               <h3 className="textSmall">See More</h3>
@@ -134,7 +144,10 @@ export default function Home() {
               />
             </div>
             <Link
-              href={{ pathname: "/laptops", query: queryUseCaseOnly("forOfficeWork") }}
+              href={{
+                pathname: "/laptops",
+                query: queryUseCaseOnly("forOfficeWork"),
+              }}
               className="button textGlowButton"
             >
               <h3 className="textSmall">See More</h3>
@@ -143,21 +156,15 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="sectionPadded row centerRow">
-        <div className="paddingLarge background2 widthFit column gapSmall defaultBorderRadius">
+      <section className="sectionPadded column centerColumn gapSmall">
+        <div className="paddingLarge background2 borderBg3 widthFit centerColumn column gapSmall defaultBorderRadius">
           <h1 className="textMedium headerLarge textCenter">
             Not sure what you're looking for?
           </h1>
-          <div className="row gapXSmall centerRow centerColumn">
-            <h3 className="textMedium textCenter">Try our </h3>
-            <Button
-              linkTo="discover"
-              className="textMedium textGlowButton defaultBorderRadius"
-            >
-              discovery queue
-              <span className="material-symbols-outlined">conditions</span>
-            </Button>
-          </div>
+          <Link href="/discover" className="button buttonBg3 textMedium">
+            Try our discovery queue
+            <span className="material-symbols-outlined">conditions</span>
+          </Link>
         </div>
       </section>
     </main>

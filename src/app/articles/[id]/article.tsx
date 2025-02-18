@@ -53,7 +53,7 @@ export default function ArticleView({
             ) : (
               <Link
                 href={`/authors/${authorResult.data?.id}`}
-                className="textSmall button textGlowButton"
+                className="textXSmall button textGlowButton"
               >
                 By {underscoresToSpaces(authorResult.data?.name || "")}
               </Link>
@@ -148,7 +148,7 @@ export default function ArticleView({
                 );
               }
 
-              return <div className="contentImage background3"></div>;
+              return <div className="contentImage row centerRow centerColumn background3">Image: {cleanedId}</div>;
             }
 
             // return (

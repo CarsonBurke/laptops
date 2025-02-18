@@ -69,7 +69,7 @@ export default function Laptops() {
     new URLSearchParams(rawSearchParams)
   );
 
-  useEffect(() => {
+  function updateSearchParams() {
     console.log("search params updated");
     const newQuery = new URLSearchParams(rawSearchParams);
     setQueryDefaults(newQuery);
@@ -107,6 +107,10 @@ export default function Laptops() {
     //
 
     setPageOffset(parseInt(newQuery.get(QueryKey.PageOffset) || "0"));
+  }
+
+  useEffect(() => {
+    updateSearchParams();
   }, [rawSearchParams]);
 
   const router = useRouter();
@@ -660,12 +664,8 @@ export default function Laptops() {
                       Display Resolution
                     </h3>
                   }
-                  steps={Array.from(
-                    { length: /* 41 */ 12 },
-                    (_, i) =>
-                      Math.floor(
-                        9 * (100 + (i + 1) * 20)
-                      )
+                  steps={Array.from({ length: /* 41 */ 12 }, (_, i) =>
+                    Math.floor(9 * (100 + (i + 1) * 20))
                   )}
                   leftValue={resolution[0]}
                   rightValue={resolution[1]}
@@ -702,14 +702,8 @@ export default function Laptops() {
                     "use client";
                     setRam([left, right]);
 
-                    queryDefaults.set(
-                      QueryKey.MinMemory,
-                      left.toString()
-                    );
-                    queryDefaults.set(
-                      QueryKey.MaxMemory,
-                      right.toString()
-                    );
+                    queryDefaults.set(QueryKey.MinMemory, left.toString());
+                    queryDefaults.set(QueryKey.MaxMemory, right.toString());
                     router.replace(`?${queryDefaults.toString()}`, {
                       scroll: false,
                     });
@@ -893,6 +887,21 @@ export default function Laptops() {
                 </Accordian>
               </div>
             </div>
+
+            {/* <div className="column centerColumn">
+              <button
+                onClick={() => {
+                  router.replace("/laptops");
+                  
+                  changeQuery();
+                  updateSearchParams()
+                  router.refresh()
+                }}
+                className="button buttonPrimary"
+              >
+                <span className="material-symbols-outlined">refresh</span>Reset
+              </button>
+            </div> */}
           </div>
           <div className="column gapLarge width100 centerRow centerColumn">
             <h1 className="textLarge headerLarge textCenter">Laptops</h1>
