@@ -53,6 +53,14 @@ export default function Laptops() {
 
     setOrder((newQuery.get("order") as LaptopsOrder) || LaptopsOrder.BestDeal);
 
+    // Update price
+
+    const defaultPrice = [
+      parseInt(queryDefaults.get("minPrice") || "0"),
+      parseInt(queryDefaults.get("maxPrice") || "5000"),
+    ];
+    setPrice(defaultPrice);
+
     // Update use case
 
     setforStudents(newQuery.get("forStudents") != "false");
@@ -145,7 +153,9 @@ export default function Laptops() {
     parseInt(queryDefaults.get("minPrice") || "0"),
     parseInt(queryDefaults.get("maxPrice") || "5000"),
   ];
+  console.log("default price", defaultPrice)
   let [price, setPrice] = useState(defaultPrice);
+  console.log("price", price)
 
   const orderDefault = (queryDefaults.get("order") ||
     LaptopsOrder.BestDeal) as LaptopsOrder;
@@ -406,6 +416,8 @@ export default function Laptops() {
                   )}
                   labelLeft={["$", ""]}
                   labelRight={["$", ""]}
+                  leftValue={price[0]}
+                  rightValue={price[1]}
                   emit={(left, right) => {
                     "use client";
 

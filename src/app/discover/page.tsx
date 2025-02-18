@@ -135,16 +135,19 @@ export default function DiscoverPage() {
                     Back
                   </Button>
                   <Link
-                    href={{pathname: "/laptops", query: {
-                      order: LaptopsOrder.WeightedScore,
-                      studentScoreWeight: roundTo(studentScore, 2),
-                      gamingScoreWeight: roundTo(gamingScore, 2),
-                      programmingScoreWeight: roundTo(programmingScore, 2),
-                      officeWorkScoreWeight: roundTo(officeWorkScore, 2),
-                      videoEditingScoreWeight: roundTo(videoEditingScore, 2),
-                      minPrice: price[0],
-                      maxPrice: price[1],
-                    }}}
+                    href={{
+                      pathname: "/laptops",
+                      query: {
+                        order: LaptopsOrder.WeightedScore,
+                        studentScoreWeight: roundTo(studentScore, 2),
+                        gamingScoreWeight: roundTo(gamingScore, 2),
+                        programmingScoreWeight: roundTo(programmingScore, 2),
+                        officeWorkScoreWeight: roundTo(officeWorkScore, 2),
+                        videoEditingScoreWeight: roundTo(videoEditingScore, 2),
+                        minPrice: Math.round(price[0]),
+                        maxPrice: Math.round(price[1]),
+                      },
+                    }}
                     className="button row gapXSmall buttonPrimary"
                   >
                     Go
