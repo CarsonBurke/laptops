@@ -40,7 +40,7 @@ export function Navbar() {
                       "Students",
                       "Programmers",
                       "Gaming",
-                      "Work",
+                      "Office Work",
                       "Content creation",
                     ]}
                   >

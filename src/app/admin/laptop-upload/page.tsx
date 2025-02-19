@@ -293,8 +293,8 @@ export default function LaptopUpload() {
 
                     <LabelledInput
                       args={{
-                        name: "Cores",
-                        label: "Cores",
+                        name: "Threads",
+                        label: "Threads",
                         placeholder: "0",
                         type: "number",
                         value: cores,

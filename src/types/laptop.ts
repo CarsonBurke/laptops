@@ -53,7 +53,7 @@ export enum LaptopsOrder {
 export enum LaptopUseCase {
   Students = "Students",
   Gaming = "Gaming",
-  Work = "Work",
+  Work = "Office Work",
   Programmers = "Programmers",
 }
 

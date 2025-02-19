@@ -19,6 +19,7 @@ import {
 import {
   formatBytes,
   numberCommas,
+  roundTo,
   spacesToUnderscores,
   underscoresToSpaces,
 } from "@/utils/units";
@@ -168,7 +169,7 @@ export default function LaptopView({ data }: { data: Laptop }) {
               rows={[
                 [
                   <h3 className="textXSmall headerSmall">Size</h3>,
-                  <h3 className="textXSmall">{data.size} inches</h3>,
+                  <h3 className="textXSmall">{roundTo(data.size, 1)} inches</h3>,
                 ],
                 [
                   <h3 className="textXSmall headerSmall">Resolution</h3>,
@@ -220,7 +221,7 @@ export default function LaptopView({ data }: { data: Laptop }) {
               }
               rows={[
                 [
-                  <h3 className="textXSmall headerSmall">Logical Cores</h3>,
+                  <h3 className="textXSmall headerSmall">Threads</h3>,
                   <h3 className="textXSmall">{data.cores}</h3>,
                 ],
                 [

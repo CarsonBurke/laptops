@@ -7,6 +7,7 @@ import Link from "next/link";
 import {
   formatBytes,
   numberCommas,
+  roundTo,
   spacesToUnderscores,
   underscoresToSpaces,
 } from "@/utils/units";
@@ -103,7 +104,7 @@ export default function LaptopPreview({ args }: { args: LaptopPreviewArgs }) {
         <div className="column gapXSmall">
           <div className="row gapSmall textSlightTransparent">
             <h4 className="textXSmall gapXSmall row centerColumn">
-              {args.data.size} inch • {args.data.resolution}p
+              {roundTo(args.data.size, 1)} inch • {args.data.resolution}p
             </h4>
           </div>
           <div className="row flexWrap gapSmall textSlightTransparent">
