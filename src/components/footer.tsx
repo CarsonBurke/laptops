@@ -20,7 +20,7 @@ export default function Footer() {
         </header>
         <Link
           href="https://marvinmediagroup.com"
-          className="textSmall textSlightTransparent"
+          className="textXSmall textSlightTransparent"
         >
           From Marvin Media Group
         </Link>
@@ -28,19 +28,22 @@ export default function Footer() {
 
       <div className="row flexWrap gapLarge centerRow">
         <div className="column gapSmall">
-          <h2 className="textMedium headerSmall">General</h2>
-          <Link href="/affiliate" className="textSmall button textGlowButton">
+          <h2 className="textSmall headerSmall">General</h2>
+          <Link href="/about" className="textXSmall button textGlowButton">
+            About
+          </Link>
+          <Link href="/affiliate" className="textXSmall button textGlowButton">
             Affiliate Disclosure
           </Link>
-          <Link href="/discover" className="textSmall button textGlowButton">
+          <Link href="/discover" className="textXSmall button textGlowButton">
             Find me a laptop
           </Link>
-          <Link href="/contact" className="textSmall button textGlowButton">
+          <Link href="/contact" className="textXSmall button textGlowButton">
             Contact
           </Link>
         </div>
         <div className="column gapSmall">
-          <h2 className="textMedium headerSmall">By Use Case</h2>
+          <h2 className="textSmall headerSmall">By Use Case</h2>
           <Link
             href={{
               pathname: "/laptops",
@@ -48,7 +51,7 @@ export default function Footer() {
             }}
             className="button textGlowButton"
           >
-            <h3 className="textSmall">Students</h3>
+            <h3 className="textXSmall">Students</h3>
           </Link>
           <Link
             href={{
@@ -57,7 +60,7 @@ export default function Footer() {
             }}
             className="button textGlowButton"
           >
-            <h3 className="textSmall">Gaming</h3>
+            <h3 className="textXSmall">Gaming</h3>
           </Link>
           <Link
             href={{
@@ -66,7 +69,7 @@ export default function Footer() {
             }}
             className="button textGlowButton"
           >
-            <h3 className="textSmall">Programming</h3>
+            <h3 className="textXSmall">Programming</h3>
           </Link>
           <Link
             href={{
@@ -75,7 +78,7 @@ export default function Footer() {
             }}
             className="button textGlowButton"
           >
-            <h3 className="textSmall">Office Work</h3>
+            <h3 className="textXSmall">Office Work</h3>
           </Link>
           <Link
             href={{
@@ -84,11 +87,11 @@ export default function Footer() {
             }}
             className="button textGlowButton"
           >
-            <h3 className="textSmall">Video Editing</h3>
+            <h3 className="textXSmall">Video Editing</h3>
           </Link>
         </div>
         <div className="column gapSmall">
-          <h2 className="textMedium headerSmall">Operating Systems</h2>
+          <h2 className="textSmall headerSmall">Operating Systems</h2>
           <Link
             href={{
               pathname: "/laptops",
@@ -103,7 +106,7 @@ export default function Footer() {
               alt="windows"
               className="osIcon"
             />
-            <h3 className="textSmall">Windows</h3>
+            <h3 className="textXSmall">Windows</h3>
           </Link>
           <Link
             href={{
@@ -119,7 +122,7 @@ export default function Footer() {
               alt="linux"
               className="osIcon"
             />
-            <h3 className="textSmall">macos</h3>
+            <h3 className="textXSmall">macos</h3>
           </Link>
           <Link
             href={{
@@ -135,7 +138,7 @@ export default function Footer() {
               alt="linux"
               className="osIcon"
             />
-            <h3 className="textSmall">Linux</h3>
+            <h3 className="textXSmall">Linux</h3>
           </Link>
         </div>
       </div>

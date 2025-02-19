@@ -78,7 +78,7 @@ export default function DoubleSlider({
   //     ) /* / (steps.length) */
   //   : steps.length - 1;
   const rightStep = (() => {
-    if (rightValue === undefined) return steps.length;
+    if (rightValue === undefined) return steps.length - 1;
 
     const stepForValue = stepsToValues.get(rightValue);
     if (stepForValue === undefined) throw new Error(`[Double slider]: Right value (${rightValue}) doesn't align with steps (${steps})`);

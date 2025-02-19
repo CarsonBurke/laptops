@@ -23,7 +23,7 @@ export default function Author({ params }: { params: Promise<any> }) {
                 width={100}
                 height={100}
                 alt={`author: ${data?.name}`}
-                src={`/${data?.profileImageName}.webp`}
+                src={`/authorImages/${data?.profileImageName}.webp`}
                 className="authorImage"
               />
               <h1 className="textLarge headerLarge textCenter">{data?.name}</h1>

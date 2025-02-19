@@ -247,12 +247,12 @@ export default function Laptops() {
 
   const memoryDefault = [
     parseInt(queryDefaults.get(QueryKey.MinMemory) || "8"),
-    parseInt(queryDefaults.get(QueryKey.MaxMemory) || "256"),
+    parseInt(queryDefaults.get(QueryKey.MaxMemory) || "128"),
   ];
   let [ram, setRam] = useState(memoryDefault);
 
   const storageDefault = [
-    parseInt(queryDefaults.get(QueryKey.MinStorage) || "512"),
+    parseInt(queryDefaults.get(QueryKey.MinStorage) || "256"),
     parseInt(queryDefaults.get(QueryKey.MaxStorage) || "8192"),
   ];
   let [storage, setStorage] = useState(storageDefault);
@@ -691,7 +691,7 @@ export default function Laptops() {
                 />
                 <DoubleSlider
                   header={<h3 className="textSmall headerSmall">Memory</h3>}
-                  steps={Array.from({ length: 6 }, (_, i) =>
+                  steps={Array.from({ length: 5 }, (_, i) =>
                     Math.floor(Math.pow(2, i + 3))
                   )}
                   labelLeft={["", " GB"]}
@@ -712,8 +712,8 @@ export default function Laptops() {
                 />
                 <DoubleSlider
                   header={<h3 className="textSmall headerSmall">Storage</h3>}
-                  steps={Array.from({ length: 5 }, (_, i) =>
-                    Math.floor(Math.pow(2, i + 9))
+                  steps={Array.from({ length: 6 }, (_, i) =>
+                    Math.floor(Math.pow(2, i + 8))
                   )}
                   labelLeft={["", " GB"]}
                   labelRight={["", " GB"]}

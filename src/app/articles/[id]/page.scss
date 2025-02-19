@@ -1,0 +1,10 @@
+.articleContainer {
+  width: 65%;
+  overflow: hidden;
+}
+
+@media (--mobile) {
+  .articleContainer {
+    width: 100%;
+  }
+}

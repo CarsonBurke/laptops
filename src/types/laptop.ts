@@ -12,11 +12,12 @@ export interface Laptop {
   storage: number;
   cores: number;
   topFrequency: number;
-  titleImageName: string;
+  titleImageId: string;
   forStudents: boolean;
   forGaming: boolean;
   forProgrammers: boolean;
   forOfficeWork: boolean;
+  forVideoEditing: boolean;
   studentScore: number;
   gamingScore: number;
   programmingScore: number;
@@ -27,6 +28,8 @@ export interface Laptop {
   affiliate: string;
   vram: number;
   hasDedicatedGpu: boolean;
+  storageName: string,
+  displayName: string,
   priceHistory: number[];
 }
 

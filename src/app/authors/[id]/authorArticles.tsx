@@ -1,4 +1,5 @@
 import ArticlePreview from "@/components/articlePreview";
+import Loading from "@/components/loadingSpinner";
 import { trpc } from "@/lib/trpc";
 
 export default function AuthorArticles({ authorId }: { authorId: string }) {
@@ -9,9 +10,9 @@ export default function AuthorArticles({ authorId }: { authorId: string }) {
   });
 
   return (
-    <div className="row flexWrap gapSmall">
+    <div className="row flexWrap gapSmall centerRow">
       {isLoading ? (
-        <></>
+        <Loading color={3} />
       ) : (
         data?.map((article) => (
           <ArticlePreview

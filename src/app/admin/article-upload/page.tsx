@@ -5,6 +5,8 @@ import LabelledInput from "@/components/labelledInput";
 import LabelledTextarea from "@/components/labelledTextarea";
 import { useState } from "react";
 import { trpc } from "@/lib/trpc";
+import { useRouter } from "next/navigation";
+import AdminLock from "../admin";
 
 export default function ArticleUpload() {
   let [articleTitle, setArticleTitle] = useState("Article Name");
@@ -54,199 +56,204 @@ export default function ArticleUpload() {
     setSubmitted(true);
   }
 
+  const router = useRouter();
+
   return (
     <main className="main">
-      <section className="sectionPadded rowCollapsible gapMedium">
-        <div className="column gapMedium">
-          <div className="column gapLarge centerColumn background2 borderBg3 paddingMedium">
-            <div className="column centerColumn gapMedium">
-              <h1 className="textLarge headerLarge textCenter">
-                Upload Article
-              </h1>
+      <section className="sectionPadded column gapMedium">
+        <AdminLock />
+        <div className="rowCollapsible gapMedium">
+          <div className="column gapMedium">
+            <div className="column gapLarge centerColumn background2 borderBg3 paddingMedium">
+              <div className="column centerColumn gapMedium">
+                <h1 className="textLarge headerLarge textCenter">
+                  Upload Article
+                </h1>
 
-              <div className="row gapSmall flexWrap">
-                <LabelledInput
+                <div className="row gapSmall flexWrap">
+                  <LabelledInput
+                    args={{
+                      name: "title",
+                      label: "Title",
+                      placeholder: "Title",
+                      type: "text",
+                      value: articleTitle,
+                      color: 3,
+                      onChange: (value) => {
+                        setArticleTitle(value as string);
+                      },
+                    }}
+                  />
+
+                  <LabelledInput
+                    args={{
+                      name: "authorId",
+                      label: "Author ID",
+                      placeholder: "Author ID",
+                      type: "text",
+                      value: authorId,
+                      color: 3,
+                      onChange: (value) => {
+                        setAuthorId(value as string);
+                      },
+                    }}
+                  />
+                </div>
+
+                <LabelledTextarea
                   args={{
-                    name: "title",
-                    label: "Title",
-                    placeholder: "Title",
-                    type: "text",
-                    value: articleTitle,
+                    name: "article",
+                    label: "Article",
+                    placeholder: "Article",
+                    value: articleContent,
                     color: 3,
                     onChange: (value) => {
-                      setArticleTitle(value as string);
+                      setArticleContent(value as string);
                     },
                   }}
                 />
 
-                <LabelledInput
-                  args={{
-                    name: "authorId",
-                    label: "Author ID",
-                    placeholder: "Author ID",
-                    type: "text",
-                    value: authorId,
-                    color: 3,
-                    onChange: (value) => {
-                      setAuthorId(value as string);
-                    },
-                  }}
-                />
-              </div>
+                {/* Title image */}
 
-              <LabelledTextarea
-                args={{
-                  name: "article",
-                  label: "Article",
-                  placeholder: "Article",
-                  value: articleContent,
-                  color: 3,
-                  onChange: (value) => {
-                    setArticleContent(value as string);
-                  },
-                }}
-              />
+                <div className="row gapMedium">
+                  <div className="column gapSmall">
+                    {titleImageFile && (
+                      <img
+                        style={{ maxWidth: "180px" }}
+                        src={URL.createObjectURL(titleImageFile as any)}
+                        alt="Title image"
+                        className="defaultBorderRadius"
+                      />
+                    )}
+                  </div>
+                  <div className="column gapSmall">
+                    <h3 className="textSmall">Title image</h3>
 
-              {/* Title image */}
+                    <input
+                      className="button buttonBg3"
+                      type="file"
+                      accept="image/webp"
+                      alt="Image upload"
+                      onChange={(e) => {
+                        "use client";
+                        const files = e.target.files;
+                        if (files == null) return;
 
-              <div className="row gapMedium">
-                <div className="column gapSmall">
-                  {titleImageFile && (
-                    <img
-                      style={{ maxWidth: "180px" }}
-                      src={URL.createObjectURL(titleImageFile as any)}
-                      alt="Title image"
-                      className="defaultBorderRadius"
+                        const file = files[0];
+                        setTitleImageFile(file);
+                      }}
                     />
+                  </div>
+                </div>
+
+                {/* Content images */}
+
+                <div className="row gapMedium">
+                  <div className="column gapSmall">
+                    {contentImageFiles &&
+                      contentImageFiles.map((file, i) => {
+                        return (
+                          <img
+                            key={i}
+                            style={{ maxWidth: "180px" }}
+                            src={URL.createObjectURL(file)}
+                            alt="Title image"
+                            className="defaultBorderRadius"
+                          />
+                        );
+                      })}
+                  </div>
+                  <div className="column gapSmall">
+                    <h3 className="textSmall">Content images</h3>
+
+                    <input
+                      className="button buttonBg3"
+                      type="file"
+                      accept="image/webp"
+                      multiple
+                      alt="Image upload"
+                      onChange={(e) => {
+                        "use client";
+                        const files = e.target.files;
+                        if (files == null) return;
+
+                        const fileArray = [];
+
+                        for (const file of files) {
+                          fileArray.push(file);
+                        }
+
+                        setContentImageFiles(fileArray);
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="column gapMedium centerColumn">
+                <h3 className="textMedium headerSmall">Authentication</h3>
+                <LabelledInput
+                  args={{
+                    name: "username",
+                    label: "Username",
+                    placeholder: "Username",
+                    type: "text",
+                    value: username,
+                    color: 3,
+                    onChange: (value) => {
+                      setUsername(value as string);
+                    },
+                  }}
+                />
+
+                <LabelledInput
+                  args={{
+                    name: "password",
+                    label: "Password",
+                    placeholder: "Password",
+                    type: "password",
+                    value: password,
+                    color: 3,
+                    onChange: (value) => {
+                      setPassword(value as string);
+                    },
+                  }}
+                />
+
+                <button
+                  onClick={submit}
+                  disabled={submitted}
+                  className="button buttonPrimary row gapSmall"
+                >
+                  {submitted ? (
+                    <>
+                      Submitted
+                      <span className="material-symbols-outlined">check</span>
+                    </>
+                  ) : (
+                    <>
+                      Submit
+                      <span className="material-symbols-outlined">arrow_forward</span>
+                    </>
                   )}
-                </div>
-                <div className="column gapSmall">
-                  <h3 className="textSmall">Title image</h3>
-
-                  <input
-                    className="button buttonBg3"
-                    type="file"
-                    accept="image/webp"
-                    alt="Image upload"
-                    onChange={(e) => {
-                      "use client";
-                      const files = e.target.files;
-                      if (files == null) return;
-
-                      const file = files[0];
-                      setTitleImageFile(file);
-                    }}
-                    onInput={(e) => console.log("input", e)}
-                  />
-                </div>
+                </button>
               </div>
-
-              {/* Content images */}
-
-              <div className="row gapMedium">
-                <div className="column gapSmall">
-                  {contentImageFiles &&
-                    contentImageFiles.map((file, i) => {
-                      return (
-                        <img
-                          key={i}
-                          style={{ maxWidth: "180px" }}
-                          src={URL.createObjectURL(file)}
-                          alt="Title image"
-                          className="defaultBorderRadius"
-                        />
-                      );
-                    })}
-                </div>
-                <div className="column gapSmall">
-                  <h3 className="textSmall">Content images</h3>
-
-                  <input
-                    className="button buttonBg3"
-                    type="file"
-                    accept="image/webp"
-                    multiple
-                    alt="Image upload"
-                    onChange={(e) => {
-                      "use client";
-                      const files = e.target.files;
-                      if (files == null) return;
-
-                      const fileArray = [];
-
-                      for (const file of files) {
-                        fileArray.push(file);
-                      }
-
-                      setContentImageFiles(fileArray);
-                    }}
-                    onInput={(e) => console.log("input", e)}
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="column gapMedium centerColumn">
-              <h3 className="textMedium headerSmall">Authentication</h3>
-              <LabelledInput
-                args={{
-                  name: "username",
-                  label: "Username",
-                  placeholder: "Username",
-                  type: "text",
-                  value: username,
-                  color: 3,
-                  onChange: (value) => {
-                    setUsername(value as string);
-                  },
-                }}
-              />
-
-              <LabelledInput
-                args={{
-                  name: "password",
-                  label: "Password",
-                  placeholder: "Password",
-                  type: "password",
-                  value: password,
-                  color: 3,
-                  onChange: (value) => {
-                    setPassword(value as string);
-                  },
-                }}
-              />
-
-              <button
-                onClick={submit}
-                disabled={submitted}
-                className="button buttonPrimary row gapSmall"
-              >
-                {submitted ? (
-                  <>
-                    Sent<span className="material-symbols-outlined">check</span>
-                  </>
-                ) : (
-                  <>
-                    Send<span className="material-symbols-outlined">send</span>
-                  </>
-                )}
-              </button>
             </div>
           </div>
-        </div>
-        <div className="column width100 centerColumn">
-          <ArticleView
-            args={{
-              data: {
-                id: "fakeId",
-                published: new Date(),
-                authorId: authorId,
-                titleImageId: "0c9ae1f3-a98c-4c39-bd5d-1dce32ebc95f",
-                contentImageIds: [],
-                title: articleTitle,
-                content: articleContent,
-              },
-            }}
-          />
+          <div className="column width100 centerColumn">
+            <ArticleView
+              args={{
+                data: {
+                  id: "fakeId",
+                  published: new Date(),
+                  authorId: authorId,
+                  titleImageId: "default",
+                  contentImageIds: [],
+                  title: articleTitle,
+                  content: articleContent,
+                },
+              }}
+            />
+          </div>
         </div>
       </section>
     </main>

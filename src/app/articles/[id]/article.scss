@@ -6,17 +6,6 @@
   }
 } */
 
-.article {
-  width: 65%;
-  overflow: hidden;
-}
-
-@media (--mobile) {
-  .article {
-    width: 100%;
-  }
-}
-
 .articleTitleImage {
   max-width: min(100%, 1200px);
   max-height: 50vh;

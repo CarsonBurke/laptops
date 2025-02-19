@@ -15,6 +15,7 @@ async function checkLogin(
   const account = await e
     .select(e.Account, (account) => ({
       password: true,
+      username: true,
       filter_single: e.op(account.username, "=", username),
     }))
     .run(edgeClient);
@@ -159,7 +160,7 @@ export const appRouter = router({
           storage: true,
           cores: true,
           topFrequency: true,
-          titleImageName: true,
+          titleImageId: true,
           size: true,
           resolution: true,
           forStudents: true,
@@ -234,7 +235,7 @@ export const appRouter = router({
           storage: true,
           cores: true,
           topFrequency: true,
-          titleImageName: true,
+          titleImageId: true,
           size: true,
           resolution: true,
           forStudents: true,
@@ -330,6 +331,106 @@ export const appRouter = router({
         .run(edgeClient);
       return laptops;
     }),
+  getLaptopsWithoutId: procedure
+    .input(
+      z.object({
+        blacklistId: z.string(),
+        order: z.nativeEnum(LaptopsOrder),
+        limit: z.number(),
+        macos: z.boolean(),
+        windows: z.boolean(),
+        linux: z.boolean(),
+        forStudents: z.boolean(),
+        forGaming: z.boolean(),
+        forOfficeWork: z.boolean(),
+        forProgrammers: z.boolean(),
+        forVideoEditing: z.boolean(),
+      })
+    )
+    .query(async ({ input }) => {
+      const laptops = await e
+        .select(e.Laptop, (laptop) => ({
+          id: true,
+          name: true,
+          price: true,
+          saleOf: true,
+          macos: true,
+          windows: true,
+          linux: true,
+          ram: true,
+          storage: true,
+          cores: true,
+          topFrequency: true,
+          titleImageId: true,
+          size: true,
+          resolution: true,
+          limit: input.limit,
+          filter: e.all(
+            e.set(
+              e.op(laptop.id, "!=", e.uuid(input.blacklistId)),
+              e.any(
+                e.set(
+                  e.op(
+                    e.op(laptop.forStudents, "=", true),
+                    "and",
+                    e.op(laptop.forStudents, "=", input.forStudents == true)
+                  ),
+                  e.op(
+                    e.op(laptop.forGaming, "=", true),
+                    "and",
+                    e.op(laptop.forGaming, "=", input.forGaming == true)
+                  ),
+                  e.op(
+                    e.op(laptop.forOfficeWork, "=", true),
+                    "and",
+                    e.op(laptop.forOfficeWork, "=", input.forOfficeWork == true)
+                  ),
+                  e.op(
+                    e.op(laptop.forProgrammers, "=", true),
+                    "and",
+                    e.op(
+                      laptop.forProgrammers,
+                      "=",
+                      input.forProgrammers == true
+                    )
+                  ),
+                  e.op(
+                    e.op(laptop.forVideoEditing, "=", true),
+                    "and",
+                    e.op(
+                      laptop.forVideoEditing,
+                      "=",
+                      input.forVideoEditing == true
+                    )
+                  )
+                )
+              ),
+              e.any(
+                e.set(
+                  e.op(
+                    e.op(laptop.linux, "=", true),
+                    "and",
+                    e.op(laptop.linux, "=", input.linux == true)
+                  ),
+                  e.op(
+                    e.op(laptop.macos, "=", true),
+                    "and",
+                    e.op(laptop.macos, "=", input.macos == true)
+                  ),
+                  e.op(
+                    e.op(laptop.windows, "=", true),
+                    "and",
+                    e.op(laptop.windows, "=", input.windows == true)
+                  )
+                )
+              )
+            )
+          ),
+          order_by: orderLaptopBy(laptop, input),
+        }))
+        .run(edgeClient);
+      return laptops;
+    }),
   getArticlesLoggedIn: procedure.query(async ({ ctx }: { ctx: any }) => {
     if (!(await ctx.session.isSignedIn())) {
       throw new Error("Not signed in");
@@ -358,7 +459,7 @@ export const appRouter = router({
           authorId: true,
           published: true,
           content: true,
-          filter_single: e.op(article.id, "=", e.uuid(input.id)),
+          filter_single: { id: input.id },
         }))
         .run(edgeClient);
       return article;
@@ -452,29 +553,6 @@ export const appRouter = router({
         .run(edgeClient);
       return laptops;
     }),
-  insertLaptop: procedure
-    .input(
-      z.object({
-        name: z.string(),
-        username: z.string(),
-        password: z.string(),
-        titleImageName: z.string(),
-        titleImage: z.array(z.number()),
-      })
-    )
-    .mutation(async ({ ctx, input }) => {
-      if (!(await checkLogin(input.username, input.password))) {
-        return undefined;
-      }
-
-      const laptop = await e
-        .insert(e.Laptop, {
-          name: input.name,
-        })
-        .run(edgeClient);
-
-      return laptop;
-    }),
   getAuthorById: procedure
     .input(
       z.object({
@@ -488,7 +566,7 @@ export const appRouter = router({
           name: true,
           description: true,
           profileImageName: true,
-          filter_single: e.op(author.id, "=", e.uuid(input.id)),
+          filter_single: { id: e.uuid(input.id) },
         }))
         .run(edgeClient);
       return author;
@@ -496,10 +574,10 @@ export const appRouter = router({
   insertArticle: procedure
     .input(
       z.object({
-        title: z.string(),
-        content: z.string(),
         username: z.string(),
         password: z.string(),
+        title: z.string(),
+        content: z.string(),
         authorId: z.string(),
         titleImage: z.any(),
         contentImages: z.any(),
@@ -542,6 +620,139 @@ export const appRouter = router({
         .run(edgeClient);
 
       return article;
+    }),
+  insertLaptop: procedure
+    .input(
+      z.object({
+        username: z.string(),
+        password: z.string(),
+        name: z.string(),
+        titleImage: z.any(),
+        price: z.number(),
+        saleOf: z.number(),
+        macos: z.boolean(),
+        windows: z.boolean(),
+        linux: z.boolean(),
+        size: z.number(),
+        resolution: z.number(),
+        ram: z.number(),
+        storage: z.number(),
+        cores: z.number(),
+        topFrequency: z.number(),
+        forStudents: z.boolean(),
+        forGaming: z.boolean(),
+        forProgrammers: z.boolean(),
+        forOfficeWork: z.boolean(),
+        forVideoEditing: z.boolean(),
+        cpuName: z.string(),
+        gpuName: z.string(),
+        affiliate: z.string(),
+        vram: z.number(),
+        hasDedicatedGpu: z.boolean(),
+        storageName: z.string(),
+        displayName: z.string(),
+        priceHistory: z.array(z.number()),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      if (!(await checkLogin(input.username, input.password))) {
+        return undefined;
+      }
+
+      // Title image
+
+      const titleImageId = randomUUID();
+      const path = `${process.cwd()}/public/laptopImages/${titleImageId}.webp`;
+      const base64Buffer = Buffer.from(input.titleImage, "base64");
+      await fs.writeFile(path, base64Buffer);
+
+      // Scores
+
+      function normalize(value: number, max: number) {
+        return Math.min(value, max) / max;
+      }
+
+      function normalizedPortion(value: number, max: number, portion: number) {
+        return normalize(value, max) * portion;
+      }
+
+      // 10 + 10 + 40 + 40
+      const studentScore =
+        (normalizedPortion(input.cores, 12, 0.1) +
+          normalizedPortion(input.topFrequency, 6, 0.1) +
+          normalizedPortion(input.ram, 16, 0.4) +
+          normalizedPortion(input.storage, 1024, 0.4)) *
+        100;
+      // 10 + 25 + 15 + 15 + 25 + 10
+      const gamingScore =
+        (normalizedPortion(input.cores, 20, 0.1) +
+          normalizedPortion(input.topFrequency, 6, 0.25) +
+          normalizedPortion(input.ram, 32, 0.15) +
+          normalizedPortion(input.vram, 16, 0.15) +
+          (input.hasDedicatedGpu ? 0.25 : 0) +
+          normalizedPortion(input.storage, 2048, 0.1)) *
+        100;
+      // 30 + 15 + 20 + 15 + 20
+      const programmingScore =
+        (normalizedPortion(input.cores, 40, 0.3) +
+          normalizedPortion(input.topFrequency, 6, 0.15) +
+          normalizedPortion(input.storage, 2048, 0.2) +
+          normalizedPortion(input.ram, 32, 0.15) +
+          normalizedPortion(input.resolution, 2160, 0.2)) *
+        100;
+      // 30 + 10 + 35 + 25
+      const officeWorkScore =
+        (normalizedPortion(input.cores, 10, 0.3) +
+          normalizedPortion(input.topFrequency, 6, 0.1) +
+          normalizedPortion(input.storage, 1024, 0.35) +
+          normalizedPortion(input.ram, 16, 0.25)) *
+        100;
+      // 20 + 20 + 20 + 20 + 20
+      const videoEditingScore =
+        (normalizedPortion(input.cores, 30, 0.2) +
+          normalizedPortion(input.topFrequency, 6, 0.2) +
+          normalizedPortion(input.storage, 4096, 0.2) +
+          normalizedPortion(input.ram, 64, 0.2) +
+          (input.hasDedicatedGpu ? 0.2 : 0)) *
+        100;
+
+      const laptop = await e
+        .insert(e.Laptop, {
+          name: input.name,
+          titleImageId: titleImageId,
+          price: input.price,
+          saleOf: input.saleOf,
+          macos: input.macos,
+          windows: input.windows,
+          linux: input.linux,
+          size: input.size,
+          resolution: input.resolution,
+          ram: input.ram,
+          storage: input.storage,
+          cores: input.cores,
+          topFrequency: input.topFrequency,
+          forStudents: input.forStudents,
+          forGaming: input.forGaming,
+          forProgrammers: input.forProgrammers,
+          forOfficeWork: input.forOfficeWork,
+          forVideoEditing: input.forVideoEditing,
+          studentScore,
+          gamingScore,
+          programmingScore,
+          officeWorkScore,
+          videoEditingScore,
+          cpuName: input.cpuName,
+          gpuName: input.gpuName,
+          affiliate: input.affiliate,
+          vram: input.vram,
+          hasDedicatedGpu: input.hasDedicatedGpu,
+          storageName: input.storageName,
+          displayName: input.displayName,
+          priceHistory: input.priceHistory,
+        })
+        .run(edgeClient);
+
+      return laptop;
     }),
 });
 

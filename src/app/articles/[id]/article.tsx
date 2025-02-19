@@ -174,7 +174,7 @@ export default function ArticleView({
             width={50}
             height={50}
             alt={`author: ${authorResult.data?.name}`}
-            src={`/${authorResult.data?.profileImageName}.webp`}
+            src={`/authorImages/${authorResult.data?.profileImageName}.webp`}
             className="authorImage"
           />
           <Link

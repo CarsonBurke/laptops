@@ -119,3 +119,10 @@
     margin: auto;
   }
 }
+
+@media (--desktop) {
+  .stickyDesktopTop {
+    position: sticky;
+    top: calc(var(--spacingMedium) + var(--navbarHeight));
+  }
+}

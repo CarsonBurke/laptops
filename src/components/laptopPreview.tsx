@@ -4,7 +4,12 @@ import { useEffect, useState } from "react";
 import "./laptopPreview.scss";
 import Image from "next/image";
 import Link from "next/link";
-import { formatBytes, numberCommas, spacesToUnderscores, underscoresToSpaces } from "@/utils/units";
+import {
+  formatBytes,
+  numberCommas,
+  spacesToUnderscores,
+  underscoresToSpaces,
+} from "@/utils/units";
 import linuxIcon from "../../public/OSIcons/linux.svg";
 import macIcon from "../../public/OSIcons/mac.svg";
 import windowsIcon from "../../public/OSIcons/windows.svg";
@@ -17,7 +22,7 @@ interface LaptopPreviewData {
   macos: boolean;
   windows: boolean;
   linux: boolean;
-  titleImageName: string;
+  titleImageId: string;
   size: number;
   resolution: number;
   ram: number;
@@ -32,7 +37,6 @@ interface LaptopPreviewArgs {
 }
 
 export default function LaptopPreview({ args }: { args: LaptopPreviewArgs }) {
-
   /* const [imageSrc, setImageSrc] = useState<string | null>(null);
 
   useEffect(() => {
@@ -67,31 +71,40 @@ export default function LaptopPreview({ args }: { args: LaptopPreviewArgs }) {
         } as React.CSSProperties
       }
     >
-      
-        <Image
-          width={800}
-          height={500}
-          alt={`laptop: ${args.data.name}`}
-          src={`/laptopTitles/${args.data.titleImageName}.webp`}
-          className="laptopPreviewImage defaultBorderRadius"
-        />
-      
+      <Image
+        width={800}
+        height={500}
+        alt={`laptop: ${args.data.name}`}
+        src={`/laptopImages/${args.data.titleImageId}.webp`}
+        className="laptopPreviewImage defaultBorderRadius"
+      />
 
-      <div className="column gapMedium marginAuto">
-        <div className="column gapSmall">
-          <h3 className={"textMedium headerSmall"}>{underscoresToSpaces(args.data.name)}</h3>
+      <div className="column gapSmall marginAuto">
+        <div className="column">
+          <h3 className={"textMedium headerSmall"}>
+            {underscoresToSpaces(args.data.name)}
+          </h3>
+
           <div className="row flexWrap gapSmall centerColumn">
-            <h4 className={"textSmall headerSmall row"}>${numberCommas(args.data.price)}</h4>
-            <div className="strikeThrough textSlightTransparent">
-              {numberCommas(args.data.price + args.data.saleOf)}
-            </div>
-            <div>Save ${numberCommas(args.data.saleOf)}</div>
+            <h4 className={"textSmall headerSmall row"}>
+              ${numberCommas(args.data.price)}
+            </h4>
+            {args.data.saleOf > 0 && (
+              <>
+                <div className="strikeThrough textSlightTransparent">
+                  {numberCommas(args.data.price + args.data.saleOf)}
+                </div>
+                <div>Save ${numberCommas(args.data.saleOf)}</div>
+              </>
+            )}
           </div>
         </div>
 
-        <div className="column gapSmall">
+        <div className="column gapXSmall">
           <div className="row gapSmall textSlightTransparent">
-            <h4 className="textXSmall gapXSmall row centerColumn">{args.data.size} inch • {args.data.resolution}p</h4>
+            <h4 className="textXSmall gapXSmall row centerColumn">
+              {args.data.size} inch • {args.data.resolution}p
+            </h4>
           </div>
           <div className="row flexWrap gapSmall textSlightTransparent">
             {/* <h4
@@ -125,11 +138,42 @@ export default function LaptopPreview({ args }: { args: LaptopPreviewArgs }) {
               {args.data.topFrequency.toFixed(1)} Ghz
             </h4> */}
           </div>
-          <div className="row flexWrap gapSmall">
-              {args.data.windows ? <Image src={windowsIcon} alt="windows" width={20} height={20} title="Windows" /> : <></>}
-              {args.data.macos ? <Image src={macIcon} alt="macos" width={20} height={20} title="macOS"/> : <></>}
-              {args.data.linux ? <Image src={linuxIcon} alt="linux" width={20} height={20} title="Linux"/> : <></>}
-          </div>
+        </div>
+
+        <div className="row flexWrap gapSmall">
+          {args.data.windows ? (
+            <Image
+              src={windowsIcon}
+              alt="windows"
+              width={20}
+              height={20}
+              title="Windows"
+            />
+          ) : (
+            <></>
+          )}
+          {args.data.macos ? (
+            <Image
+              src={macIcon}
+              alt="macos"
+              width={20}
+              height={20}
+              title="macOS"
+            />
+          ) : (
+            <></>
+          )}
+          {args.data.linux ? (
+            <Image
+              src={linuxIcon}
+              alt="linux"
+              width={20}
+              height={20}
+              title="Linux"
+            />
+          ) : (
+            <></>
+          )}
         </div>
       </div>
     </Link>

@@ -22,6 +22,7 @@ import {
   spacesToUnderscores,
   underscoresToSpaces,
 } from "@/utils/units";
+import "./laptop.scss";
 
 interface LaptopViewProps {
   data: Laptop;
@@ -96,7 +97,7 @@ export default function LaptopView({ data }: { data: Laptop }) {
               width={1000}
               height={800}
               alt={`laptop: ${data.name}`}
-              src={`/laptopTitles/${data.titleImageName}.webp`}
+              src={`/laptopImages/${data.titleImageId}.webp`}
               className="laptopHeroImage defaultBorderRadius"
             />
 
@@ -109,10 +110,14 @@ export default function LaptopView({ data }: { data: Laptop }) {
                   <h4 className={"textSmall headerSmall row"}>
                     ${numberCommas(data.price)}
                   </h4>
-                  <div className="strikeThrough textSlightTransparent">
-                    {numberCommas(data.price + data.saleOf)}
-                  </div>
-                  <div>Save ${numberCommas(data.saleOf)}</div>
+                  {data.saleOf > 0 && (
+                    <>
+                      <div className="strikeThrough textSlightTransparent">
+                        {numberCommas(data.price + data.saleOf)}
+                      </div>
+                      <div>Save ${numberCommas(data.saleOf)}</div>
+                    </>
+                  )}
                 </div>
               </div>
 
@@ -130,7 +135,7 @@ export default function LaptopView({ data }: { data: Laptop }) {
                   })}
                 </div>
                 <Link
-                  href="https://www.example.com"
+                  href={data.affiliate}
                   target="_blank"
                   className="width100Mobile button buttonPrimary textSmall headerSmall row centerRow centerColumn"
                 >
@@ -148,44 +153,6 @@ export default function LaptopView({ data }: { data: Laptop }) {
           <div className="width100 column centerRow centerColumn gapMedium">
             <h2 className="textMedium headerLarge">Overview</h2>
 
-            {/*           <TableDouble
-            header={
-              <h2 className="textSmall headerSmall row gapSmall">
-                <span className="material-symbols-outlined">overview_key</span>
-                Overview
-              </h2>
-            }
-            rows={[
-              [
-                <h3 className="textXSmall headerSmall">CPU Cores</h3>,
-                <h3 className="textXSmall">{data.cores}</h3>,
-              ],
-              [
-                <h3 className="textXSmall headerSmall">Max frequency</h3>,
-                <h3 className="textXSmall">
-                  {data.topFrequency.toFixed(1)} GHz
-                </h3>,
-              ],
-              [
-                <h3 className="textXSmall headerSmall">Screen Size</h3>,
-                <h3 className="textXSmall">{data.size}</h3>,
-              ],
-              [
-                <h3 className="textXSmall headerSmall">Screen Resolution</h3>,
-                <h3 className="textXSmall">{data.resolution}</h3>,
-              ],
-              [
-                <h3 className="textXSmall headerSmall">Storage</h3>,
-                <h3 className="textXSmall">{data.storage} GB</h3>,
-              ],
-              [
-                <h3 className="textXSmall headerSmall">Memory</h3>,
-                <h3 className="textXSmall">{data.ram} GB</h3>,
-              ],
-            ]}
-            background="background3"
-          /> */}
-
             <TableDouble
               header={
                 <div className="row gapSmall centerColumn flexWrap">
@@ -193,9 +160,9 @@ export default function LaptopView({ data }: { data: Laptop }) {
                     <span className="material-symbols-outlined">laptop</span>
                     Screen
                   </h2>
-                  <div className="textXSmall center textSlightTransparent">
-                    Unknown
-                  </div>
+                  <h3 className="textXSmall center textSlightTransparent">
+                    {data.displayName || "Unknown"}
+                  </h3>
                 </div>
               }
               rows={[
@@ -221,9 +188,9 @@ export default function LaptopView({ data }: { data: Laptop }) {
                     Storage
                     {/* <div className="textSlightTransparent">Storage Device</div> */}
                   </h2>
-                  <div className="textXSmall textSlightTransparent">
-                    Unknown
-                  </div>
+                  <h3 className="textXSmall textSlightTransparent">
+                    {data.storageName || "Unknown"}
+                  </h3>
                 </div>
               }
               rows={[
@@ -246,9 +213,9 @@ export default function LaptopView({ data }: { data: Laptop }) {
                     <span className="material-symbols-outlined">memory</span>
                     Processor
                   </h2>
-                  <div className="textXSmall textSlightTransparent">
+                  <h3 className="textXSmall textSlightTransparent">
                     {data.cpuName}
-                  </div>
+                  </h3>
                 </div>
               }
               rows={[
@@ -299,7 +266,7 @@ export default function LaptopView({ data }: { data: Laptop }) {
               background="background3"
             />
 
-            <h3 className="row gapXSmall flexWrap">
+            <h3 className="row gapXSmall flexWrap textSlightTransparent textXSmall">
               Not sure what these mean? See our{" "}
               <Link
                 className="button textGlowButton textPrimary"
@@ -414,8 +381,8 @@ export default function LaptopView({ data }: { data: Laptop }) {
         <h2 className="textMedium headerLarge">Detailed Specifications</h2>
       </div> */}
       </article>
-      <div className="row gapXSmall centerRow">
-        <h4 className="textXSmall textCenter textSlightTransparent">
+      <div className="row textXSmall gapXSmall centerRow">
+        <h4 className="textCenter textSlightTransparent">
           Think something is missing?
         </h4>
         <Link
