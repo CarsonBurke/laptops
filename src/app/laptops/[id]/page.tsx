@@ -1,57 +1,104 @@
-"use client";
-
 import { trpc } from "@/lib/trpc";
 import LaptopView from "./laptop";
 import * as React from "react";
 import "./page.scss";
-import { LaptopsOrder } from "@/types/laptop";
+import { LaptopsOrder, LaptopUseCase } from "@/types/laptop";
 import FilteredLaptops from "@/components/filteredLaptops";
 import { underscoresToSpaces } from "@/utils/units";
 import Loading from "@/components/loadingSpinner";
 import { useRouter } from "next/navigation";
 import SimilarLaptops from "@/components/similarLaptops";
+import Head from "next/head";
+import { SITE_NAME } from "@/constants/site";
+import { Metadata } from "next";
+import Content from "./content";
+import e from "../../../../dbschema/edgeql-js";
+import { edgeClient } from "@/scripts/db";
 
-export default function Laptop({ params }: { params: Promise<any> }) {
-  const { id } = React.use(params as any) as { id: string };
+interface Params {
+  id: string;
+}
 
-  const { data, isLoading } = trpc.getLaptopById.useQuery({
-    id: id,
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<Params>;
+}): Promise<Metadata> {
+  console.log("params", await params);
+  const { id } = await params;
+
+  const laptop = await e
+    .select(e.Laptop, (laptop) => ({
+      name: true,
+      price: true,
+      saleOf: true,
+      forStudents: true,
+      forGaming: true,
+      forProgrammers: true,
+      forOfficeWork: true,
+      forVideoEditing: true,
+      cpuName: true,
+      gpuName: true,
+      displayName: true,
+      filter_single: { id },
+    }))
+    .run(edgeClient);
+
+  const useCaseNameMap = Object.keys(LaptopUseCase);
+  const useCaseNames = [
+    laptop?.forStudents,
+    laptop?.forGaming,
+    laptop?.forProgrammers,
+    laptop?.forOfficeWork,
+    laptop?.forVideoEditing,
+  ]
+    .filter((value) => value)
+    .map((value, i) => useCaseNameMap[i as unknown as number]);
+
+  return {
+    title: laptop?.name,
+    description: `Shop for ${laptop?.name} laptop at $${laptop?.price} ${
+      (laptop?.saleOf || 0) > 0 ? "on sale for $" + laptop?.saleOf : ""
+    }. Great for ${useCaseNames.join(", ")}. See more laptops at ${SITE_NAME}.`,
+    keywords: [
+      `${laptop?.name} laptop`,
+      ...useCaseNames.map((value) => `${value} laptop`),
+      laptop?.cpuName || "",
+      laptop?.gpuName || "",
+      laptop?.displayName || "",
+      "laptops",
+      "macbooks",
+      "computers",
+      "laptop deals",
+      "laptops for sale",
+      "laptops for students",
+      "laptops for gamers",
+      "laptops for programmers",
+      "laptops for office work",
+      "laptops for video editing",
+      "Intel",
+      "AMD",
+      "Nvidia"
+    ],
+  };
+
+  /* const {data, isLoading} = trpc.getLaptopById.useQuery({
+    id,
   });
 
-  const router = useRouter();
+  if (!data || isLoading) {
+    return {
+      title: `Laptop | ${SITE_NAME}`,
+    };
+  }
 
-  return (
-    <main className="main">
-      <section className="sectionPadded">
-        {isLoading ? <Loading color={2} /> : <LaptopView data={data as any} />}
-      </section>
-      <section className="section column gapMedium centerColumn">
-        <div className="column defaultBorderRadius">
-          <h1 className="textLarge headerLarge paddingMedium textCenter">
-            Similar Laptops
-          </h1>
+  return {
+    title: `${underscoresToSpaces(data.name || "Unknown")} | ${SITE_NAME}`,
+  }; */
+}
 
-          <div className="row flexWrap gapMedium centerRow width100">
-            {!isLoading && (
-              <SimilarLaptops
-                args={{
-                  blacklistId: id,
-                  limit: 12,
-                  background: "background3",
-                  order: LaptopsOrder.BestDeal,
-                  macos: true,
-                  windows: true,
-                  linux: true,
-                }}
-              />
-            )}
-          </div>
-        </div>
+export default function Laptop({ params }: { params: Promise<Params> }) {
+  const { id } = React.use(params);
 
-        <button className="button buttonPrimary" onClick={() => router.back()}>
-          <span className="material-symbols-outlined">arrow_back</span>Back
-        </button>
-      </section>
-    </main>
-  );
+  return <Content id={id} />;
 }

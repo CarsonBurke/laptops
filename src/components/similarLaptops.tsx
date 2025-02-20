@@ -21,8 +21,6 @@ interface SimilarLaptopsArgs {
 }
 
 export default function SimilarLaptops({ args }: { args: SimilarLaptopsArgs }) {
-  console.log("similar args", args);
-
   const { data, isLoading } = trpc.getLaptopsWithoutId.useQuery({
     order: args.order,
     macos: args.macos,
@@ -47,11 +45,7 @@ export default function SimilarLaptops({ args }: { args: SimilarLaptopsArgs }) {
     return <h2 className="textMedium headerSmall">No similar laptops 😳</h2>;
   }
 
-  console.log("before", data);
-
   return data.map((previewData, i) => {
-    console.log("previewData", previewData);
-
     return (
       <LaptopPreview
         key={i}
