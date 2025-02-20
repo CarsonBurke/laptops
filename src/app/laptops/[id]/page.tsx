@@ -24,7 +24,6 @@ export async function generateMetadata({
 }: {
   params: Promise<Params>;
 }): Promise<Metadata> {
-  console.log("params", await params);
   const { id } = await params;
 
   const laptop = await e
@@ -81,20 +80,6 @@ export async function generateMetadata({
       "Nvidia"
     ],
   };
-
-  /* const {data, isLoading} = trpc.getLaptopById.useQuery({
-    id,
-  });
-
-  if (!data || isLoading) {
-    return {
-      title: `Laptop | ${SITE_NAME}`,
-    };
-  }
-
-  return {
-    title: `${underscoresToSpaces(data.name || "Unknown")} | ${SITE_NAME}`,
-  }; */
 }
 
 export default function Laptop({ params }: { params: Promise<Params> }) {
