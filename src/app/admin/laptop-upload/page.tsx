@@ -27,6 +27,8 @@ export default function LaptopUpload() {
   let [macos, setMac] = useState(false);
   let [windows, setWindows] = useState(false);
 
+  let [refurbished, setRefurbished] = useState(false);
+
   // Specs
 
   // cpu - top freq, name, cores
@@ -52,6 +54,7 @@ export default function LaptopUpload() {
   let [displayName, setDisplayName] = useState("Unknown");
   let [size, setSize] = useState(0);
   let [resolution, setResolution] = useState(0);
+  let [touchscreen, setTouchscreen] = useState(false);
 
   // categories that fit - student, gaming, programming, office work, video editing
 
@@ -271,6 +274,16 @@ export default function LaptopUpload() {
                       },
                     }}
                   />
+
+                    <Checkbox
+                    id="touchscreen"
+                    checked={touchscreen}
+                    onChange={(checked) => {
+                      setTouchscreen(checked);
+                    }}
+                  >
+                    <h3 className="textXSmall">Touchscreen</h3>
+                  </Checkbox>
                 </div>
 
                 <div className="column gapSmall">
@@ -571,6 +584,8 @@ export default function LaptopUpload() {
                 saleOf,
                 priceHistory: [0, 0, 0, 0, 0, 0],
                 affiliate,
+                touchscreen,
+                refurbished,
               }}
             />
           </div>
