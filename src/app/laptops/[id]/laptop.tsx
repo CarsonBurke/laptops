@@ -78,6 +78,7 @@ export default function LaptopView({ data }: { data: Laptop }) {
     data.forGaming,
     data.forProgrammers,
     data.forOfficeWork,
+    data.forVideoEditing,
   ];
 
   const useCaseNames = Object.values(LaptopUseCase).filter(
@@ -157,7 +158,7 @@ export default function LaptopView({ data }: { data: Laptop }) {
             <TableDouble
               header={
                 <div className="row gapSmall centerColumn flexWrap">
-                  <h2 className="textSmall headerSmall row gapSmall">
+                  <h2 className="textSmall headerSmall row centerColumn gapSmall">
                     <span className="material-symbols-outlined">laptop</span>
                     Screen
                   </h2>
@@ -168,11 +169,13 @@ export default function LaptopView({ data }: { data: Laptop }) {
               }
               rows={[
                 [
-                  <h3 className="textXSmall headerSmall">Size</h3>,
-                  <h3 className="textXSmall">{roundTo(data.size, 1)} inches</h3>,
+                  <h3 className="textXSmall">Size</h3>,
+                  <h3 className="textXSmall">
+                    {roundTo(data.size, 1)} inches
+                  </h3>,
                 ],
                 [
-                  <h3 className="textXSmall headerSmall">Resolution</h3>,
+                  <h3 className="textXSmall">Resolution</h3>,
                   <h3 className="textXSmall">{data.resolution}p</h3>,
                 ],
               ]}
@@ -182,7 +185,7 @@ export default function LaptopView({ data }: { data: Laptop }) {
             <TableDouble
               header={
                 <div className="row gapSmall centerColumn flexWrap">
-                  <h2 className="textSmall headerSmall row gapSmall">
+                  <h2 className="textSmall headerSmall row centerColumn gapSmall">
                     <span className="material-symbols-outlined">
                       memory_alt
                     </span>
@@ -196,11 +199,11 @@ export default function LaptopView({ data }: { data: Laptop }) {
               }
               rows={[
                 [
-                  <h3 className="textXSmall headerSmall">Storage</h3>,
+                  <h3 className="textXSmall">Storage</h3>,
                   <h3 className="textXSmall">{formatBytes(data.storage)}</h3>,
                 ],
                 [
-                  <h3 className="textXSmall headerSmall">Memory</h3>,
+                  <h3 className="textXSmall">Memory</h3>,
                   <h3 className="textXSmall">{data.ram} GB</h3>,
                 ],
               ]}
@@ -210,7 +213,7 @@ export default function LaptopView({ data }: { data: Laptop }) {
             <TableDouble
               header={
                 <div className="row gapSmall centerColumn flexWrap">
-                  <h2 className="textSmall headerSmall row gapSmall flexWrap">
+                  <h2 className="textSmall headerSmall row centerColumn gapSmall">
                     <span className="material-symbols-outlined">memory</span>
                     Processor
                   </h2>
@@ -221,11 +224,11 @@ export default function LaptopView({ data }: { data: Laptop }) {
               }
               rows={[
                 [
-                  <h3 className="textXSmall headerSmall">Threads</h3>,
+                  <h3 className="textXSmall">Threads</h3>,
                   <h3 className="textXSmall">{data.cores}</h3>,
                 ],
                 [
-                  <h3 className="textXSmall headerSmall">Top speed</h3>,
+                  <h3 className="textXSmall">Top speed</h3>,
                   <h3 className="textXSmall">
                     {data.topFrequency.toFixed(1)} GHz
                   </h3>,
@@ -237,12 +240,12 @@ export default function LaptopView({ data }: { data: Laptop }) {
             <TableDouble
               header={
                 <div className="row gapSmall centerColumn flexWrap">
-                  <h2 className="textSmall headerSmall row gapSmall">
+                  <h2 className="textSmall headerSmall row centerColumn gapSmall">
                     <span className="material-symbols-outlined">
                       audio_video_receiver
                     </span>
+                    Graphics
                   </h2>
-                  Graphics
                   <div className="textXSmall textSlightTransparent">
                     {data.gpuName}
                   </div>
@@ -257,7 +260,7 @@ export default function LaptopView({ data }: { data: Laptop }) {
                 <h3 className="textXSmall">{data.cores}</h3>,
               ], */
                 [
-                  <h3 className="textXSmall headerSmall">Virtual Memory</h3>,
+                  <h3 className="textXSmall">Virtual Memory</h3>,
                   <h3 className="textXSmall">
                     {data.vram || "Unknown"} GB
                     {/* {data.topFrequency.toFixed(1)} GB */}

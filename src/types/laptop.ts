@@ -53,8 +53,9 @@ export enum LaptopsOrder {
 export enum LaptopUseCase {
   Students = "Students",
   Gaming = "Gaming",
-  Work = "Office Work",
   Programmers = "Programmers",
+  Work = "Office Work",
+  VideoEditing = "Video Editing",
 }
 
 export interface UseCaseQuery {
