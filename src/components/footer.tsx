@@ -26,120 +26,125 @@ export default function Footer() {
         </Link>
       </div>
 
-      <div className="row flexWrap gapLarge centerRow">
-        <div className="column gapSmall">
-          <h2 className="textSmall headerSmall">General</h2>
-          <Link href="/about" className="textXSmall button textGlowButton">
-            About
-          </Link>
-          <Link href="/affiliate" className="textXSmall button textGlowButton">
-            Affiliate Disclosure
-          </Link>
-          <Link href="/discover" className="textXSmall button textGlowButton">
-            Find me a laptop
-          </Link>
-          <Link href="/contact" className="textXSmall button textGlowButton">
-            Contact
-          </Link>
-        </div>
-        <div className="column gapSmall">
-          <h2 className="textSmall headerSmall">By Use Case</h2>
-          <Link
-            href={{
-              pathname: "/laptops",
-              query: queryUseCaseOnly("forStudents"),
-            }}
-            className="button textGlowButton"
-          >
-            <h3 className="textXSmall">Students</h3>
-          </Link>
-          <Link
-            href={{
-              pathname: "/laptops",
-              query: queryUseCaseOnly("forGaming"),
-            }}
-            className="button textGlowButton"
-          >
-            <h3 className="textXSmall">Gaming</h3>
-          </Link>
-          <Link
-            href={{
-              pathname: "/laptops",
-              query: queryUseCaseOnly("forProgrammers"),
-            }}
-            className="button textGlowButton"
-          >
-            <h3 className="textXSmall">Programming</h3>
-          </Link>
-          <Link
-            href={{
-              pathname: "/laptops",
-              query: queryUseCaseOnly("forOfficeWork"),
-            }}
-            className="button textGlowButton"
-          >
-            <h3 className="textXSmall">Office Work</h3>
-          </Link>
-          <Link
-            href={{
-              pathname: "/laptops",
-              query: queryUseCaseOnly("forVideoEditing"),
-            }}
-            className="button textGlowButton"
-          >
-            <h3 className="textXSmall">Video Editing</h3>
-          </Link>
-        </div>
-        <div className="column gapSmall">
-          <h2 className="textSmall headerSmall">Operating Systems</h2>
-          <Link
-            href={{
-              pathname: "/laptops",
-              query: queryOperatingSystemOnly("windows"),
-            }}
-            className="button textGlowButton"
-          >
-            <Image
-              width={50}
-              height={50}
-              src={windowsIcon}
-              alt="windows"
-              className="osIcon"
-            />
-            <h3 className="textXSmall">Windows</h3>
-          </Link>
-          <Link
-            href={{
-              pathname: "/laptops",
-              query: queryOperatingSystemOnly("macos"),
-            }}
-            className="button textGlowButton"
-          >
-            <Image
-              width={50}
-              height={50}
-              src={macIcon}
-              alt="linux"
-              className="osIcon"
-            />
-            <h3 className="textXSmall">macos</h3>
-          </Link>
-          <Link
-            href={{
-              pathname: "/laptops",
-              query: queryOperatingSystemOnly("linux"),
-            }}
-            className="button textGlowButton"
-          >
-            <Image
-              width={50}
-              height={50}
-              src={linuxIcon}
-              alt="linux"
-              className="osIcon"
-            />
-            <h3 className="textXSmall">Linux</h3>
-          </Link>
+      <div className="row centerRow">
+        <div className="rowCollapsible gapLarge">
+          <div className="column gapSmall">
+            <h2 className="textSmall headerSmall">General</h2>
+            <Link href="/about" className="textXSmall button textGlowButton">
+              About
+            </Link>
+            <Link
+              href="/affiliate"
+              className="textXSmall button textGlowButton"
+            >
+              Affiliate Disclosure
+            </Link>
+            <Link href="/discover" className="textXSmall button textGlowButton">
+              Find me a laptop
+            </Link>
+            <Link href="/contact" className="textXSmall button textGlowButton">
+              Contact
+            </Link>
+          </div>
+          <div className="column gapSmall">
+            <h2 className="textSmall headerSmall">By Use Case</h2>
+            <Link
+              href={{
+                pathname: "/laptops",
+                query: queryUseCaseOnly("forStudents"),
+              }}
+              className="button textGlowButton"
+            >
+              <h3 className="textXSmall">Students</h3>
+            </Link>
+            <Link
+              href={{
+                pathname: "/laptops",
+                query: queryUseCaseOnly("forGaming"),
+              }}
+              className="button textGlowButton"
+            >
+              <h3 className="textXSmall">Gaming</h3>
+            </Link>
+            <Link
+              href={{
+                pathname: "/laptops",
+                query: queryUseCaseOnly("forProgrammers"),
+              }}
+              className="button textGlowButton"
+            >
+              <h3 className="textXSmall">Programming</h3>
+            </Link>
+            <Link
+              href={{
+                pathname: "/laptops",
+                query: queryUseCaseOnly("forOfficeWork"),
+              }}
+              className="button textGlowButton"
+            >
+              <h3 className="textXSmall">Office Work</h3>
+            </Link>
+            <Link
+              href={{
+                pathname: "/laptops",
+                query: queryUseCaseOnly("forVideoEditing"),
+              }}
+              className="button textGlowButton"
+            >
+              <h3 className="textXSmall">Video Editing</h3>
+            </Link>
+          </div>
+          <div className="column gapSmall">
+            <h2 className="textSmall headerSmall">Operating Systems</h2>
+            <Link
+              href={{
+                pathname: "/laptops",
+                query: queryOperatingSystemOnly("windows"),
+              }}
+              className="button textGlowButton"
+            >
+              <Image
+                width={50}
+                height={50}
+                src={windowsIcon}
+                alt="windows"
+                className="osIcon"
+              />
+              <h3 className="textXSmall">Windows</h3>
+            </Link>
+            <Link
+              href={{
+                pathname: "/laptops",
+                query: queryOperatingSystemOnly("macos"),
+              }}
+              className="button textGlowButton"
+            >
+              <Image
+                width={50}
+                height={50}
+                src={macIcon}
+                alt="linux"
+                className="osIcon"
+              />
+              <h3 className="textXSmall">macos</h3>
+            </Link>
+            <Link
+              href={{
+                pathname: "/laptops",
+                query: queryOperatingSystemOnly("linux"),
+              }}
+              className="button textGlowButton"
+            >
+              <Image
+                width={50}
+                height={50}
+                src={linuxIcon}
+                alt="linux"
+                className="osIcon"
+              />
+              <h3 className="textXSmall">Linux</h3>
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

@@ -160,7 +160,7 @@ script {
 }
 
 .main {
-  padding-top: calc(var(--navbarHeight) + var(--spacingSmall) * 2);
+  padding-top: calc(var(--navbarHeight) + var(--spacingMedium));
   min-height: 100vh;
 }
 
