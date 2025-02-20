@@ -47,17 +47,10 @@ export default function Home() {
         </div>
       </section>
       <section className="sectionPadded background2 column gapLarge">
-        <div className="column centerRow centerColumn">
-          <h1 className="textLarge headerLarge textCenter">By Use-Case</h1>
-          {/* <Button linkTo="top" className="textGlowButton">
-            <h3 className="textSmall">All categories</h3>
-            <span className="material-symbols-outlined">arrow_forward</span>
-          </Button> */}
-        </div>
 
         <div className="rowCollapsible gapLarge centerRow">
           <div className="column centerColumn width100 gapMedium">
-            <h2 className="textMedium headerSmall">For School</h2>
+            <h2 className="textLarge headerSmall">For School</h2>
 
             <div className="column centerColumn gapMedium centerRow width100">
               <FilteredLaptops
@@ -81,7 +74,7 @@ export default function Home() {
             </Link>
           </div>
           <div className="column centerColumn width100 gapMedium">
-            <h2 className="textMedium headerSmall">For Programming</h2>
+            <h2 className="textLarge headerSmall">For Programming</h2>
 
             <div className="column centerColumn gapMedium centerRow width100">
               <FilteredLaptops
@@ -107,7 +100,7 @@ export default function Home() {
         </div>
         <div className="rowCollapsible gapLarge centerRow">
           <div className="column centerColumn width100 gapMedium">
-            <h2 className="textMedium headerSmall">For Gaming</h2>
+            <h2 className="textLarge headerSmall">For Gaming</h2>
 
             <div className="column centerColumn gapMedium centerRow width100">
               <FilteredLaptops
@@ -131,7 +124,7 @@ export default function Home() {
             </Link>
           </div>
           <div className="column centerColumn width100 gapMedium">
-            <h2 className="textMedium headerSmall">For Office Work</h2>
+            <h2 className="textLarge headerSmall">For Office Work</h2>
 
             <div className="column centerColumn gapMedium centerRow width100">
               <FilteredLaptops
@@ -157,11 +150,11 @@ export default function Home() {
         </div>
       </section>
       <section className="sectionPadded column centerColumn gapSmall">
-        <div className="paddingLarge background2 borderBg3 widthFit centerColumn column gapSmall defaultBorderRadius">
+        <div className="paddingMedium background2 borderBg3 widthFit centerColumn column gapMedium defaultBorderRadius">
           <h1 className="textMedium headerLarge textCenter">
             Not sure what you're looking for?
           </h1>
-          <Link href="/discover" className="button buttonBg3 textMedium">
+          <Link href="/discover" className="button buttonBg3">
             Try our discovery queue
             <span className="material-symbols-outlined">conditions</span>
           </Link>

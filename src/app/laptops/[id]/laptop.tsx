@@ -103,8 +103,8 @@ export default function LaptopView({ data }: { data: Laptop }) {
             />
 
             <div className="column gapMedium">
-              <div className="column">
-                <h1 className="textLarge headerLarge">
+              <div className="column columnCenterMobile">
+                <h1 className="textLarge headerLarge widthFit">
                   {underscoresToSpaces(data.name)}
                 </h1>
                 <div className="row gapSmall centerColumn">
