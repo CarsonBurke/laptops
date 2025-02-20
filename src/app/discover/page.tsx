@@ -18,11 +18,11 @@ export default function DiscoverPage() {
   let [price, setPrice] = useState([0, 5000]);
   let [flowState, setFlowState] = useState(FlowState.Budget);
 
-  let [studentScore, setStudentScore] = useState(100);
-  let [gamingScore, setGamingScore] = useState(100);
-  let [programmingScore, setProgrammingScore] = useState(100);
-  let [officeWorkScore, setOfficeWorkScore] = useState(100);
-  let [videoEditingScore, setVideoEditingScore] = useState(100);
+  let [studentScore, setStudentScore] = useState(10);
+  let [gamingScore, setGamingScore] = useState(10);
+  let [programmingScore, setProgrammingScore] = useState(10);
+  let [officeWorkScore, setOfficeWorkScore] = useState(10);
+  let [videoEditingScore, setVideoEditingScore] = useState(10);
 
   return (
     <main className="main">
@@ -87,6 +87,7 @@ export default function DiscoverPage() {
                     label="School work"
                     color={3}
                     defaultValue={studentScore}
+                    max={10}
                     onChange={(value) => setStudentScore(value)}
                     id="studentScore"
                   />
@@ -95,6 +96,7 @@ export default function DiscoverPage() {
                     label="Gaming"
                     color={3}
                     defaultValue={gamingScore}
+                    max={10}
                     onChange={(value) => setGamingScore(value)}
                     id="gamingScore"
                   />
@@ -103,6 +105,7 @@ export default function DiscoverPage() {
                     label="Programming"
                     color={3}
                     defaultValue={programmingScore}
+                    max={10}
                     onChange={(value) => setProgrammingScore(value)}
                     id="programmingScore"
                   />
@@ -111,6 +114,7 @@ export default function DiscoverPage() {
                     label="Office work"
                     color={3}
                     defaultValue={officeWorkScore}
+                    max={10}
                     onChange={(value) => setOfficeWorkScore(value)}
                     id="officeWorkScore"
                   />
@@ -119,6 +123,7 @@ export default function DiscoverPage() {
                     label="Video editing"
                     color={3}
                     defaultValue={videoEditingScore}
+                    max={10}
                     onChange={(value) => setVideoEditingScore(value)}
                     id="videoEditingScore"
                   />
@@ -139,11 +144,11 @@ export default function DiscoverPage() {
                       pathname: "/laptops",
                       query: {
                         order: LaptopsOrder.WeightedScore,
-                        studentScoreWeight: roundTo(studentScore, 2),
-                        gamingScoreWeight: roundTo(gamingScore, 2),
-                        programmingScoreWeight: roundTo(programmingScore, 2),
-                        officeWorkScoreWeight: roundTo(officeWorkScore, 2),
-                        videoEditingScoreWeight: roundTo(videoEditingScore, 2),
+                        studentScoreWeight: roundTo(studentScore * 10, 2),
+                        gamingScoreWeight: roundTo(gamingScore * 10, 2),
+                        programmingScoreWeight: roundTo(programmingScore * 10, 2),
+                        officeWorkScoreWeight: roundTo(officeWorkScore * 10, 2),
+                        videoEditingScoreWeight: roundTo(videoEditingScore * 10, 2),
                         minPrice: Math.round(price[0]),
                         maxPrice: Math.round(price[1]),
                       },

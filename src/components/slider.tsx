@@ -38,6 +38,7 @@ export default function Slider(args: {
         onChange={onRangeChange}
         defaultValue={args.defaultValue}
         id={args.id}
+        max={args.max || 100}
         style={{ writingMode: args.vertical ? "vertical-lr" : "horizontal-tb" }}
       />
     </div>

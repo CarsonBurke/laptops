@@ -178,6 +178,12 @@ export default function LaptopView({ data }: { data: Laptop }) {
                   <h3 className="textXSmall">Resolution</h3>,
                   <h3 className="textXSmall">{data.resolution}p</h3>,
                 ],
+                [
+                  <h3 className="textXSmall">Touchscreen</h3>,
+                  <h3 className="textXSmall">
+                    {data.touchscreen ? "Yes" : "No"}
+                  </h3>,
+                ],
               ]}
               background="background3"
             />

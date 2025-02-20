@@ -31,6 +31,8 @@ export interface Laptop {
   storageName: string,
   displayName: string,
   priceHistory: number[];
+  touchscreen: boolean;
+  refurbished: boolean;
 }
 
 export enum LaptopsOrder {

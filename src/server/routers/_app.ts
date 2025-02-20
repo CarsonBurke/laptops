@@ -181,6 +181,7 @@ export const appRouter = router({
           programmingScore: true,
           officeWorkScore: true,
           videoEditingScore: true,
+          touchscreen: true,
           filter_single: { id: input.id } /* e.op(laptop.id, "=", input.id) */,
         }))
         .run(edgeClient);
