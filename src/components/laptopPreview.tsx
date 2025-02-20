@@ -64,7 +64,7 @@ export default function LaptopPreview({ args }: { args: LaptopPreviewArgs }) {
   return (
     <Link
       href={`/laptops/${spacesToUnderscores(args.data.id)}`}
-      className="laptopPreview defaultBorderRadius centerColumn rowCollapsible gapMedium paddingMedium pointer defaultTransition"
+      className="laptopPreview defaultBorderRadius centerColumn row gapMedium paddingMedium pointer defaultTransition"
       style={
         {
           borderColor: `var(--${args.color})`,
@@ -101,7 +101,7 @@ export default function LaptopPreview({ args }: { args: LaptopPreviewArgs }) {
           </div>
         </div>
 
-        <div className="column gapXSmall">
+        <div className="column">
           <div className="row gapSmall textSlightTransparent">
             <h4 className="textXSmall gapXSmall row centerColumn">
               {roundTo(args.data.size, 1)} inch • {args.data.resolution}p
