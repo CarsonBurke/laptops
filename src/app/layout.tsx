@@ -22,14 +22,29 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const defaultTitle = "Laptop Deals - Find your next device";
+const defaultDescription =
+  "Find the best deals on new laptops for students, gaming, programmers, office work, video editing and more.";
+
 export const metadata: Metadata = {
   title: {
     template: "%s | Laptop Deals",
-    default: "Laptop Deals - Find your next device",
+    default: defaultTitle,
   },
-  description: "Find the best deals on new laptops for students, gaming, programmers, office work, video editing and more.",
+  description: defaultDescription,
   keywords:
     "Laptops, Macbooks, Computers, PCs, Personal, Best computer, cheap computer, cheap laptop, budget laptop, best laptop, student laptop, gaming laptop, programming laptop, office laptop, video editing laptop, intel, amd, nvidia",
+  robots: {
+    index: true,
+    follow: true,
+  },
+  openGraph: {
+    url: "laptops.marvinmediagroup.com",
+    type: "website",
+    title: defaultTitle,
+    description: defaultDescription,
+    images: ["./logo.svg"],
+  },
 };
 
 const root = async function RootLayout({
@@ -37,7 +52,6 @@ const root = async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   return (
     <html lang="en">
       <LayoutHead />
