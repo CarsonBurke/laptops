@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     template: "%s | Laptop Deals",
     default: "Laptop Deals - Find your next device",
   },
-  description: "Laptop deals finds the best deals on new laptops for students, gaming, programmers, office work, video editing and more.",
+  description: "Find the best deals on new laptops for students, gaming, programmers, office work, video editing and more.",
   keywords:
     "Laptops, Macbooks, Computers, PCs, Personal, Best computer, cheap computer, cheap laptop, budget laptop, best laptop, student laptop, gaming laptop, programming laptop, office laptop, video editing laptop, intel, amd, nvidia",
 };
