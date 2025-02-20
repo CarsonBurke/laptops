@@ -15,7 +15,7 @@ import linuxIcon from "../../public/OSIcons/linux.svg";
 import macIcon from "../../public/OSIcons/mac.svg";
 import windowsIcon from "../../public/OSIcons/windows.svg";
 
-interface LaptopPreviewData {
+export interface LaptopPreviewData {
   id: string;
   name: string;
   price: number;

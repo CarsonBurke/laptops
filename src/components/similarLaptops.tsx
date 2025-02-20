@@ -1,6 +1,6 @@
 "use client";
 
-import LaptopPreview, { generateLaptopPreviews } from "./laptopPreview";
+import LaptopPreview, { generateLaptopPreviews, LaptopPreviewData } from "./laptopPreview";
 import { trpc } from "@/lib/trpc";
 import { Laptop, LaptopsOrder } from "@/types/laptop";
 import { generateFakeLaptopPreviews } from "./fakeLaptopPreview";
@@ -21,6 +21,8 @@ interface SimilarLaptopsArgs {
 }
 
 export default function SimilarLaptops({ args }: { args: SimilarLaptopsArgs }) {
+  console.log("similar args", args);
+
   const { data, isLoading } = trpc.getLaptopsWithoutId.useQuery({
     order: args.order,
     macos: args.macos,
@@ -45,10 +47,16 @@ export default function SimilarLaptops({ args }: { args: SimilarLaptopsArgs }) {
     return <h2 className="textMedium headerSmall">No similar laptops 😳</h2>;
   }
 
-  return data.map((previewData, i) => (
-    <LaptopPreview
-      key={i}
-      args={{ data: (previewData as any)[i], color: args.background }}
-    />
-  ));
+  console.log("before", data);
+
+  return data.map((previewData, i) => {
+    console.log("previewData", previewData);
+
+    return (
+      <LaptopPreview
+        key={i}
+        args={{ data: previewData as any as LaptopPreviewData, color: args.background }}
+      />
+    );
+  });
 }

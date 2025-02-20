@@ -14,7 +14,7 @@ import SimilarLaptops from "@/components/similarLaptops";
 export default function Laptop({ params }: { params: Promise<any> }) {
   const { id } = React.use(params as any) as { id: string };
 
-  let { data, isLoading } = trpc.getLaptopById.useQuery({
+  const { data, isLoading } = trpc.getLaptopById.useQuery({
     id: id,
   });
 
@@ -32,17 +32,19 @@ export default function Laptop({ params }: { params: Promise<any> }) {
           </h1>
 
           <div className="row flexWrap gapMedium centerRow width100">
-            <SimilarLaptops
-              args={{
-                blacklistId: id,
-                limit: 12,
-                background: "background3",
-                order: LaptopsOrder.BestDeal,
-                macos: true,
-                windows: true,
-                linux: true,
-              }}
-            />
+            {!isLoading && (
+              <SimilarLaptops
+                args={{
+                  blacklistId: id,
+                  limit: 12,
+                  background: "background3",
+                  order: LaptopsOrder.BestDeal,
+                  macos: true,
+                  windows: true,
+                  linux: true,
+                }}
+              />
+            )}
           </div>
         </div>
 
