@@ -82,20 +82,20 @@ export default function LaptopPreview({ args }: { args: LaptopPreviewArgs }) {
 
       <div className="column gapSmall marginAuto">
         <div className="column">
-          <h3 className={"textMedium headerSmall"}>
+          <h2 className={"textMedium headerSmall"}>
             {underscoresToSpaces(args.data.name)}
-          </h3>
+          </h2>
 
           <div className="row flexWrap gapSmall centerColumn">
-            <h4 className={"textSmall headerSmall row"}>
+            <p className={"textSmall headerSmall row"}>
               ${numberCommas(args.data.price)}
-            </h4>
+            </p>
             {args.data.saleOf > 0 && (
               <>
-                <div className="strikeThrough textSlightTransparent">
+                <p className="strikeThrough textSlightTransparent">
                   {numberCommas(args.data.price + args.data.saleOf)}
-                </div>
-                <div>Save ${numberCommas(args.data.saleOf)}</div>
+                </p>
+                <p>Save ${numberCommas(args.data.saleOf)}</p>
               </>
             )}
           </div>
@@ -103,9 +103,9 @@ export default function LaptopPreview({ args }: { args: LaptopPreviewArgs }) {
 
         <div className="column">
           <div className="row gapSmall textSlightTransparent">
-            <h4 className="textXSmall gapXSmall row centerColumn">
+            <p className="textXSmall gapXSmall row centerColumn">
               {roundTo(args.data.size, 1)} inch • {args.data.resolution}p
-            </h4>
+            </p>
           </div>
           <div className="row flexWrap gapSmall textSlightTransparent">
             {/* <h4
@@ -115,22 +115,22 @@ export default function LaptopPreview({ args }: { args: LaptopPreviewArgs }) {
               <span className="material-symbols-outlined">memory_alt</span>
               {args.data.ram} GB
             </h4> */}
-            <h4
+            <p
               className="textXSmall gapXSmall row centerColumn"
               title="Storage"
             >
               <span className="material-symbols-outlined">storage</span>
               {formatBytes(args.data.storage)} • {args.data.ram} GB
-            </h4>
+            </p>
           </div>
           <div className="row flexWrap gapSmall textSlightTransparent">
-            <h4
+            <p
               className="textXSmall gapXSmall row centerColumn"
               title="Processor Cores"
             >
               <span className="material-symbols-outlined">memory</span>
               {args.data.cores} • {args.data.topFrequency.toFixed(1)} Ghz
-            </h4>
+            </p>
             {/* <h4
               className="textXSmall gapXSmall row centerColumn"
               title="Top Frequency"

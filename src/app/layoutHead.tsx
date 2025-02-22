@@ -8,6 +8,7 @@ export function LayoutHead() {
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
       />
       <Script src="https://scripts.simpleanalyticscdn.com/latest.js"  />
+      <meta name="google-site-verification" content="pubBo2TaO7_b8imCeLOBycFkDNcgPa7laTrjSMPXARs" />
     </head>
   );
 }

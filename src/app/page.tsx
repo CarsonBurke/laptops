@@ -151,9 +151,9 @@ export default function Home() {
       </section>
       <section className="sectionPadded column centerColumn gapSmall">
         <div className="paddingMedium background2 borderBg3 widthFit centerColumn column gapMedium defaultBorderRadius">
-          <h1 className="textMedium headerLarge textCenter">
+          <h2 className="textMedium headerLarge textCenter">
             Not sure what you're looking for?
-          </h1>
+          </h2>
           <Link href="/discover" className="button buttonBg3">
             Try our discovery queue
             <span className="material-symbols-outlined">conditions</span>

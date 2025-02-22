@@ -17,12 +17,20 @@
     pointer-events: none;
 }
 
-/* .textGlowButton {
+.textGlowButton {
     color: inherit;
-} */
+}
 
 .textGlowButton:hover {
     color: var(--primaryTransparent);
+}
+
+.textPrimaryButton {
+    color: var(--primaryHighlight)
+}
+
+.textPrimaryButton:hover {
+    color: var(--primary)
 }
 
 .buttonPrimary {

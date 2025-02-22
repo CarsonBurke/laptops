@@ -28,15 +28,19 @@ export default function ArticlePage({ params }: { params: Promise<any> }) {
         {isLoading ? (
           <Loading color={2} />
         ) : (
-          <div className="articleContainer">
-            <ArticleView args={{ data: data as any as Article }} />
-          </div>
-        )}
-        <div className="column gapMedium centerColumn">
-          <h2 className="textMedium headerSmall textCenter">Other Articles</h2>
+          <>
+            <div className="articleContainer">
+              <ArticleView args={{ data: data as any as Article }} />
+            </div>
+            <div className="column gapMedium centerColumn">
+              <h2 className="textMedium headerSmall textCenter">
+                Other Articles
+              </h2>
 
-          {generateFakeArticlePreviews(12, "background2")}
-        </div>
+              {generateFakeArticlePreviews(12, "background2")}
+            </div>
+          </>
+        )}
       </section>
     </main>
   );

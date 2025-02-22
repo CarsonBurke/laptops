@@ -10,6 +10,7 @@ import AdminLock from "../admin";
 
 export default function ArticleUpload() {
   let [articleTitle, setArticleTitle] = useState("Article Name");
+  let [articleSummary, setArticleSummary] = useState("Article summary");
   let [articleContent, setArticleContent] = useState("Article content");
   let [authorId, setAuthorId] = useState(
     "9190056e-e5e8-11ef-ab3a-779b9e2bdc5c"
@@ -45,6 +46,7 @@ export default function ArticleUpload() {
 
     const result = createArticle.mutate({
       title: articleTitle,
+      summary: articleSummary,
       content: articleContent,
       username,
       password,
@@ -102,9 +104,22 @@ export default function ArticleUpload() {
 
                 <LabelledTextarea
                   args={{
-                    name: "article",
-                    label: "Article",
-                    placeholder: "Article",
+                    name: "summary",
+                    label: "Summary",
+                    placeholder: "Article summary",
+                    value: articleSummary,
+                    color: 3,
+                    onChange: (value) => {
+                      setArticleSummary(value as string);
+                    },
+                  }}
+                />
+
+                <LabelledTextarea
+                  args={{
+                    name: "article content",
+                    label: "Article content",
+                    placeholder: "Article content",
                     value: articleContent,
                     color: 3,
                     onChange: (value) => {

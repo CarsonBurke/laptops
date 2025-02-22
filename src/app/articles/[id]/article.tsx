@@ -67,6 +67,7 @@ export default function ArticleView({
 
         <Image
           className="articleTitleImage"
+          priority={true}
           alt={args.data.title || "unknown"}
           src={`/articleImages/${args.data.titleImageId}.webp`}
           width={1200}
@@ -76,7 +77,7 @@ export default function ArticleView({
 
       <ReactMarkdown
         // Column on markdown text might be a very bad idea
-        className="textSmall column gapMedium articleContent centerColumn"
+        className="textSmall articleContent column gapMedium"
         children={args.data.content}
         components={{
           code(props) {

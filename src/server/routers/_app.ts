@@ -581,6 +581,7 @@ export const appRouter = router({
         username: z.string(),
         password: z.string(),
         title: z.string(),
+        summary: z.string(),
         content: z.string(),
         authorId: z.string(),
         titleImage: z.any(),
@@ -615,6 +616,7 @@ export const appRouter = router({
       const article = await e
         .insert(e.Article, {
           title: input.title,
+          summary: input.summary,
           content: input.content,
           authorId: e.uuid(input.authorId),
           published: new Date(),

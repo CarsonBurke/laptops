@@ -29,7 +29,7 @@ export default function Hero() {
         </div>
       </div>
 
-      <Image alt="hero" src={heroBg} className="heroBg" />
+      <Image alt="hero" src={heroBg} className="heroBg" priority={true} />
     </section>
   );
 }

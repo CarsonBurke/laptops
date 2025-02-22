@@ -98,6 +98,7 @@ export default function LaptopView({ data }: { data: Laptop }) {
             <Image
               width={1000}
               height={800}
+              priority={true}
               alt={`laptop: ${data.name}`}
               src={`/laptopImages/${data.titleImageId}.webp`}
               className="laptopHeroImage defaultBorderRadius"
@@ -109,15 +110,15 @@ export default function LaptopView({ data }: { data: Laptop }) {
                   {underscoresToSpaces(data.name)}
                 </h1>
                 <div className="row gapSmall centerColumn">
-                  <h4 className={"textSmall headerSmall row"}>
+                  <p className={"textSmall headerSmall row"}>
                     ${numberCommas(data.price)}
-                  </h4>
+                  </p>
                   {data.saleOf > 0 && (
                     <>
-                      <div className="strikeThrough textSlightTransparent">
+                      <p className="strikeThrough textSlightTransparent">
                         {numberCommas(data.price + data.saleOf)}
-                      </div>
-                      <div>Save ${numberCommas(data.saleOf)}</div>
+                      </p>
+                      <p>Save ${numberCommas(data.saleOf)}</p>
                     </>
                   )}
                 </div>
@@ -279,7 +280,7 @@ export default function LaptopView({ data }: { data: Laptop }) {
             <h3 className="row gapXSmall flexWrap textSlightTransparent textXSmall">
               Not sure what these mean? See our{" "}
               <Link
-                className="button textGlowButton textPrimary"
+                className="button textPrimaryButton"
                 href="/cheatsheet"
               >
                 guide
@@ -396,7 +397,7 @@ export default function LaptopView({ data }: { data: Laptop }) {
           Think something is missing?
         </h4>
         <Link
-          className="button textPrimary textGlowButton textSlightTransparent"
+          className="button textPrimaryButton"
           href="/contact"
         >
           Let us know

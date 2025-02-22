@@ -12,19 +12,9 @@ import "./styles/text.scss";
 import { LayoutHead } from "./layoutHead";
 import { TRPCProviders } from "./providers";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-const defaultTitle = "Laptop Deals - Find your next device";
+const defaultTitle = "Laptop Deals - Find your next device for the best deal";
 const defaultDescription =
-  "Find the best deals on new laptops for students, gaming, programmers, office work, video editing and more.";
+  "Find the best deals on new laptops for students, gaming, programmers, office work, video editing and more. Get laptops and macbooks with windows, macos and linux for the lowest price.";
 
 export const metadata: Metadata = {
   title: {
@@ -47,6 +37,11 @@ export const metadata: Metadata = {
   },
 };
 
+import { Inter } from 'next/font/google'
+
+// If loading a variable font, you don't need to specify the font weight
+const inter = Inter({ subsets: ['latin'] })
+
 const root = async function RootLayout({
   children,
 }: Readonly<{
@@ -56,7 +51,7 @@ const root = async function RootLayout({
     <html lang="en">
       <LayoutHead />
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${inter.className} antialiased`}
       >
         <TRPCProviders>
           <LayoutBody children={children} />

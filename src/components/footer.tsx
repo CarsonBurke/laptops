@@ -123,7 +123,7 @@ export default function Footer() {
                 width={50}
                 height={50}
                 src={macIcon}
-                alt="linux"
+                alt="macos"
                 className="osIcon"
               />
               <h3 className="textXSmall">macos</h3>
