@@ -19,22 +19,27 @@
 
 .articleContent h1 {
   font-size: var(--textXLarge);
+  font-weight: 700;
 }
 
 .articleContent h2 {
   font-size: var(--textLarge);
+  font-weight: 600;
 }
 
 .articleContent h3 {
   font-size: var(--textMedium);
+  font-weight: 500;
 }
 
 .articleContent h4 {
   font-size: var(--textSmall);
+  font-weight: 500;
 }
 
 .articleContent h5 {
   font-size: var(--textXSmall);
+  font-weight: 500;
 }
 
 .articleContent code {
@@ -50,7 +55,6 @@
 .articleContent a {
   width: fit-content;
   color: var(--primaryHighlight);
-  text-decoration: underline;
   text-underline-offset: 3px;
   transition: all var(--defaultTransitionTime);
 }
@@ -60,10 +64,8 @@
 }
 
 .articleContent p {
-  width: fit-content;
-  display: flex;
+  display: run-in;
   gap: var(--spacingXSmall);
-  flex-wrap: wrap;
   opacity: 0.9;
 }
 
@@ -78,13 +80,17 @@
   height: 3px;
 }
 
-.articleContent li {
+.articleContent ul {
   display: flex;
-  gap: var(--spacingXSmall);
+  flex-direction: column;
+  gap: var(--spacingSmall);
+  list-style-type: none;
+  opacity: 0.9;
 }
 
 .articleContent li::before {
   content: "•";
+  padding-right: var(--spacingSmall);
 }
 
 .article .authorImage {

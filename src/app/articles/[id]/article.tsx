@@ -65,6 +65,8 @@ export default function ArticleView({
           </div>
         </div>
 
+        <p>{args.data.summary}</p>
+
         <Image
           className="articleTitleImage"
           priority={true}
@@ -149,7 +151,7 @@ export default function ArticleView({
                 );
               }
 
-              return <div className="contentImage row centerRow centerColumn background3">Image: {cleanedId}</div>;
+              return <div className="contentImage row centerRow centerColumn background3">Image: {cleanedId.split(" ")[0]}</div>;
             }
 
             // return (

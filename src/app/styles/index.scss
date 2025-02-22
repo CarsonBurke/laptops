@@ -3,7 +3,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
 
 * {
-  display: block;
   margin: unset;
   padding: unset;
   height: fit-content;
@@ -43,7 +42,7 @@ script {
 
   /* variables */
   --primary: rgb(10, 106, 202);
-  --primaryHighlight: rgb(9, 119, 228);
+  --primaryHighlight: rgb(44, 144, 244);
   --primaryTransparent: rgb(6, 130, 254);
   --positive: rgb(0, 255, 0);
   --destructive: rgb(255, 0, 0);

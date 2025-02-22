@@ -462,6 +462,7 @@ export const appRouter = router({
           contentImageIds: true,
           authorId: true,
           published: true,
+          summary: true,
           content: true,
           filter_single: { id: input.id },
         }))

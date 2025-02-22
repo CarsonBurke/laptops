@@ -264,6 +264,7 @@ export default function ArticleUpload() {
                   titleImageId: "default",
                   contentImageIds: [],
                   title: articleTitle,
+                  summary: articleSummary,
                   content: articleContent,
                 },
               }}
