@@ -13,6 +13,10 @@
   border-radius: var(--defaultBorderRadius);
 }
 
+.articleContent {
+  line-height: 130%;
+}
+
 .articleContent strong {
   font-weight: 600;
 }
@@ -67,7 +71,6 @@
   display: run-in;
   gap: var(--spacingXSmall);
   opacity: 0.9;
-  line-height: 130%;
 }
 
 .articleContent blockquote {

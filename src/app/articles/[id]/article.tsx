@@ -82,6 +82,14 @@ export default function ArticleView({
         className="textSmall articleContent column gapMedium"
         children={args.data.content}
         components={{
+          a(props) {
+            return (
+              <a href={props.href} target="_blank">
+                {props.children}
+              </a>
+            );
+          },
+
           code(props) {
             const { children, className, node, ...rest } = props;
             const match = /language-(\w+)/.exec(className || "");
@@ -118,11 +126,11 @@ export default function ArticleView({
               // Remove trailing and proceeding whitespace
               const cleanedId =
                 children?.toString()?.replace(/(\^\s+|\s+$)/g, "") || "";
-              
+
               let { data, isLoading } = trpc.getLaptopById.useQuery({
                 id: cleanedId,
               });
-              
+
               return isLoading || !data ? (
                 <FakeLaptopPreview color={"background3"} />
               ) : (
@@ -151,7 +159,11 @@ export default function ArticleView({
                 );
               }
 
-              return <div className="contentImage row centerRow centerColumn background3">Image: {cleanedId.split(" ")[0]}</div>;
+              return (
+                <div className="contentImage row centerRow centerColumn background3">
+                  Image: {cleanedId.split(" ")[0]}
+                </div>
+              );
             }
 
             // return (
