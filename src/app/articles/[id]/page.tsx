@@ -1,47 +1,61 @@
-"use client";
-
-import FakeArticlePreview, {
-  generateFakeArticlePreviews,
-} from "@/components/fakeArticlePreview";
-import React from "react";
-import ReactMarkdown from "react-markdown";
-import "./page.scss";
 import { trpc } from "@/lib/trpc";
-import LaptopPreview from "@/components/laptopPreview";
-import FakeLaptopPreview from "@/components/fakeLaptopPreview";
+import * as React from "react";
+import "./page.scss";
+import { LaptopsOrder, LaptopUseCase } from "@/types/laptop";
+import FilteredLaptops from "@/components/filteredLaptops";
 import { underscoresToSpaces } from "@/utils/units";
-import Image from "next/image";
-import ArticleView from "./article";
-import { Article } from "@/types/article";
 import Loading from "@/components/loadingSpinner";
+import { useRouter } from "next/navigation";
+import SimilarLaptops from "@/components/similarLaptops";
+import Head from "next/head";
+import { SITE_NAME } from "@/constants/site";
+import { Metadata } from "next";
+import Content from "./content";
+import e from "../../../../dbschema/edgeql-js";
+import { edgeClient } from "@/scripts/db";
 
-export default function ArticlePage({ params }: { params: Promise<any> }) {
-  const { id } = React.use(params as any) as { id: string };
+interface Params {
+  id: string;
+}
 
-  const { data, isLoading } = trpc.getArticleById.useQuery({
-    id,
-  });
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<Params>;
+}): Promise<Metadata> {
+  const { id } = await params;
 
-  return (
-    <main className="main">
-      <section className="sectionPadded rowCollapsible flexWrap centerColumn gapLarge">
-        {isLoading ? (
-          <Loading color={2} />
-        ) : (
-          <>
-            <div className="articleContainer marginAuto">
-              <ArticleView args={{ data: data as any as Article }} />
-            </div>
-            {/* <div className="column gapMedium centerColumn">
-              <h2 className="textMedium headerSmall textCenter">
-                Other Articles
-              </h2>
+  const article = await e
+    .select(e.Article, (article) => ({
+      title: true,
+      summary: true,
+      filter_single: { id },
+    }))
+    .run(edgeClient);
 
-              {generateFakeArticlePreviews(12, "background2")}
-            </div> */}
-          </>
-        )}
-      </section>
-    </main>
-  );
+  return {
+    title: article?.title,
+    description: article?.summary,
+    keywords: [
+      "laptops",
+      "macbooks",
+      "computers",
+      "laptop deals",
+      "laptops for sale",
+      "laptops for students",
+      "laptops for gamers",
+      "laptops for programmers",
+      "laptops for office work",
+      "laptops for video editing",
+      "Intel",
+      "AMD",
+      "Nvidia"
+    ],
+  };
+}
+
+export default function Laptop({ params }: { params: Promise<Params> }) {
+  const { id } = React.use(params);
+
+  return <Content id={id} />;
 }

@@ -47,21 +47,21 @@ export default function ArticleView({
             {args.data.title}
           </h1>
 
-          <div className="row gapSmall centerColumn textSlightTransparent">
+          <div className="row gapSmall textXSmall centerColumn textSlightTransparent">
             {authorResult.isLoading ? (
               <Loading color={3} />
             ) : (
               <Link
                 href={`/authors/${authorResult.data?.id}`}
-                className="textXSmall button textGlowButton"
+                className="button textGlowButton"
               >
                 By {underscoresToSpaces(authorResult.data?.name || "")}
               </Link>
             )}
             •
-            <h3 className="textXSmall">
+            <p>
               {args.data.published?.toDateString()}
-            </h3>
+            </p>
           </div>
         </div>
 

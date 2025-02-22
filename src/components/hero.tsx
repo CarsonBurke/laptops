@@ -1,19 +1,20 @@
 import Button from "./button";
 import "./hero.scss";
-import heroBg from "../../public/heroBg.webp";
+import heroBg from "../../public/testHeroBg.png";
+import emptyLaptop from "../../public/emptyLaptop.webp"
 import Image from "next/image";
 
 export default function Hero() {
   return (
     <section
-      className="hero column centerRow gapLarge"
+      className="hero column centerRow gapLarge centerColumn"
     >
       <div className="column gapLarge row centerColumn section">
         <div className="column gapSmall">
-          <h1 className="textXLarge headerLarge slideIn">
+          <h1 className="textXLarge headerLarge slideIn textWhite">
             Let us Find You The Perfect Laptop
           </h1>
-          <h2 className="textMedium slideIn">
+          <h2 className="textMedium slideIn textWhite">
             We provide you the information you need to find your next device
           </h2>
         </div>
@@ -29,7 +30,9 @@ export default function Hero() {
         </div>
       </div>
 
-      <Image alt="hero" src={heroBg} className="heroBg" priority={true} />
+      <Image alt="empty laptop" src={emptyLaptop} className="heroImage" priority={true} />
+
+      {/* <Image alt="laptop background" src={heroBg} className="heroBg" priority={true} layout="responsive" /> */}
     </section>
   );
 }

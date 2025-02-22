@@ -109,13 +109,15 @@
   height: 100%;
   object-fit: contain;
   border-radius: var(--defaultBorderRadius);
+  min-height: 200px;
+  max-height: min(50vh, 500px);
 }
 
 .articleContent pre {
   width: fit-content;
-  min-height: 200px;
-  max-height: min(50vh, 500px);
   margin: auto;
   min-width: 300px;
   max-width: 100%;
+  display: flex;
+  justify-content: center;
 }

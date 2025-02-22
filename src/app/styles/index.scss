@@ -44,6 +44,7 @@ script {
   --primary: rgb(10, 106, 202);
   --primaryHighlight: rgb(44, 144, 244);
   --primaryTransparent: rgb(6, 130, 254);
+  --primaryCompliment: rgb(141, 10, 202);
   --positive: rgb(0, 255, 0);
   --destructive: rgb(255, 0, 0);
 
@@ -72,6 +73,9 @@ script {
   --paragraphWeight: 400;
   --headerSmallWeight: 600;
   --headerLargeWieght: 800;
+
+  --textWhite: white;
+  --textBlack: black;
 
   /* element-specific */
 
@@ -106,11 +110,11 @@ script {
 @media (prefers-color-scheme: light) {
   :root {
     --background1: rgb(255, 255, 255);
-    --background2: rgb(240, 240, 240);
-    --background3: rgb(220, 220, 220);
-    --background4: rgb(200, 200, 200);
-    --background5: rgb(180, 180, 180);
-    --background6: rgb(160, 160, 160);
+    --background2: rgb(245, 245, 245);
+    --background3: rgb(235, 235, 235);
+    --background4: rgb(225, 225, 225);
+    --background5: rgb(215, 215, 215);
+    --background6: rgb(205, 205, 205);
     --color: black;
     --colorSlightTransparent: rgba(0, 0, 0, 0.7);
   }

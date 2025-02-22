@@ -8,46 +8,49 @@ import FilteredLaptops from "@/components/filteredLaptops";
 import { LaptopsOrder } from "@/types/laptop";
 import Link from "next/link";
 import { queryUseCaseOnly } from "@/utils/query";
+import "./page.scss"
 
 export default function Home() {
   return (
     <main>
-      <Hero />
-      <section className="section bg1To2">
-        <div className="column background1 container centerColumn gapLarge defaultBorderRadius">
-          <div className="column">
-            <h2 className="textLarge textCenter headerSmall slideIn">
-              Huge Deals
-            </h2>
-            <h3 className="textSmall textSlightTransparent slideIn">
-              The best prices we - or anyone - could find
-            </h3>
-          </div>
+      <div className="heroContainer column gapLarge">
+        <Hero />
+        <section className="section bg1To2">
+          <div className="column background1 container centerColumn gapLarge defaultBorderRadius">
+            <div className="column">
+              <h2 className="textLarge textCenter headerSmall slideIn">
+                Huge Deals
+              </h2>
+              <h3 className="textSmall textSlightTransparent slideIn">
+                The best prices we - or anyone - could find
+              </h3>
+            </div>
 
-          <div className="row flexWrap gapMedium centerRow width100">
-            <FilteredLaptops
-              args={{
-                maxLaptops: 12,
-                background: "background2",
-                order: LaptopsOrder.BestDeal,
+            <div className="row flexWrap gapMedium centerRow width100">
+              <FilteredLaptops
+                args={{
+                  maxLaptops: 12,
+                  background: "background2",
+                  order: LaptopsOrder.BestDeal,
+                }}
+              />
+            </div>
+
+            <Link
+              href={{
+                pathname: "/laptops",
+                query: { order: LaptopsOrder.BestDeal },
               }}
-            />
+              className="button textGlowButton"
+            >
+              <h3 className="textSmall">More deals</h3>
+              <span className="material-symbols-outlined">arrow_forward</span>
+            </Link>
           </div>
+        </section>
+      </div>
 
-          <Link
-            href={{
-              pathname: "/laptops",
-              query: { order: LaptopsOrder.BestDeal },
-            }}
-            className="button textGlowButton"
-          >
-            <h3 className="textSmall">See More</h3>
-            <span className="material-symbols-outlined">arrow_forward</span>
-          </Link>
-        </div>
-      </section>
       <section className="sectionPadded background2 column gapLarge">
-
         <div className="rowCollapsible gapLarge centerRow">
           <div className="column centerColumn width100 gapMedium">
             <h2 className="textLarge headerSmall">For School</h2>
@@ -69,7 +72,7 @@ export default function Home() {
               }}
               className="button textGlowButton"
             >
-              <h3 className="textSmall">See More</h3>
+              <h3 className="textSmall">More for school</h3>
               <span className="material-symbols-outlined">arrow_forward</span>
             </Link>
           </div>
@@ -93,7 +96,7 @@ export default function Home() {
               }}
               className="button textGlowButton"
             >
-              <h3 className="textSmall">See More</h3>
+              <h3 className="textSmall">More for programming</h3>
               <span className="material-symbols-outlined">arrow_forward</span>
             </Link>
           </div>
@@ -119,7 +122,7 @@ export default function Home() {
               }}
               className="button textGlowButton"
             >
-              <h3 className="textSmall">See More</h3>
+              <h3 className="textSmall">More for gaming</h3>
               <span className="material-symbols-outlined">arrow_forward</span>
             </Link>
           </div>
@@ -143,7 +146,7 @@ export default function Home() {
               }}
               className="button textGlowButton"
             >
-              <h3 className="textSmall">See More</h3>
+              <h3 className="textSmall">More for office work</h3>
               <span className="material-symbols-outlined">arrow_forward</span>
             </Link>
           </div>
