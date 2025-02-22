@@ -534,6 +534,7 @@ export const appRouter = router({
           titleImageId: true,
           authorId: true,
           published: true,
+          summary: true,
           offset: input.offset,
           limit: input.limit,
         }))

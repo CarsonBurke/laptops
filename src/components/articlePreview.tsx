@@ -9,6 +9,7 @@ import Image from "next/image";
 interface ArticlePreviewData {
   id: number;
   title: string;
+  summary: string;
   titleImageId: string;
 }
 
@@ -62,10 +63,14 @@ export default function ArticlePreview({ args }: { args: ArticlePreviewArgs }) {
 
       <div className="column gapMedium width100">
         <div className="column gapSmall">
-          <h3 className={"textMedium headerSmall textCenter"}>
+          <h2 className={"textMedium headerSmall textCenter"}>
             {args.data.title}
-          </h3>
+          </h2>
         </div>
+
+        <p className="textSmall textSlightTransparent textCenter">
+          {args.data.summary}
+        </p>
       </div>
     </Link>
   );

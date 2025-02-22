@@ -24,21 +24,21 @@ export default function ArticlePage({ params }: { params: Promise<any> }) {
 
   return (
     <main className="main">
-      <section className="sectionPadded rowCollapsible flexWrap gapMedium centerRow">
+      <section className="sectionPadded rowCollapsible flexWrap centerColumn gapLarge">
         {isLoading ? (
           <Loading color={2} />
         ) : (
           <>
-            <div className="articleContainer">
+            <div className="articleContainer marginAuto">
               <ArticleView args={{ data: data as any as Article }} />
             </div>
-            <div className="column gapMedium centerColumn">
+            {/* <div className="column gapMedium centerColumn">
               <h2 className="textMedium headerSmall textCenter">
                 Other Articles
               </h2>
 
               {generateFakeArticlePreviews(12, "background2")}
-            </div>
+            </div> */}
           </>
         )}
       </section>

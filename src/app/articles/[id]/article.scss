@@ -102,7 +102,7 @@
 
 .article .contentImage {
   min-height: 200px;
-  max-height: 60vh;
+  max-height: min(50vh, 500px);
   margin: auto;
   min-width: 300px;
   width: 80%;

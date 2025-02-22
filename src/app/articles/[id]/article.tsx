@@ -65,7 +65,7 @@ export default function ArticleView({
           </div>
         </div>
 
-        <p>{args.data.summary}</p>
+        <p className="textSmall">{args.data.summary}</p>
 
         <Image
           className="articleTitleImage"
