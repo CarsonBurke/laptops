@@ -79,7 +79,7 @@ export default function ArticleView({
 
       <ReactMarkdown
         // Column on markdown text might be a very bad idea
-        className="textSmall articleContent column gapMedium"
+        className="textSmall articleContent column gapLarge"
         children={args.data.content}
         components={{
           a(props) {
