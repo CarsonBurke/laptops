@@ -107,7 +107,7 @@ export default function Footer() {
                 width={50}
                 height={50}
                 src={windowsIcon}
-                alt="windows"
+                alt="windows - footer"
                 className="osIcon"
               />
               <h3 className="textXSmall">Windows</h3>
@@ -123,7 +123,7 @@ export default function Footer() {
                 width={50}
                 height={50}
                 src={macIcon}
-                alt="macos"
+                alt="macos - footer"
                 className="osIcon"
               />
               <h3 className="textXSmall">macos</h3>
@@ -139,10 +139,22 @@ export default function Footer() {
                 width={50}
                 height={50}
                 src={linuxIcon}
-                alt="linux"
+                alt="linux - footer"
                 className="osIcon"
               />
               <h3 className="textXSmall">Linux</h3>
+            </Link>
+          </div>
+          <div className="column gapSmall">
+            <h2 className="textSmall headerSmall">Socials</h2>
+            <Link
+              href={{
+                pathname: "https://marvinmedia.substack.com/publish/home",
+              }}
+              target="_blank"
+              className="button textGlowButton"
+            >
+              <h3 className="textXSmall">Substack</h3>
             </Link>
           </div>
         </div>
