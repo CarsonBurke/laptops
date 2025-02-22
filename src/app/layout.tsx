@@ -32,15 +32,29 @@ export const metadata: Metadata = {
     url: "laptops.marvinmediagroup.com",
     type: "website",
     title: defaultTitle,
+    siteName: defaultTitle,
     description: defaultDescription,
-    images: ["./logo.svg"],
+    images: [
+      {
+        url:
+          (process.env.NEXT_PUBLIC_SITE_URL ||
+            "https://www.laptops.marvinmediagroup.com") + "/logo.svg",
+      },
+    ],
+  },
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ||
+      "https://www.laptops.marvinmediagroup.com"
+  ),
+  alternates: {
+    canonical: "/",
   },
 };
 
-import { Inter } from 'next/font/google'
+import { Inter } from "next/font/google";
 
 // If loading a variable font, you don't need to specify the font weight
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
 const root = async function RootLayout({
   children,
@@ -50,9 +64,7 @@ const root = async function RootLayout({
   return (
     <html lang="en">
       <LayoutHead />
-      <body
-        className={`${inter.className} antialiased`}
-      >
+      <body className={`${inter.className} antialiased`}>
         <TRPCProviders>
           <LayoutBody children={children} />
         </TRPCProviders>

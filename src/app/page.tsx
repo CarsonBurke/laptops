@@ -8,7 +8,7 @@ import FilteredLaptops from "@/components/filteredLaptops";
 import { LaptopsOrder } from "@/types/laptop";
 import Link from "next/link";
 import { queryUseCaseOnly } from "@/utils/query";
-import "./page.scss"
+import "./page.scss";
 
 export default function Home() {
   return (
@@ -161,6 +161,39 @@ export default function Home() {
             Try our discovery queue
             <span className="material-symbols-outlined">conditions</span>
           </Link>
+        </div>
+      </section>
+      <section className="sectionPadded column centerColumn gapLarge background2">
+        <div className="column centerColumn gapMedium">
+          <h2 className="textLarge headerLarge">What we do</h2>
+
+          <p className="textSmall textSlightTransparent">
+            Our mission is to provide the best laptops to our users. While we
+            make money through affiliate purchases, we rank laptops based on how
+            good they are, not whoever pays us more.
+          </p>
+          <p className="textSmall textSlightTransparent">
+            On Laptop Deals you can find lowest prices on the best new laptops
+            for Windows, Linux and Macos. Filter by use-case including
+            school/office work, gaming, programming and video editing.
+          </p>
+        </div>
+
+        <div className="column centerColumn gapMedium">
+          <h3 className="textMedium headerSmall">How it works</h3>
+          <p className="textSmall textSlightTransparent">
+            We filter laptops from top sellers, taking only the very best
+            devices and identifying the greatest discounts and price trends. You
+            can use our{" "}
+            <Link className="textPrimaryButton" href="/laptops">
+              advanced filtering tools
+            </Link>{" "}
+            or{" "}
+            <Link className="textPrimaryButton" href="/discover">
+              recommendation feature
+            </Link>{" "}
+            to find the best laptop for your specific needs.
+          </p>
         </div>
       </section>
     </main>

@@ -26,6 +26,7 @@
 }
 
 .textPrimaryButton {
+    transition: all var(--defaultTransitionTime);
     color: var(--primaryHighlight)
 }
 
