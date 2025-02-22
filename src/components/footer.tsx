@@ -149,7 +149,7 @@ export default function Footer() {
             <h2 className="textSmall headerSmall">Socials</h2>
             <Link
               href={{
-                pathname: "https://marvinmedia.substack.com/publish/home",
+                pathname: "https://marvinmedia.substack.com/",
               }}
               target="_blank"
               className="button textGlowButton"
