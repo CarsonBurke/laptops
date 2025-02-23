@@ -32,6 +32,11 @@ export default function Home() {
                   maxLaptops: 12,
                   background: "background2",
                   order: LaptopsOrder.BestDeal,
+                  forStudents: true,
+                  forGaming: true,
+                  forProgrammers: true,
+                  forWork: true,
+                  forVideoEditing: true,
                 }}
               />
             </div>
@@ -39,7 +44,7 @@ export default function Home() {
             <Link
               href={{
                 pathname: "/laptops",
-                query: { order: LaptopsOrder.BestDeal },
+                query: { order: LaptopsOrder.BestDeal, },
               }}
               className="button textGlowButton"
             >
@@ -136,6 +141,7 @@ export default function Home() {
                   background: "background3",
                   order: LaptopsOrder.BestDeal,
                   forWork: true,
+                  
                 }}
               />
             </div>

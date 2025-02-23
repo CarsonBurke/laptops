@@ -13,6 +13,7 @@ interface FilteredLaptopsArgs {
   forGaming?: boolean;
   forProgrammers?: boolean;
   forWork?: boolean;
+  forVideoEditing?: boolean;
 }
 
 export default function FilteredLaptops({
@@ -28,10 +29,11 @@ export default function FilteredLaptops({
     macos: true,
     windows: true,
     linux: true,
-    forStudents: args.forStudents == undefined ? true : args.forStudents,
-    forGaming: args.forGaming == undefined ? true : args.forGaming,
-    forProgrammers: args.forProgrammers == undefined ? true : args.forProgrammers,
-    forOfficeWork: args.forWork == undefined ? true : args.forWork,
+    forStudents: args.forStudents == undefined ? false : args.forStudents,
+    forGaming: args.forGaming == undefined ? false : args.forGaming,
+    forProgrammers: args.forProgrammers == undefined ? false : args.forProgrammers,
+    forOfficeWork: args.forWork == undefined ? false : args.forWork,
+    forVideoEditing: args.forVideoEditing == undefined ? false : args.forVideoEditing,
     minSize: 0,
     maxSize: Number.MAX_SAFE_INTEGER,
     minResolution: 0,
