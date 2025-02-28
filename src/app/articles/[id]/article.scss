@@ -121,3 +121,8 @@
   display: flex;
   justify-content: center;
 }
+
+.articleCode pre {
+  display: flex !important;
+  background-color: unset !important;
+}

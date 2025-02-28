@@ -30,7 +30,7 @@ export default function Hero() {
         </div>
       </div>
 
-      <Image alt="empty laptop" src={emptyLaptop} className="heroImage" priority={true} />
+      <Image width={1000} height={600} alt="empty laptop" src={emptyLaptop} className="heroImage" priority={true} />
 
       {/* <Image alt="laptop background" src={heroBg} className="heroBg" priority={true} layout="responsive" /> */}
     </section>

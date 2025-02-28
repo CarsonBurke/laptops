@@ -11,6 +11,8 @@ import { Article } from "@/types/article";
 import "./article.scss";
 import Link from "next/link";
 import Loading from "@/components/loadingSpinner";
+import SyntaxHighlighter from "react-syntax-highlighter";
+import { dark } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
 /* interface ArticleArgs {
     title: string,
@@ -58,10 +60,7 @@ export default function ArticleView({
                 By {underscoresToSpaces(authorResult.data?.name || "")}
               </Link>
             )}
-            •
-            <p>
-              {args.data.published?.toDateString()}
-            </p>
+            •<p>{args.data.published?.toDateString()}</p>
           </div>
         </div>
 
@@ -91,7 +90,7 @@ export default function ArticleView({
           },
 
           code(props) {
-            const { children, className, node, ...rest } = props;
+            const { children, className, node, ref, ...rest } = props;
             const match = /language-(\w+)/.exec(className || "");
 
             if (!match) {
@@ -166,19 +165,21 @@ export default function ArticleView({
               );
             }
 
-            // return (
-            //   <SyntaxHighlighter
-            //     {...rest}
-            //     children={String(children).replace(/\n$/, "")}
-            //     language={match[1]}
-            //     style={dark}
-            //   />
-            // );
             return (
+              <div className="articleCode">
+                <SyntaxHighlighter
+                  {...rest}
+                  children={String(children).replace(/\n$/, "")}
+                  language={match[1]}
+                  style={dark}
+                />
+              </div>
+            );
+            /* return (
               <code {...rest} className={className}>
                 {children}
               </code>
-            );
+            ); */
           },
         }}
       />
