@@ -27,7 +27,7 @@ export async function generateMetadata({
   const { id } = await params;
 
   const laptop = await e
-    .select(e.Laptop, (laptop) => ({
+    .select(e.Laptop, () => ({
       name: true,
       price: true,
       saleOf: true,
@@ -39,6 +39,7 @@ export async function generateMetadata({
       cpuName: true,
       gpuName: true,
       displayName: true,
+      titleImageId: true,
       filter_single: { id },
     }))
     .run(edgeClient);
@@ -89,7 +90,7 @@ const description = `Shop for ${laptop?.name} laptop at $${laptop?.price} ${
           url:
             (process.env.NEXT_PUBLIC_SITE_URL ||
               "https://laptops.marvinmediagroup.com/laptopImages/") +
-            id +
+              laptop?.titleImageId +
             ".webp",
         },
       ],

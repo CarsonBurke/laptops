@@ -29,6 +29,7 @@ export async function generateMetadata({
     .select(e.Article, () => ({
       title: true,
       summary: true,
+      titleImageId: true,
       filter_single: { id },
     }))
     .run(edgeClient);
@@ -59,7 +60,7 @@ export async function generateMetadata({
           url:
             (process.env.NEXT_PUBLIC_SITE_URL ||
               "https://laptops.marvinmediagroup.com/articleImages/") +
-            id +
+            article?.titleImageId +
             ".webp",
         },
       ],
