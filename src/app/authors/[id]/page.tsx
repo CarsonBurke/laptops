@@ -1,45 +1,72 @@
-"use client";
-
-import { trpc } from "@/lib/trpc";
 import React from "react";
-import "./page.scss";
-import Image from "next/image";
-import AuthorArticles from "./authorArticles";
+import Content from "./content";
+import { Metadata } from "next";
+import e from "../../../../dbschema/edgeql-js";
+import { edgeClient } from "@/scripts/db";
 
-export default function Author({ params }: { params: Promise<any> }) {
-  const { id } = React.use(params as any) as { id: string };
+interface Params {
+  id: string;
+}
 
-  const { data, isLoading } = trpc.getAuthorById.useQuery({
-    id,
-  });
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<Params>;
+}): Promise<Metadata> {
+  const { id } = await params;
 
-  return (
-    <main className="main">
-      <section className="sectionPadded">
-        <div className="column paddingMedium background2 borderBg3 centerColumn gapLarge">
-          <div className="column gapSmall centerColumn">
-            <div className="row centerColumn gapSmall">
-              <Image
-                width={100}
-                height={100}
-                alt={`author: ${data?.name}`}
-                src={`/authorImages/${data?.profileImageName}.webp`}
-                className="authorImage"
-              />
-              <h1 className="textLarge headerLarge textCenter">{data?.name}</h1>
-            </div>
+  const author = await e
+    .select(e.Author, () => ({
+      name: true,
+      description: true,
+      profileImageName: true,
+      filter_single: { id },
+    }))
+    .run(edgeClient);
 
-            <p className="textSmall textSlightTransparent">
-              {data?.description}
-            </p>
-          </div>
-          <div className="column gapMedium">
-            <h2 className="textLarge headerSmall textCenter">Latest from {data?.name}</h2>
 
-            <AuthorArticles authorId={data?.id || ""} />
-          </div>
-        </div>
-      </section>
-    </main>
-  );
+    const title = `Articles by ${author?.name} | Laptop Deals`
+    const description = `Read articles by ${author?.name} at Laptop Deals. Find the best deals on new laptops for students, gaming, programmers, office work, video editing and more. Get laptops and macbooks with windows, macos and linux for the lowest price.`
+
+  return {
+    title,
+    description,
+    keywords: [
+      author?.name || "",
+      `Articles by ${author?.name}`,
+      "tech articles",
+      "laptops",
+      "macbooks",
+      "computers",
+      "laptop deals",
+      "laptops for sale",
+      "laptops for students",
+      "laptops for gamers",
+      "laptops for programmers",
+      "laptops for office work",
+      "laptops for video editing",
+      "Intel",
+      "AMD",
+      "Nvidia"
+    ],
+    openGraph: {
+      title,
+      description,
+      images: [
+        {
+          url:
+            (process.env.NEXT_PUBLIC_SITE_URL ||
+              "https://laptops.marvinmediagroup.com/authorImages/") +
+              author?.profileImageName +
+            ".webp",
+        },
+      ],
+    },
+  };
+}
+
+export default function Author({ params }: { params: Promise<Params> }) {
+  const { id } = React.use(params);
+
+  return <Content id={id} />;
 }

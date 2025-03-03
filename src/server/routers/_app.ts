@@ -508,6 +508,7 @@ export const appRouter = router({
           title: true,
           titleImageId: true,
           authorId: true,
+          summary: true,
           published: true,
           offset: input.offset,
           limit: input.limit,
