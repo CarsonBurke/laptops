@@ -26,7 +26,7 @@ export async function generateMetadata({
   const { id } = await params;
 
   const article = await e
-    .select(e.Article, (article) => ({
+    .select(e.Article, () => ({
       title: true,
       summary: true,
       filter_single: { id },
@@ -49,8 +49,21 @@ export async function generateMetadata({
       "laptops for video editing",
       "Intel",
       "AMD",
-      "Nvidia"
+      "Nvidia",
     ],
+    openGraph: {
+      title: article?.title || undefined,
+      description: article?.summary || undefined,
+      images: [
+        {
+          url:
+            (process.env.NEXT_PUBLIC_SITE_URL ||
+              "https://laptops.marvinmediagroup.com/articleImages/") +
+            id +
+            ".webp",
+        },
+      ],
+    },
   };
 }
 

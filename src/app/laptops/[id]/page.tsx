@@ -54,11 +54,13 @@ export async function generateMetadata({
     .filter((value) => value)
     .map((value, i) => useCaseNameMap[i as unknown as number]);
 
+const description = `Shop for ${laptop?.name} laptop at $${laptop?.price} ${
+      (laptop?.saleOf || 0) > 0 ? "on sale for $" + laptop?.saleOf : ""
+    }. Great for ${useCaseNames.join(", ")}. See more laptops at ${SITE_NAME}.`
+
   return {
     title: laptop?.name,
-    description: `Shop for ${laptop?.name} laptop at $${laptop?.price} ${
-      (laptop?.saleOf || 0) > 0 ? "on sale for $" + laptop?.saleOf : ""
-    }. Great for ${useCaseNames.join(", ")}. See more laptops at ${SITE_NAME}.`,
+    description,
     keywords: [
       `${laptop?.name} laptop`,
       ...useCaseNames.map((value) => `${value} laptop`),
@@ -79,6 +81,19 @@ export async function generateMetadata({
       "AMD",
       "Nvidia"
     ],
+    openGraph: {
+      title: laptop?.name || undefined,
+      description,
+      images: [
+        {
+          url:
+            (process.env.NEXT_PUBLIC_SITE_URL ||
+              "https://laptops.marvinmediagroup.com/laptopImages/") +
+            id +
+            ".webp",
+        },
+      ],
+    },
   };
 }
 

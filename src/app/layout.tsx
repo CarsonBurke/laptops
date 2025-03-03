@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     follow: true,
   },
   openGraph: {
-    url: "laptops.marvinmediagroup.com",
+    url: "https://laptops.marvinmediagroup.com",
     type: "website",
     title: defaultTitle,
     siteName: defaultTitle,
@@ -38,13 +38,13 @@ export const metadata: Metadata = {
       {
         url:
           (process.env.NEXT_PUBLIC_SITE_URL ||
-            "https://www.laptops.marvinmediagroup.com") + "/logo.svg",
+            "https://laptops.marvinmediagroup.com") + "/logo.svg",
       },
     ],
   },
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_SITE_URL ||
-      "https://www.laptops.marvinmediagroup.com"
+      "https://laptops.marvinmediagroup.com"
   ),
   alternates: {
     canonical: "/",
