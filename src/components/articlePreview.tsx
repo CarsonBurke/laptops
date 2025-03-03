@@ -10,6 +10,7 @@ interface ArticlePreviewData {
   id: number;
   title: string;
   summary: string;
+  published: Date;
   titleImageId: string;
 }
 
@@ -42,6 +43,17 @@ export default function ArticlePreview({ args }: { args: ArticlePreviewArgs }) {
     args.color = "background2";
   }
 
+  function summaryCut() {
+    // regex spaces
+    const words = args.data.summary.split(/\s+/);
+
+    if (words.length > 12) {
+      return words.slice(0, 12).join(" ") + "...";
+    }
+
+    return args.data.summary;
+  }
+
   return (
     <Link
       href={`/articles/${args.data.id}`}
@@ -63,13 +75,13 @@ export default function ArticlePreview({ args }: { args: ArticlePreviewArgs }) {
 
       <div className="column gapMedium">
         <div className="column gapSmall">
-          <h2 className={"textMedium headerSmall widthFit"}>
+          <h2 className={"textMedium headerSmall textCenter"}>
             {args.data.title}
           </h2>
         </div>
 
-        <p className="textSmall textSlightTransparent">
-          {args.data.summary}
+        <p className="textSmall textSlightTransparent textCenter">
+          {summaryCut()}
         </p>
       </div>
     </Link>
