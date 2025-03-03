@@ -56,7 +56,7 @@ export default function Home() {
       </div>
 
       <section className="sectionPadded background2 column gapLarge">
-        <div className="rowCollapsible gapLarge centerRow">
+        <div className="rowCollapsible gapLarge centerRow flexWrap">
           <div className="column centerColumn width100 gapMedium">
             <h2 className="textLarge headerSmall">For School</h2>
 
@@ -106,7 +106,7 @@ export default function Home() {
             </Link>
           </div>
         </div>
-        <div className="rowCollapsible gapLarge centerRow">
+        <div className="rowCollapsible gapLarge centerRow flexWrap">
           <div className="column centerColumn width100 gapMedium">
             <h2 className="textLarge headerSmall">For Gaming</h2>
 

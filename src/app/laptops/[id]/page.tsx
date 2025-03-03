@@ -57,7 +57,7 @@ export async function generateMetadata({
 
 const description = `Shop for ${laptop?.name} laptop at $${laptop?.price} ${
       (laptop?.saleOf || 0) > 0 ? "on sale for $" + laptop?.saleOf : ""
-    }. Great for ${useCaseNames.join(", ")}. See more laptops at ${SITE_NAME}.`
+    } great for ${useCaseNames.join(", ")}. See more laptops at ${SITE_NAME}.`
 
   return {
     title: laptop?.name,

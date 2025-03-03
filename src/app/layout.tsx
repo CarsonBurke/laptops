@@ -54,7 +54,7 @@ export const metadata: Metadata = {
 import { Inter } from "next/font/google";
 
 // If loading a variable font, you don't need to specify the font weight
-const inter = Inter({ subsets: ["latin"], preload: true, });
+const inter = Inter({ subsets: ["latin"], style: "normal", preload: false, });
 
 const root = async function RootLayout({
   children,
