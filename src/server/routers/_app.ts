@@ -7,6 +7,7 @@ import { randomBytes, randomUUID, scrypt } from "crypto";
 import { fs } from "edgedb/dist/adapter.node";
 import { uuid } from "../../../dbschema/edgeql-js/modules/std";
 import { Article } from "../../../dbschema/edgeql-js/modules/default";
+import sharp from "sharp";
 
 async function checkLogin(
   username: string,
@@ -528,7 +529,7 @@ export const appRouter = router({
     )
     .query(async ({ input }) => {
       const laptops = await e
-        .select(e.Article, () => ({
+        .select(e.Article, (article) => ({
           id: true,
           title: true,
           titleImageId: true,
@@ -537,6 +538,10 @@ export const appRouter = router({
           summary: true,
           offset: input.offset,
           limit: input.limit,
+          order_by: {
+            expression: article.published,
+            direction: e.DESC
+          }
         }))
         .run(edgeClient);
       return laptops;
@@ -600,7 +605,8 @@ export const appRouter = router({
       const titleImageId = randomUUID();
       const path = `${process.cwd()}/public/articleImages/${titleImageId}.webp`;
       const base64Buffer = Buffer.from(input.titleImage, "base64");
-      await fs.writeFile(path, base64Buffer);
+      /* await fs.writeFile(path, base64Buffer); */
+      sharp(base64Buffer).webp().toFile(path)
 
       // Content images
 
@@ -610,7 +616,8 @@ export const appRouter = router({
         const path = `${process.cwd()}/public/articleImages/${id}.webp`;
 
         const base64Buffer = Buffer.from(file, "base64");
-        await fs.writeFile(path, base64Buffer);
+        /* await fs.writeFile(path, base64Buffer); */
+        sharp(base64Buffer).webp().toFile(path)
 
         contentImageIds.push(id);
       }
@@ -672,7 +679,8 @@ export const appRouter = router({
       const titleImageId = randomUUID();
       const path = `${process.cwd()}/public/laptopImages/${titleImageId}.webp`;
       const base64Buffer = Buffer.from(input.titleImage, "base64");
-      await fs.writeFile(path, base64Buffer);
+      /* await fs.writeFile(path, base64Buffer) */;
+      sharp(base64Buffer).webp().toFile(path)
 
       // Scores
 

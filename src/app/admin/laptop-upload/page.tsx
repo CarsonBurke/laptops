@@ -469,7 +469,7 @@ export default function LaptopUpload() {
                     <input
                       className="button buttonBg3"
                       type="file"
-                      accept="image/webp"
+                      accept="image/*"
                       alt="Image upload"
                       onChange={(e) => {
                         "use client";

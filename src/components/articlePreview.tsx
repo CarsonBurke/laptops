@@ -61,14 +61,14 @@ export default function ArticlePreview({ args }: { args: ArticlePreviewArgs }) {
         className="articlePreviewImage defaultBorderRadius"
       />
 
-      <div className="column gapMedium width100">
+      <div className="column gapMedium">
         <div className="column gapSmall">
-          <h2 className={"textMedium headerSmall textCenter"}>
+          <h2 className={"textMedium headerSmall widthFit"}>
             {args.data.title}
           </h2>
         </div>
 
-        <p className="textSmall textSlightTransparent textCenter">
+        <p className="textSmall textSlightTransparent">
           {args.data.summary}
         </p>
       </div>

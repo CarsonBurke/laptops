@@ -147,7 +147,7 @@ export default function ArticleUpload() {
                     <input
                       className="button buttonBg3"
                       type="file"
-                      accept="image/webp"
+                      accept="image/*"
                       alt="Image upload"
                       onChange={(e) => {
                         "use client";
@@ -184,7 +184,7 @@ export default function ArticleUpload() {
                     <input
                       className="button buttonBg3"
                       type="file"
-                      accept="image/webp"
+                      accept="image/*"
                       multiple
                       alt="Image upload"
                       onChange={(e) => {

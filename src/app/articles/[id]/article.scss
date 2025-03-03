@@ -22,6 +22,10 @@
   font-weight: 600;
 }
 
+.articleContent h1, h2, h3, h4, h5 {
+  line-height: 100%;
+}
+
 .articleContent h1 {
   font-size: var(--textXLarge);
   font-weight: 700;
@@ -120,6 +124,10 @@
   max-width: 100%;
   display: flex;
   justify-content: center;
+}
+
+.articleCode {
+  size: var(--textSmall);
 }
 
 .articleCode pre {
