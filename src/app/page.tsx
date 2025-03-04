@@ -57,7 +57,7 @@ export default function Home() {
 
       <section className="sectionPadded background2 column gapLarge">
         <div className="rowCollapsible gapLarge centerRow flexWrap">
-          <div className="column centerColumn width100 gapMedium">
+          <div className="column centerColumn gapMedium">
             <h2 className="textLarge headerSmall">For School</h2>
 
             <div className="column centerColumn gapMedium centerRow width100">
@@ -81,7 +81,7 @@ export default function Home() {
               <span className="material-symbols-outlined">arrow_forward</span>
             </Link>
           </div>
-          <div className="column centerColumn width100 gapMedium">
+          <div className="column centerColumn gapMedium">
             <h2 className="textLarge headerSmall">For Programming</h2>
 
             <div className="column centerColumn gapMedium centerRow width100">
@@ -107,7 +107,7 @@ export default function Home() {
           </div>
         </div>
         <div className="rowCollapsible gapLarge centerRow flexWrap">
-          <div className="column centerColumn width100 gapMedium">
+          <div className="column centerColumn gapMedium">
             <h2 className="textLarge headerSmall">For Gaming</h2>
 
             <div className="column centerColumn gapMedium centerRow width100">
@@ -131,7 +131,7 @@ export default function Home() {
               <span className="material-symbols-outlined">arrow_forward</span>
             </Link>
           </div>
-          <div className="column centerColumn width100 gapMedium">
+          <div className="column centerColumn gapMedium">
             <h2 className="textLarge headerSmall">For Office Work</h2>
 
             <div className="column centerColumn gapMedium centerRow width100">
