@@ -281,7 +281,7 @@ export default function LaptopView({ data }: { data: Laptop }) {
               Not sure what these mean? See our{" "}
               <Link
                 className="button textPrimaryButton"
-                href="/cheatsheet"
+                href="/articles/1f9b1e9a-f0e6-11ef-ba8a-f783cc1de24b"
               >
                 guide
               </Link>
