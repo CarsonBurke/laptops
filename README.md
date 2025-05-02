@@ -1,36 +1,22 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Overview
 
-## Getting Started
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Technologies used
+- NextJS+React is used to create the front-end and manage the server. It also provides routing and manages static assets (css, images). This project is made vanilla with these tools, and does not use component or css libraries like Tailwind. 
+- EdgeDB / Gel is used as the database. It's an ORM + service wrapper around postgresql that serves as the database for this project, storing laptops, articles, admin login and other data.
+- TRPC to create an API, allowing for communication between the client and the server. This allows for secure admin login, filtered querying of laptops and articles, and the modification of values in the database.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Features
+- Filter laptops based on specific hardware data like the presence of a dedicated GPU, the amount of RAM and cpu clock speed, etc.
+- Find laptops by use-case based on a scoring feature; intended for users who are not very familiar with the hardware they are after and simply want the best option for student work, gaming, office work or video editing at the lowest price.
+- Read articles on tech and hardware to learn about the world of technology.
+- For admins, login and write articles or manually insert laptops using a complete user interface.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Gallary
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+![image](https://github.com/user-attachments/assets/dc582f65-65f2-4773-9a3b-01fadc62d276)
+![image](https://github.com/user-attachments/assets/61142580-4797-42e3-80f2-c78caad31b3f)
+![image](https://github.com/user-attachments/assets/719f13f1-7c7c-4f84-8919-7fd5744a29b0)
+![image](https://github.com/user-attachments/assets/bb31be4e-b6e9-4833-bf55-67a4500eecfe)
