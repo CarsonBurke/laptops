@@ -14,7 +14,7 @@ Features
 - Read articles on tech and hardware to learn about the world of technology.
 - For admins, login and write articles or manually insert laptops using a complete user interface.
 
-## Gallary
+## Gallery
 
 ![image](https://github.com/user-attachments/assets/dc582f65-65f2-4773-9a3b-01fadc62d276)
 ![image](https://github.com/user-attachments/assets/61142580-4797-42e3-80f2-c78caad31b3f)
